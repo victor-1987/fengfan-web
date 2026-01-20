@@ -37,7 +37,8 @@ const App: React.FC = () => {
         
         <AIAssistant 
           isOpen={isAssistantOpen} 
-          setIsOpen={setIsAssistantOpen} 
+          setIsOpen={setIsAssistantOpen}
+          onBookDemo={openDemoModal}
         />
 
         <DemoModal 

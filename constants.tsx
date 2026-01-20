@@ -19,7 +19,7 @@ export const SYSTEM_ITEMS: SystemItem[] = [
   { id: 'campus', name: '智慧园区', icon: 'https://img.icons8.com/fluency/96/city.png', category: 'solution', description: 'IoT campus management' },
 ];
 
-export const PRODUCT_PILLARS: ProductHighlight[] = [
+export const SOFTWARE_PILLARS: ProductHighlight[] = [
   {
     tag: "架构核心 01: 项目中心",
     title: "成果不沉淀，AI 没意义",
@@ -54,9 +54,44 @@ export const PRODUCT_PILLARS: ProductHighlight[] = [
   }
 ];
 
-export const CASES: CaseStudy[] = [
+export const HARDWARE_PILLARS: ProductHighlight[] = [
   {
-    id: 'case1',
+    tag: "智能硬件 01: Super Magic Note",
+    title: "触手可及的企业灵感采集器",
+    subtitle: "极致轻薄，贴合手机背部的 AI 伴侣",
+    description: "专为职场精英打造。采用超薄机身设计，通过磁吸完美贴合于手机背部，随时记录电话通话、商务洽谈。一键高清录音，实时同步至 Super Magic 云端进行多角色话者分离，它是您形影不离的数字哨兵。",
+    image: "https://images.unsplash.com/photo-1616348436168-de43ad0db179?auto=format&fit=crop&q=80&w=800",
+    isImageLeft: false
+  },
+  {
+    tag: "集成优势 02: 营销与销售赋能",
+    title: "让每一场销售对话都成为企业资产",
+    subtitle: "全自动 CRM 填充与销售策略分析",
+    description: "在销售场景下，Super Magic Note 能精准捕获客户痛点。录音结束后，系统自动提取商机信息并同步至 CRM，同时生成销售复盘建议。",
+    image: "https://images.unsplash.com/photo-1557804506-669a67965ba0?auto=format&fit=crop&q=80&w=800",
+    isImageLeft: true
+  },
+  {
+    tag: "技术底座 03: 极智续航",
+    title: "30 天超长待机，时刻准备",
+    subtitle: "为高强度商务行程量身定制",
+    description: "采用超低功耗处理芯片，支持连续 15 小时录音及 30 天待机。配备磁吸闪充，告别电量焦虑。无论身处何地，它都是您包里最可靠、最安静的数字化伙伴。",
+    image: "https://images.unsplash.com/photo-1593941707882-a5bba14938c7?auto=format&fit=crop&q=80&w=800",
+    isImageLeft: false
+  },
+  {
+    tag: "时光沉淀 04: 个人记事助手",
+    title: "梳理日常，留住每一份珍贵回忆",
+    subtitle: "从业务谈判到温情通话的全面沉淀",
+    description: "Super Magic Note 不仅是工作工具，更是您的个人生命记录仪。它能自动整理每日电话沟通内容，将碎片语音转化为结构化时光轴。AI 为您梳理逻辑、沉淀情感，构建一个可追溯、永不褪色的个人数字记忆库。",
+    image: "https://images.unsplash.com/photo-1516280440614-37939bbacd81?auto=format&fit=crop&q=80&w=800",
+    isImageLeft: true
+  }
+];
+
+export const SOFTWARE_CASES: CaseStudy[] = [
+  {
+    id: 'scase1',
     company: '华南智造集团',
     logo: 'https://img.icons8.com/fluency/96/organization.png',
     stats: '效率提升 300%',
@@ -64,41 +99,69 @@ export const CASES: CaseStudy[] = [
     videoThumb: 'https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?auto=format&fit=crop&q=80&w=600'
   },
   {
-    id: 'case2',
+    id: 'scase2',
     company: '全球领航外服',
     logo: 'https://img.icons8.com/fluency/96/conference-call.png',
     stats: '筛选周期缩短 80%',
     description: '构建“神奇招聘流程”，AI 自动解析海量简历并对照 JD 进行多维度评分。日均处理简历从 200 份跃升至 2000 份，HR 仅需参与最后决策面试，将繁琐筛选彻底自动化。',
     videoThumb: 'https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&q=80&w=600'
-  },
-  {
-    id: 'case3',
-    company: '数码科技港',
-    logo: 'https://img.icons8.com/fluency/96/city-buildings.png',
-    stats: '运营成本降低 45%',
-    description: '利用 Agent 模式编排园区物业管理小狐狸。自动处理租户投诉、生成维修工单并同步跟进备件库存，实现了园区管理的“全自动驾驶”闭环。',
-    videoThumb: 'https://images.unsplash.com/photo-1554469384-e58fac16e23a?auto=format&fit=crop&q=80&w=600'
-  },
-  {
-    id: 'case4',
-    company: '金石金融证券',
-    logo: 'https://img.icons8.com/fluency/96/bank.png',
-    stats: '报告生成零延迟',
-    description: '集成 Workflow 模式用于每日研报生成。AI 实时监控全球市场波动，自动抓取财报数据并填充至标准化模板，确保在开盘前 30 分钟完成 20+ 份专业深度报告的产出。',
-    videoThumb: 'https://images.unsplash.com/photo-1611974789855-9c2a0a7236a3?auto=format&fit=crop&q=80&w=600'
-  },
-  {
-    id: 'case5',
-    company: '云端创意设计',
-    logo: 'https://img.icons8.com/fluency/96/adobe-creative-cloud.png',
-    stats: '创意产出量提升 5 倍',
-    description: '设计总监指挥多组 AI 团队进行草图深化与配色 experiment。通过“项目/文件”中心模式，所有历史改稿记录与配色逻辑均可溯源，大幅降低了团队沟通的磨合成本。',
-    videoThumb: 'https://images.unsplash.com/photo-1558655146-d09347e92766?auto=format&fit=crop&q=80&w=600'
   }
 ];
 
+export const HARDWARE_CASES: CaseStudy[] = [
+  {
+    id: 'hcase1',
+    company: '鼎峰地产销售团队',
+    logo: 'https://img.icons8.com/fluency/96/home.png',
+    stats: '客诉率降低 40%',
+    description: '全员配备 Super Magic Note 记录带看过程。AI 自动复盘销售话术偏差，并为每位客户生成精准需求画像。',
+    videoThumb: 'https://images.unsplash.com/photo-1560518883-ce09059eeffa?auto=format&fit=crop&q=80&w=600'
+  },
+  {
+    id: 'hcase2',
+    company: '睿翼法律咨询',
+    logo: 'https://img.icons8.com/fluency/96/law.png',
+    stats: '笔录效率提升 500%',
+    description: '律师使用硬件记录电话咨询，Super Magic 自动生成合规性摘要及后续行动清单，确保法律建议零遗漏。',
+    videoThumb: 'https://images.unsplash.com/photo-1589829545856-d10d557cf95f?auto=format&fit=crop&q=80&w=600'
+  }
+];
+
+export const HONORS = [
+  { title: "国家高新技术企业", detail: "2024年 科技部认定", icon: "🏢" },
+  { title: "ISO 9001 质量认证", detail: "国际标准 体系认证", icon: "📜" },
+  { title: "AI 卓越创新奖", detail: "2024 年度行业殊荣", icon: "🏆" },
+  { title: "20+ 项软件著作权", detail: "核心技术 自主研发", icon: "🛡️" },
+  { title: "智能硬件外观专利", detail: "S1系列 设计专利", icon: "🎨" },
+  { title: "AAA级 诚信企业", detail: "行业信用 最高等级", icon: "🤝" }
+];
+
+export const CLIENT_LOGOS = [
+  { name: "中国南方电网", logo: "https://img.icons8.com/color/96/lightning-bolt.png" },
+  { name: "华为", logo: "https://img.icons8.com/color/96/huawei.png" },
+  { name: "比亚迪", logo: "https://img.icons8.com/color/96/tesla-model-x.png" },
+  { name: "腾讯", logo: "https://img.icons8.com/color/96/tencent-qq.png" },
+  { name: "格力", logo: "https://img.icons8.com/color/96/air-conditioner.png" },
+  { name: "顺丰速运", logo: "https://img.icons8.com/color/96/delivery-man.png" },
+  { name: "美的集团", logo: "https://img.icons8.com/color/96/washing-machine.png" },
+  { name: "中集集团", logo: "https://img.icons8.com/color/96/cargo-ship.png" },
+  { name: "汇丰银行", logo: "https://img.icons8.com/color/96/bank.png" },
+  { name: "平安保险", logo: "https://img.icons8.com/color/96/shield.png" },
+  { name: "广汽集团", logo: "https://img.icons8.com/color/96/car.png" },
+  { name: "三一重工", logo: "https://img.icons8.com/color/96/excavator.png" },
+  { name: "阿里巴巴", logo: "https://img.icons8.com/color/96/alibaba.png" },
+  { name: "小米集团", logo: "https://img.icons8.com/color/96/xiaomi.png" },
+  { name: "京东集团", logo: "https://img.icons8.com/color/96/jd-com.png" },
+  { name: "字节跳动", logo: "https://img.icons8.com/color/96/tiktok.png" },
+  { name: "联想集团", logo: "https://img.icons8.com/color/96/lenovo.png" },
+  { name: "中国移动", logo: "https://img.icons8.com/color/96/antenna.png" }
+];
+
+export const PRODUCT_PILLARS = SOFTWARE_PILLARS;
+export const CASES = SOFTWARE_CASES;
+
 export const HARDWARE: HardwareItem[] = [
-  { id: 'h1', name: 'Industrial IPC Gen-X', spec: 'Intel i9 / 64GB RAM / IP67 Rated', image: 'https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&q=80&w=400' },
-  { id: 'h2', name: 'OEM All-in-One AI', spec: '24" Touch / Integrated NPU / Rugged', image: 'https://images.unsplash.com/photo-1550009158-9ebf69173e03?auto=format&fit=crop&q=80&w=400' },
+  { id: 'h1', name: 'Super Magic Note S1', spec: 'AI Recorder / 30-Day Standby / MagSafe', image: 'https://images.unsplash.com/photo-1616348436168-de43ad0db179?auto=format&fit=crop&q=80&w=400' },
+  { id: 'h2', name: 'Industrial IPC Gen-X', spec: 'Intel i9 / 64GB RAM / IP67 Rated', image: 'https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&q=80&w=400' },
   { id: 'h3', name: 'Edge Gateway Pro', spec: 'Dual 5G / PoE Support / Metal Case', image: 'https://images.unsplash.com/photo-1558494949-ef8b5655d939?auto=format&fit=crop&q=80&w=400' },
 ];
