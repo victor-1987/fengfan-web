@@ -7,25 +7,32 @@ const slides = [
     subtitle: "人是指挥官，AI 是执行官",
     description: "进入指挥官视角。通过全息协作界面调度多组 AI Agent 协同工作，将人类的战略直觉与 AI 的指数级执行力完美融合。",
     bg: "https://images.unsplash.com/photo-1550751827-4bd374c3f58b?auto=format&fit=crop&q=80&w=1600",
-    button: "预约演示"
+    button: "预约演示",
+    type: "demo"
   },
   {
     title: "Project-Centric Knowledge Brain",
     subtitle: "以项目为核心，让成果沉淀",
     description: "拒绝随聊随丢。Super Magic 每一个工作都是一个项目，文件、决策、产出全自动化闭环沉淀，构建企业永续的数字资产。",
     bg: "https://images.unsplash.com/photo-1451187580459-43490279c0fa?auto=format&fit=crop&q=80&w=1600",
-    button: "查看架构"
+    button: "查看架构",
+    type: "link"
   },
   {
     title: "Dual-Mode Intelligence Driver",
     subtitle: "确定性生产与创意性探索",
     description: "左手 Workflow 驱动标准化业务稳健运行，右手 Agent 模式挑战创意与复杂问题边界。双核动力，重塑组织增长曲线。",
-    bg: "https://images.unsplash.com/photo-1614850523296-d8c1af93d400?auto=format&fit=crop&q=80&w=1600", // Dynamic abstract background
-    button: "探索双模流程"
+    bg: "https://images.unsplash.com/photo-1614850523296-d8c1af93d400?auto=format&fit=crop&q=80&w=1600",
+    button: "探索双模流程",
+    type: "link"
   }
 ];
 
-const Hero: React.FC = () => {
+interface HeroProps {
+  onBookDemo: () => void;
+}
+
+const Hero: React.FC<HeroProps> = ({ onBookDemo }) => {
   const [current, setCurrent] = useState(0);
 
   useEffect(() => {
@@ -34,6 +41,12 @@ const Hero: React.FC = () => {
     }, 6000);
     return () => clearInterval(timer);
   }, []);
+
+  const handleAction = (type: string) => {
+    if (type === 'demo') {
+      onBookDemo();
+    }
+  };
 
   return (
     <section className="relative h-[85vh] overflow-hidden">
@@ -52,7 +65,10 @@ const Hero: React.FC = () => {
                 {slide.subtitle}
               </h1>
               <p className="text-xl text-gray-400 mb-10 leading-relaxed max-w-2xl">{slide.description}</p>
-              <button className="bg-[#2D7FF9] hover:bg-blue-600 px-8 py-4 rounded-full font-bold transition-all transform hover:scale-105 shadow-lg shadow-blue-500/20">
+              <button 
+                onClick={() => handleAction(slide.type)}
+                className="bg-[#2D7FF9] hover:bg-blue-600 px-8 py-4 rounded-full font-bold transition-all transform hover:scale-105 shadow-lg shadow-blue-500/20"
+              >
                 {slide.button}
               </button>
             </div>

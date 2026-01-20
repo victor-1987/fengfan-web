@@ -8,12 +8,15 @@ import SystemIntegration from './components/Systems/SystemIntegration';
 import Contact from './components/Contact/Contact';
 import AboutUs from './components/About/AboutUs';
 import AIAssistant from './components/Shared/AIAssistant';
+import DemoModal from './components/Shared/DemoModal';
 import Footer from './components/Layout/Footer';
 
 const App: React.FC = () => {
   const [isAssistantOpen, setIsAssistantOpen] = useState(false);
+  const [isDemoModalOpen, setIsDemoModalOpen] = useState(false);
 
   const openAssistant = () => setIsAssistantOpen(true);
+  const openDemoModal = () => setIsDemoModalOpen(true);
 
   return (
     <Router>
@@ -22,7 +25,7 @@ const App: React.FC = () => {
         
         <main className="flex-grow pt-16">
           <Routes>
-            <Route path="/" element={<Home onConsult={openAssistant} />} />
+            <Route path="/" element={<Home onConsult={openAssistant} onBookDemo={openDemoModal} />} />
             <Route path="/cloud/:id" element={<CloudServicePage onConsult={openAssistant} />} />
             <Route path="/systems" element={<SystemIntegration />} />
             <Route path="/about" element={<AboutUs />} />
@@ -35,6 +38,11 @@ const App: React.FC = () => {
         <AIAssistant 
           isOpen={isAssistantOpen} 
           setIsOpen={setIsAssistantOpen} 
+        />
+
+        <DemoModal 
+          isOpen={isDemoModalOpen} 
+          onClose={() => setIsDemoModalOpen(false)} 
         />
       </div>
     </Router>

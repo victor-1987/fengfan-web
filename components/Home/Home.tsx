@@ -7,12 +7,13 @@ import FeatureMatrix from './FeatureMatrix';
 
 interface HomeProps {
   onConsult: () => void;
+  onBookDemo: () => void;
 }
 
-const Home: React.FC<HomeProps> = ({ onConsult }) => {
+const Home: React.FC<HomeProps> = ({ onConsult, onBookDemo }) => {
   return (
     <div className="animate-in fade-in duration-700">
-      <Hero />
+      <Hero onBookDemo={onBookDemo} />
       <Features />
       <CaseStudies />
       <FeatureMatrix onConsult={onConsult} />
