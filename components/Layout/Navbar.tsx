@@ -3,28 +3,42 @@ import React, { useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { CLOUD_SERVICES, SYSTEM_ITEMS } from '../../constants';
 
-const Navbar: React.FC = () => {
+interface NavbarProps {
+  onBookDemo: () => void;
+}
+
+const Navbar: React.FC<NavbarProps> = ({ onBookDemo }) => {
   const [activeMenu, setActiveMenu] = useState<string | null>(null);
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const location = useLocation();
 
   const isActive = (path: string) => location.pathname === path;
 
+  const toggleMobileMenu = () => setIsMobileMenuOpen(!isMobileMenuOpen);
+  const closeMobileMenu = () => setIsMobileMenuOpen(false);
+
   return (
     <nav className="fixed top-0 left-0 right-0 z-[100] glass border-b border-white/10">
       <div className="max-w-7xl mx-auto px-4 h-16 flex items-center justify-between">
-        <Link to="/" className="flex items-center space-x-2 group">
-          <div className="w-8 h-8 bg-[#2D7FF9] rounded-lg flex items-center justify-center font-tech font-bold text-white transition-transform group-hover:rotate-12 shadow-[0_0_15px_rgba(45,127,249,0.5)]">F</div>
-          <span className="text-xl font-bold font-tech tracking-wider">锋范科技</span>
-        </Link>
+        <div className="flex items-center space-x-8">
+          <Link to="/" className="flex items-center space-x-2 group" onClick={closeMobileMenu}>
+            <div className="w-8 h-8 bg-[#2D7FF9] rounded-lg flex items-center justify-center font-tech font-bold text-white transition-transform group-hover:rotate-12 shadow-[0_0_15px_rgba(45,127,249,0.5)]">F</div>
+            <span className="text-xl font-bold font-tech tracking-wider">锋范科技</span>
+          </Link>
 
+          {/* System Status - Trust Signal */}
+          <div className="hidden lg:flex items-center space-x-2 px-3 py-1 rounded-full bg-emerald-500/5 border border-emerald-500/10">
+            <span className="w-1.5 h-1.5 bg-emerald-500 rounded-full animate-pulse"></span>
+            <span className="text-[9px] font-tech font-bold text-emerald-500/80 uppercase tracking-widest">Platform Live</span>
+          </div>
+        </div>
+
+        {/* Desktop Navigation */}
         <div className="hidden md:flex items-center space-x-8">
-          {/* Enhanced Super Magic Link with Lying Fox */}
           <div className="relative group/sm">
-            {/* The Lying Fox Mascot Icon - Positioned to look like it's resting on the edge */}
             <div className="absolute -top-[18px] left-4 text-2xl animate-fox-lie select-none pointer-events-none z-10 drop-shadow-[0_4px_6px_rgba(0,0,0,0.5)]">
               🦊
             </div>
-            
             <Link 
               to="/" 
               className={`relative block px-6 py-2 rounded-full transition-all duration-300 ${
@@ -38,13 +52,10 @@ const Navbar: React.FC = () => {
               }`}>
                 Super Magic
               </span>
-              
-              {/* Subtle glow effect for Super Magic */}
               <div className="absolute inset-0 bg-[#2D7FF9] blur-xl opacity-0 group-hover/sm:opacity-20 transition-opacity rounded-full" />
             </Link>
           </div>
           
-          {/* Cloud Services Mega Menu */}
           <div 
             className="relative group py-4"
             onMouseEnter={() => setActiveMenu('cloud')}
@@ -93,7 +104,6 @@ const Navbar: React.FC = () => {
             )}
           </div>
 
-          {/* System Integration Mega Menu */}
           <div 
             className="relative group py-4"
             onMouseEnter={() => setActiveMenu('systems')}
@@ -132,13 +142,89 @@ const Navbar: React.FC = () => {
           </div>
 
           <Link to="/about" className={`text-sm font-medium hover:text-[#2D7FF9] transition ${isActive('/about') ? 'text-[#2D7FF9]' : 'text-gray-300'}`}>关于我们</Link>
-          <Link to="/contact" className={`text-sm font-medium hover:text-[#2D7FF9] transition ${isActive('/contact') ? 'text-[#2D7FF9]' : 'text-gray-300'}`}>联系我们</Link>
         </div>
 
-        <div className="flex items-center space-x-4">
-          <button className="text-[10px] font-bold tracking-widest text-gray-400 hover:text-[#2D7FF9] transition border border-white/10 px-3 py-1 rounded-full">中 / EN</button>
+        <div className="flex items-center space-x-6">
+          <button 
+            onClick={onBookDemo}
+            className="hidden lg:block bg-[#2D7FF9] hover:bg-blue-600 text-white px-5 py-2 rounded-full text-sm font-bold transition shadow-lg shadow-blue-500/20 active:scale-95"
+          >
+            预约演示
+          </button>
+          <button className="hidden sm:block text-[10px] font-bold tracking-widest text-gray-400 hover:text-[#2D7FF9] transition border border-white/10 px-3 py-1 rounded-full uppercase">ZH / EN</button>
+          
+          <button 
+            className="md:hidden p-2 text-gray-300 hover:text-white"
+            onClick={toggleMobileMenu}
+          >
+            <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              {isMobileMenuOpen ? (
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+              ) : (
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
+              )}
+            </svg>
+          </button>
         </div>
       </div>
+
+      {/* Mobile Menu Overlay */}
+      {isMobileMenuOpen && (
+        <div className="md:hidden fixed inset-0 top-16 z-[90] glass-dropdown animate-in slide-in-from-right duration-300 overflow-y-auto">
+          <div className="p-6 space-y-8">
+            <Link to="/" className="block" onClick={closeMobileMenu}>
+              <div className="bg-[#2D7FF9]/10 p-4 rounded-2xl border border-[#2D7FF9]/20 flex items-center justify-between">
+                <div>
+                  <div className="text-[10px] font-bold text-[#2D7FF9] uppercase tracking-widest mb-1">Product Hero</div>
+                  <div className="text-xl font-bold font-tech text-white">Super Magic</div>
+                </div>
+                <span className="text-2xl">🦊</span>
+              </div>
+            </Link>
+
+            <div>
+              <h3 className="text-[10px] font-bold text-gray-500 uppercase tracking-widest mb-4">全云服务 Services</h3>
+              <div className="grid grid-cols-2 gap-3">
+                {CLOUD_SERVICES.map(s => (
+                  <Link key={s.id} to={`/cloud/${s.id}`} onClick={closeMobileMenu} className="flex items-center space-x-2 p-3 bg-white/5 rounded-xl border border-white/5">
+                    <img src={s.icon} alt={s.name} className="w-5 h-5" />
+                    <span className="text-xs font-bold truncate">{s.name}</span>
+                  </Link>
+                ))}
+              </div>
+            </div>
+
+            <div>
+              <h3 className="text-[10px] font-bold text-gray-500 uppercase tracking-widest mb-4">核心板块 Sections</h3>
+              <div className="grid grid-cols-1 gap-3">
+                <Link to="/systems" onClick={closeMobileMenu} className="flex items-center justify-between p-4 bg-white/5 rounded-xl border border-white/5">
+                  <span className="font-bold">系统集成</span>
+                  <span className="text-gray-500">→</span>
+                </Link>
+                <Link to="/about" onClick={closeMobileMenu} className="flex items-center justify-between p-4 bg-white/5 rounded-xl border border-white/5">
+                  <span className="font-bold">关于我们</span>
+                  <span className="text-gray-500">→</span>
+                </Link>
+                <button 
+                  onClick={() => { onBookDemo(); closeMobileMenu(); }}
+                  className="w-full flex items-center justify-between p-4 bg-white/5 rounded-xl border border-white/5"
+                >
+                  <span className="font-bold">预约演示</span>
+                  <span className="text-gray-500">→</span>
+                </button>
+                <Link to="/contact" onClick={closeMobileMenu} className="flex items-center justify-between p-4 bg-white/5 rounded-xl border border-white/5">
+                  <span className="font-bold">联系我们</span>
+                  <span className="text-gray-500">→</span>
+                </Link>
+              </div>
+            </div>
+
+            <div className="pt-6 border-t border-white/5 flex justify-center">
+               <button className="text-[10px] font-bold tracking-widest text-gray-400 border border-white/10 px-8 py-2 rounded-full">EN / 中文</button>
+            </div>
+          </div>
+        </div>
+      )}
     </nav>
   );
 };

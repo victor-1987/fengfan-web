@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
@@ -53,22 +54,18 @@
             display: inline-block;
         }
     </style>
-    <!-- 这里是为了兼容某些直接引入的方式，保留即可 -->
-    <script type="importmap">
-    {
-      "imports": {
-        "react": "https://esm.sh/react@^19.2.3",
-        "react-dom/": "https://esm.sh/react-dom@^19.2.3/",
-        "react/": "https://esm.sh/react@^19.2.3/",
-        "react-router-dom": "https://esm.sh/react-router-dom@^7.12.0"
-      }
-    }
-    </script>
+<script type="importmap">
+{
+  "imports": {
+    "react": "https://esm.sh/react@^19.2.3",
+    "react-dom/": "https://esm.sh/react-dom@^19.2.3/",
+    "react/": "https://esm.sh/react@^19.2.3/",
+    "react-router-dom": "https://esm.sh/react-router-dom@^7.12.0"
+  }
+}
+</script>
 </head>
 <body>
     <div id="root"></div>
-    
-    <!-- 👇👇👇 重点是补上了这一行！这才是启动 React 的钥匙 👇👇👇 -->
-    <script type="module" src="/index.tsx"></script>
 </body>
 </html>

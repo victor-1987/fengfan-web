@@ -21,7 +21,7 @@ const App: React.FC = () => {
   return (
     <Router>
       <div className="flex flex-col min-h-screen">
-        <Navbar />
+        <Navbar onBookDemo={openDemoModal} />
         
         <main className="flex-grow pt-16">
           <Routes>
