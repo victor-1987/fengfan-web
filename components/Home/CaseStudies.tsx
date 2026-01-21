@@ -22,11 +22,11 @@ const CaseStudies: React.FC<CaseStudiesProps> = ({ activeModule = 'software' }) 
       <div className="max-w-7xl mx-auto px-4">
         <div className="flex flex-col md:flex-row justify-between items-start md:items-end mb-12 md:mb-16 gap-6">
           <div className="text-left">
-            <h2 className="font-tech text-xs md:text-base tracking-widest mb-2 md:mb-4 uppercase" style={{ color: themeColor }}>Trust Proof 2.0</h2>
-            <h3 className="text-3xl md:text-5xl font-bold">
+            <h2 className="font-tech text-xs md:text-base tracking-[0.4em] mb-2 md:mb-4 uppercase" style={{ color: themeColor }}>Trust Proof 2.0</h2>
+            <h1 className="text-4xl md:text-6xl font-bold">
               {activeModule === 'software' ? '行业提效实录' : '硬件采集案例'}
-            </h3>
-            <p className="text-gray-400 mt-2 max-w-xl text-sm md:text-base">
+            </h1>
+            <p className="text-gray-400 mt-4 max-w-xl text-sm md:text-lg font-light">
               {activeModule === 'software' 
                 ? '不谈虚词，只看数据。见证 Super Magic 深度融入业务核心后的确定性产出。' 
                 : '通过 Super Magic Note 实现前端数据的精准捕捉与数字化闭环。'}
@@ -44,115 +44,120 @@ const CaseStudies: React.FC<CaseStudiesProps> = ({ activeModule = 'software' }) 
           </button>
         </div>
 
-        <div className="glass rounded-[2.5rem] md:rounded-[3.5rem] p-4 md:p-12 border border-white/5 relative overflow-hidden">
-          {/* Background Decorative Data Lines */}
-          <div className="absolute top-0 right-0 w-96 h-96 opacity-5 pointer-events-none">
-             <svg width="100%" height="100%" viewBox="0 0 100 100"><path d="M0 80 Q 25 10, 50 50 T 100 20" fill="none" stroke={themeColor} strokeWidth="0.5" /></svg>
+        <div className="flex flex-col lg:flex-row gap-8 md:gap-12 relative">
+          {/* Sidebar list: Upgraded to match screenshot */}
+          <div className="lg:w-1/3 flex flex-row lg:flex-col space-x-3 lg:space-x-0 lg:space-y-4 overflow-x-auto lg:overflow-x-visible pb-4 lg:pb-0 scrollbar-hide">
+            {cases.map((item, idx) => (
+              <button
+                key={item.id}
+                onClick={() => setActiveIdx(idx)}
+                className={`flex items-center space-x-4 md:space-x-5 p-6 rounded-[2rem] text-left transition-all relative overflow-hidden shrink-0 w-[280px] lg:w-full border ${
+                  activeIdx === idx 
+                    ? 'bg-[#2D7FF9] border-transparent shadow-[0_20px_40px_rgba(45,127,249,0.2)]' 
+                    : 'bg-[#11151C] border-white/5 hover:border-white/10 hover:bg-white/5'
+                }`}
+              >
+                <div className={`w-12 h-12 rounded-xl flex items-center justify-center p-2 shrink-0 ${activeIdx === idx ? 'bg-white' : 'bg-white/5'}`}>
+                  <img src={item.logo} alt={item.company} className="w-full h-full object-contain" />
+                </div>
+                <div className="flex-grow overflow-hidden">
+                  <h4 className="font-bold text-base md:text-lg truncate text-white">{item.company}</h4>
+                  <div className="flex items-center space-x-2 mt-1">
+                     <span className={`text-[10px] font-tech font-bold uppercase tracking-widest ${activeIdx === idx ? 'text-white/60' : 'text-emerald-500'}`}>
+                       {activeIdx === idx ? 'Selected' : 'Case Verified'}
+                     </span>
+                  </div>
+                </div>
+                
+                {/* Screenshot detail: Selection dot */}
+                {activeIdx === idx && (
+                  <div className="w-6 h-6 rounded-full bg-white/20 flex items-center justify-center shrink-0">
+                    <div className="w-2.5 h-2.5 bg-white rounded-full shadow-[0_0_10px_white]" />
+                  </div>
+                )}
+              </button>
+            ))}
           </div>
 
-          <div className="flex flex-col lg:flex-row gap-8 md:gap-12 relative z-10">
-            {/* Sidebar list */}
-            <div className="lg:w-2/5 flex flex-row lg:flex-col space-x-3 lg:space-x-0 lg:space-y-3 overflow-x-auto lg:overflow-x-visible pb-4 lg:pb-0 scrollbar-hide">
-              {cases.map((item, idx) => (
-                <button
-                  key={item.id}
-                  onClick={() => setActiveIdx(idx)}
-                  className={`flex items-center space-x-4 md:space-x-5 p-4 md:p-5 rounded-2xl text-left transition-all relative overflow-hidden shrink-0 w-[240px] lg:w-full border ${
-                    activeIdx === idx ? 'text-white border-transparent' : 'bg-white/5 border-white/5 hover:border-white/10'
-                  }`}
-                  style={{ backgroundColor: activeIdx === idx ? themeColor : undefined }}
-                >
-                  <img src={item.logo} alt={item.company} className="w-10 h-10 md:w-12 md:h-12 bg-white rounded-xl p-1 shrink-0" />
-                  <div className="flex-grow overflow-hidden">
-                    <h4 className="font-bold text-sm md:text-lg truncate">{item.company}</h4>
-                    <div className="flex items-center space-x-2">
-                       <span className={`text-[10px] font-tech uppercase ${activeIdx === idx ? 'text-white/70' : 'text-emerald-500'}`}>
-                         {activeIdx === idx ? 'Selected' : 'Case Verified'}
-                       </span>
-                    </div>
-                  </div>
-                  {activeIdx === idx && (
-                    <div className="absolute top-2 right-2 opacity-20">
-                      <svg className="w-8 h-8" fill="currentColor" viewBox="0 0 20 20"><path d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" /></svg>
-                    </div>
-                  )}
-                </button>
-              ))}
+          {/* Content Area: Metrics & Video */}
+          <div className="lg:w-2/3 space-y-8 animate-in fade-in slide-in-from-right-10 duration-700" key={`${activeModule}-${activeIdx}`}>
+            {/* Metrics Dashboard: Polished Headers */}
+            <div className="grid grid-cols-2 md:grid-cols-3 gap-6">
+               {[
+                 { label: 'Impact Score', val: cases[activeIdx].stats, color: themeColor },
+                 { label: 'ROI Period', val: '3-6 Mo.', color: '#fff' },
+                 { label: 'Verification', val: 'Verified 🖋️', color: '#10b981' }
+               ].map((m, i) => (
+                 <div key={i} className="glass bg-[#11151C]/60 p-6 rounded-[1.5rem] border border-white/5">
+                    <div className="text-[9px] md:text-[10px] text-gray-500 font-tech font-bold uppercase tracking-[0.2em] mb-2">{m.label}</div>
+                    <div className="text-xl md:text-2xl font-bold font-tech" style={{ color: m.color }}>{m.val}</div>
+                 </div>
+               ))}
             </div>
 
-            {/* Content Area */}
-            <div className="lg:w-3/5">
-              <div className="space-y-6 md:space-y-8 animate-in fade-in slide-in-from-right-10 duration-500" key={`${activeModule}-${activeIdx}`}>
-                {/* Metrics Dashboard Row */}
-                <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
-                   <div className="glass bg-white/5 p-4 rounded-2xl border border-white/10">
-                      <div className="text-[10px] text-gray-500 font-tech uppercase mb-1">Impact Score</div>
-                      <div className="text-2xl font-bold font-tech" style={{ color: themeColor }}>{cases[activeIdx].stats}</div>
-                   </div>
-                   <div className="glass bg-white/5 p-4 rounded-2xl border border-white/10">
-                      <div className="text-[10px] text-gray-500 font-tech uppercase mb-1">ROI Period</div>
-                      <div className="text-2xl font-bold font-tech text-white">3-6 Mo.</div>
-                   </div>
-                   <div className="hidden md:block glass bg-white/5 p-4 rounded-2xl border border-white/10">
-                      <div className="text-[10px] text-gray-500 font-tech uppercase mb-1">Verification</div>
-                      <div className="text-lg font-bold text-emerald-400 flex items-center">
-                        <span className="mr-2">Verified</span>
-                        <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 20 20"><path fillRule="evenodd" d="M2.166 11.37c1.13.932 2.72 1.225 4.308 1.133 1.965-.112 3.73-.93 5.21-2.102a4.803 4.803 0 01-1.493-3.615c0-2.656 2.16-4.815 4.816-4.815 2.656 0 4.815 2.16 4.815 4.815 0 2.656-2.159 4.816-4.815 4.816-.363 0-.712-.04-1.046-.115-1.548 1.564-3.51 2.617-5.639 3.012a13.12 13.12 0 01-5.69.051c-1.562-.324-3.38-1.556-4.33-3.078.23.01.46.017.69.017.65 0 1.284-.045 1.902-.132z" clipRule="evenodd" /></svg>
+            {/* Video Container: High Fidelity Gauge */}
+            <div className="relative rounded-[2rem] md:rounded-[3rem] overflow-hidden aspect-video bg-[#000] shadow-[0_30px_60px_rgba(0,0,0,0.5)] border border-white/10 group">
+              <img 
+                src={cases[activeIdx].videoThumb} 
+                alt="" 
+                className="w-full h-full object-cover opacity-40 transition duration-[2.5s] group-hover:scale-105"
+                onError={(e) => {
+                  (e.target as HTMLImageElement).src = 'https://images.unsplash.com/photo-1551288049-bbda38656a73?auto=format&fit=crop&q=80&w=1200';
+                }}
+              />
+              
+              {/* Gauge UI Overlay */}
+              <div className="absolute top-6 left-6 md:top-10 md:left-10 z-20">
+                <div className="glass backdrop-blur-2xl bg-white/5 border border-white/20 p-5 rounded-[1.5rem] shadow-2xl">
+                   <div className="text-[8px] md:text-[10px] font-tech font-bold text-gray-400 mb-3 tracking-widest uppercase">Production Output Gap</div>
+                   <div className="flex items-end space-x-2 h-16 md:h-20">
+                      <div className="w-5 bg-white/10 rounded-md transition-all duration-1000" style={{ height: '25%' }} />
+                      <div className="w-5 rounded-md transition-all duration-1000 relative group/bar" style={{ height: '90%', backgroundColor: themeColor }}>
+                         <div className="absolute -top-1 left-0 right-0 h-1 bg-white/40 blur-[2px]" />
                       </div>
+                      <div className="text-sm md:text-lg font-tech font-bold ml-3 text-white">+300%</div>
                    </div>
-                </div>
-
-                <div className="relative rounded-[1.5rem] md:rounded-[2.5rem] overflow-hidden aspect-video bg-black shadow-2xl border border-white/10 group">
-                  <img 
-                    src={cases[activeIdx].videoThumb} 
-                    alt="Case demo" 
-                    className="w-full h-full object-cover opacity-60 transition duration-[2s] group-hover:scale-110"
-                  />
-                  
-                  {/* Visual Efficiency Gauge (Overlay) */}
-                  <div className="absolute top-4 left-4 md:top-8 md:left-8 glass border border-white/20 p-4 rounded-2xl animate-pulse">
-                     <div className="text-[8px] md:text-[10px] font-tech text-gray-400 mb-2">PRODUCTION OUTPUT GAP</div>
-                     <div className="flex items-end space-x-1 h-12">
-                        <div className="w-4 bg-gray-600 rounded-sm" style={{ height: '30%' }} />
-                        <div className="w-4 rounded-sm" style={{ height: '100%', backgroundColor: themeColor }} />
-                        <div className="text-xs font-bold ml-2">+300%</div>
-                     </div>
-                  </div>
-
-                  <div className="absolute inset-0 flex items-center justify-center">
-                    <button 
-                      className="w-12 h-12 md:w-16 md:h-16 rounded-full flex items-center justify-center shadow-2xl transform hover:scale-110 transition group"
-                      style={{ backgroundColor: themeColor }}
-                    >
-                      <svg className="w-5 h-5 md:w-6 md:h-6 ml-1 text-white" fill="currentColor" viewBox="0 0 24 24"><path d="M8 5v14l11-7z" /></svg>
-                      <div className="absolute inset-0 bg-white rounded-full animate-ping opacity-10" />
-                    </button>
-                  </div>
-                </div>
-
-                <div className="space-y-4 md:space-y-6">
-                  <div className="flex items-center space-x-3">
-                    <span className="w-8 h-px bg-white/20" />
-                    <h4 className="text-xl md:text-3xl font-bold">{cases[activeIdx].company}</h4>
-                  </div>
-                  <p className="text-sm md:text-lg text-gray-400 leading-relaxed font-light">
-                    {cases[activeIdx].description}
-                  </p>
-                  
-                  <div className="flex flex-wrap gap-4 items-center">
-                    <button className="bg-white/5 hover:bg-white/10 px-6 py-2 rounded-full text-xs font-bold border border-white/5 transition-all">
-                      查看集成细节
-                    </button>
-                    <button 
-                      onClick={() => navigate('/contact')}
-                      className="text-xs font-bold underline transition-colors"
-                      style={{ color: themeColor }}
-                    >
-                      申请同款方案演示 →
-                    </button>
-                  </div>
                 </div>
               </div>
+
+              {/* Play Button: Enhanced Glow */}
+              <div className="absolute inset-0 flex items-center justify-center">
+                <button 
+                  className="w-16 h-16 md:w-24 md:h-24 rounded-full flex items-center justify-center shadow-2xl transform hover:scale-110 transition-all group/play relative"
+                  style={{ backgroundColor: themeColor }}
+                >
+                  <div className="absolute inset-0 bg-white/20 rounded-full animate-ping group-hover:animate-none scale-125" />
+                  <svg className="w-6 h-6 md:w-10 md:h-10 ml-1.5 text-white" fill="currentColor" viewBox="0 0 24 24"><path d="M8 5v14l11-7z" /></svg>
+                  <div className="absolute inset-0 rounded-full border-2 border-white/20 scale-110 group-hover:scale-125 transition-transform" />
+                </button>
+              </div>
+
+              {/* Bottom Info Bar */}
+              <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black to-transparent p-8 md:p-12">
+                 <div className="flex items-center space-x-4">
+                    <div className="w-1 h-8 rounded-full" style={{ backgroundColor: themeColor }} />
+                    <h3 className="text-2xl md:text-4xl font-bold text-white">{cases[activeIdx].company}</h3>
+                 </div>
+              </div>
+            </div>
+
+            {/* Description Card */}
+            <div className="glass p-8 rounded-[2rem] border border-white/5 bg-white/[0.02]">
+               <p className="text-gray-400 text-base md:text-xl leading-relaxed font-light mb-8">
+                 {cases[activeIdx].description}
+               </p>
+               <div className="flex flex-wrap gap-4">
+                  <button className="bg-white/5 hover:bg-white/10 px-8 py-3 rounded-xl text-xs font-bold border border-white/10 transition-all hover:border-white/30">
+                    查看完整集成全案
+                  </button>
+                  <button 
+                    onClick={() => navigate('/contact')}
+                    className="px-8 py-3 rounded-xl text-xs font-bold transition-all border border-transparent hover:border-[#2D7FF9]/30"
+                    style={{ color: themeColor }}
+                  >
+                    申请同款业务架构演示 →
+                  </button>
+               </div>
             </div>
           </div>
         </div>

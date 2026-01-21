@@ -112,7 +112,7 @@ const Footer: React.FC = () => {
                   <div className="text-left">
                      <h5 className="text-xs font-bold text-gray-300">扫码关注锋范科技</h5>
                      <p className="text-[10px] text-gray-500 mt-1 uppercase tracking-widest font-tech">Official WeChat Account</p>
-                     <p className="text-[9px] text-gray-600 mt-2 font-light">获取最新 AI 落地案例与白皮书</p>
+                     <p className="text-[9px] text-gray-600 mt-2 font-light">获取最新 AI 落地案例与行业资讯</p>
                   </div>
                </div>
             </div>

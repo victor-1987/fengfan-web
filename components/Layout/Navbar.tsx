@@ -221,7 +221,7 @@ const Navbar: React.FC<NavbarProps> = ({ onBookDemo }) => {
                   <div className="text-[10px] font-bold text-[#2D7FF9] uppercase tracking-widest mb-1">Product Hero</div>
                   <div className="text-xl font-bold font-tech text-white">Super Magic</div>
                 </div>
-                <span className="text-2xl">🦊</span>
+                <span className="text-2xl">✨</span>
               </div>
             </Link>
 

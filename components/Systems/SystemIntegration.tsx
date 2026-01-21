@@ -10,7 +10,7 @@ const SystemIntegration: React.FC = () => {
           <h2 className="text-[#2D7FF9] font-tech tracking-[0.3em] mb-4 text-sm font-bold uppercase">Hardware & Integration</h2>
           <h1 className="text-5xl md:text-6xl font-bold mb-6 font-tech">智慧工厂：一体化硬件方案</h1>
           <p className="text-xl text-gray-400 max-w-2xl font-light">
-            针对工业 4.0 场景，提供从边缘计算、终端显示到核心服务器的全栈硬件集成。为企业构建稳如磐石的数字化生产底座。
+            针对工业 4.0 场景，提供从边缘计算、终端显示到核心服务器的全栈硬件集成。为企业构建稳如夯石的数字化生产底座。
           </p>
         </div>
 
@@ -32,12 +32,10 @@ const SystemIntegration: React.FC = () => {
               <div className="p-6">
                 <h3 className="text-lg font-bold mb-2 group-hover:text-[#2D7FF9] transition-colors">{item.name}</h3>
                 <p className="text-gray-500 text-xs mb-6 leading-relaxed h-12 overflow-hidden">{item.spec}</p>
-                <div className="flex space-x-3">
-                  <button className="flex-1 bg-white/5 hover:bg-white/10 text-white/70 py-2.5 rounded-xl text-[10px] font-bold transition border border-white/5">
-                    技术白皮书
-                  </button>
-                  <button className="bg-[#2D7FF9] p-2.5 rounded-xl hover:bg-blue-600 transition shadow-lg shadow-blue-500/20">
-                    <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" /></svg>
+                <div className="flex">
+                  <button className="flex-1 bg-[#2D7FF9] py-3 rounded-xl hover:bg-blue-600 transition shadow-lg shadow-blue-500/20 text-white font-bold text-xs flex items-center justify-center space-x-2">
+                    <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" /></svg>
+                    <span>申请咨询演示</span>
                   </button>
                 </div>
               </div>

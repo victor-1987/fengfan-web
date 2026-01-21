@@ -2,7 +2,7 @@
 import React from 'react';
 
 interface FeatureMatrixProps {
-  onConsult: () => void;
+  onBookDemo: () => void;
 }
 
 const applications = [
@@ -19,7 +19,7 @@ const applications = [
     desc: "将 80% 的重复性专家决策转化为自动化流水线。确保每一个交付物都符合品牌标准，稳定且高效。" 
   },
   { 
-    icon: "🦊", 
+    icon: "🤖", 
     title: "AI 业务数字人", 
     tag: "效率倍增器",
     desc: "24/7 在线的数字员工。无论是自动解析简历还是处理初级客服咨询，它都能不知疲倦地完成任务。" 
@@ -44,7 +44,7 @@ const applications = [
   },
 ];
 
-const FeatureMatrix: React.FC<FeatureMatrixProps> = ({ onConsult }) => {
+const FeatureMatrix: React.FC<FeatureMatrixProps> = ({ onBookDemo }) => {
   return (
     <section className="py-24 bg-[#0B0E14]/80">
       <div className="max-w-7xl mx-auto px-4">
@@ -65,12 +65,12 @@ const FeatureMatrix: React.FC<FeatureMatrixProps> = ({ onConsult }) => {
               <div className="relative z-10 flex-grow">
                 <div className="text-[10px] font-bold text-[#2D7FF9] mb-4 tracking-[0.2em] uppercase">{app.tag}</div>
                 <div className="text-4xl mb-6 transform transition-transform group-hover:scale-110 origin-left inline-block">{app.icon}</div>
-                <h4 className="text-2xl font-bold mb-4 group-hover:gradient-text transition-all">{app.title}</h4>
+                <div className="text-2xl font-bold mb-4 group-hover:gradient-text transition-all">{app.title}</div>
                 <p className="text-gray-400 mb-8 leading-relaxed font-light">{app.desc}</p>
               </div>
               <div className="relative z-10 mt-auto pt-6">
                 <button 
-                  onClick={onConsult}
+                  onClick={onBookDemo}
                   className="w-full bg-white/5 hover:bg-[#2D7FF9] text-gray-300 hover:text-white px-6 py-3 rounded-2xl text-sm font-bold transition-all duration-300 border border-white/5 hover:border-transparent flex items-center justify-center space-x-2 group/btn"
                 >
                   <span>查看演示场景</span>

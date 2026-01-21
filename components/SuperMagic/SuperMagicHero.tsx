@@ -49,9 +49,6 @@ const SuperMagicHero: React.FC<SuperMagicHeroProps> = ({ onBookDemo }) => {
           </div>
         </div>
       </div>
-      
-      {/* Decorative Fox Icon floating subtlely */}
-      <div className="absolute bottom-10 right-10 text-6xl opacity-20 grayscale pointer-events-none animate-bounce duration-[3s]">🦊</div>
     </section>
   );
 };

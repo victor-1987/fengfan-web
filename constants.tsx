@@ -7,7 +7,7 @@ export const MICROSOFT_SOLUTIONS = [
     title: 'Modern Workplace',
     subtitle: 'Microsoft 365 & Copilot',
     description: '通过 AI 驱动的协同工具重塑办公体验。从企业邮箱到 Copilot 助手，助力组织实现真正的数字化办公转型。',
-    icon: 'https://img.icons8.com/color/96/microsoft-365.png',
+    icon: 'https://img.icons8.com/fluency/96/microsoft-365.png',
     features: ['Copilot 效率套件', 'Teams 协作空间', '高级信息安全保护']
   },
   {
@@ -39,63 +39,63 @@ export const MICROSOFT_SOLUTIONS = [
 export const MICROSOFT_CASES = [
   {
     id: 'ms-case-1',
-    industry: '智能制造',
-    product: 'AZURE AI + IOT',
-    title: '某全球 500 强制造企业云端转型',
-    description: '通过 Azure IoT Hub 与 OpenAI 模型，实现设备预测性维护，降低非计划停机时间。',
-    metric: '25% 停机缩减',
-    icon: 'https://img.icons8.com/color/96/azure-1.png',
-    accent: '#3B82F6' // 柔和蓝
+    industry: '互联网旅游',
+    product: 'GITHUB COPILOT',
+    title: '某领航旅游服务商 AI 研发转型',
+    description: '引入 GitHub Copilot 辅助代码编写，自动生成单元测试与复杂函数逻辑，显著提升开发者产出质量。',
+    metric: '30% 研发加速',
+    icon: 'https://img.icons8.com/color/96/github--v1.png',
+    accent: '#2ea44f'
   },
   {
     id: 'ms-case-2',
-    industry: '现代金融',
-    product: 'M365 + COPILOT',
-    title: '头部券商现代化办公协作升级',
-    description: '全员部署 Microsoft 365 与 Copilot，通过 AI 自动生成投研周报，研究效率大幅提升。',
-    metric: '40% 效率提升',
-    icon: 'https://img.icons8.com/color/96/microsoft-365.png',
-    accent: '#F97316' // 柔和橙
+    industry: '智慧零售',
+    product: 'AZURE GLOBAL',
+    title: '某新零售平台数字化 OS 出海',
+    description: '利用 Azure 全球区域覆盖与弹性计算能力，支撑万级线下门店实时库存联动与全渠道线上交易流程。',
+    metric: '70% 部署缩减',
+    icon: 'https://img.icons8.com/fluency/96/azure-1.png',
+    accent: '#0078d4'
   },
   {
     id: 'ms-case-3',
-    industry: '能源化工',
-    product: 'AZURE OPENAI',
-    title: '智慧能源安全生产管控平台',
-    description: '利用 Azure OpenAI 识别生产安全隐患报告，实现风险预警自动化，响应速度倍增。',
-    metric: '200% 响应加速',
-    icon: 'https://img.icons8.com/color/96/bot.png',
-    accent: '#84CC16' // 柔和绿
+    industry: '游戏出海',
+    product: 'AZURE INFRA',
+    title: '某跨国手游运营商高并发基座',
+    description: '通过云端高性能存储与加速网络，解决数百万玩家同时在线的实时竞技延时难题，实现全球同服。',
+    metric: '延时 < 50ms',
+    icon: 'https://img.icons8.com/color/96/controller.png',
+    accent: '#5E2CED'
   },
   {
     id: 'ms-case-4',
-    industry: '新零售',
-    product: 'DYNAMICS 365 + AI',
-    title: '知名快消品牌供应链智能预测',
-    description: '集成 Dynamics 365 与机器学习模型，实现全渠道库存实时联动，优化周转率。',
-    metric: '35% 周转优化',
-    icon: 'https://img.icons8.com/color/96/microsoft-dynamics-365.png',
-    accent: '#06B6D4' // 柔和青
+    industry: '精密制造',
+    product: 'TEAMS + COLLAB',
+    title: '某制造巨头全球工厂远程协作',
+    description: '通过数字化协作平台打通跨境专家与车间，实现混合现实 (MR) 场景下的远程设备调试与技术指导。',
+    metric: '30% 差旅成本',
+    icon: 'https://img.icons8.com/color/96/microsoft-teams.png',
+    accent: '#6264A7'
   },
   {
     id: 'ms-case-5',
-    industry: '医疗健康',
-    product: 'MIXED REALITY + AZURE',
-    title: '智慧医疗远程专家协作系统',
-    description: '通过 HoloLens 2 与 Azure 渲染服务，实现手术现场远程指导，降低误操作风险。',
-    metric: '15% 风险降低',
-    icon: 'https://img.icons8.com/color/96/hololens.png',
-    accent: '#8B5CF6' // 柔和紫
+    industry: '合规检测',
+    product: 'AZURE IOT HUB',
+    title: '某权威检测机构数字孪生实验室',
+    description: '部署边缘网关与传感器，实现实验室温湿度、安全参数 24/7 自动监测，确保认证数据严谨性。',
+    metric: '100% 自动监测',
+    icon: 'https://img.icons8.com/fluency/96/iot-sensor.png',
+    accent: '#00A4EF'
   },
   {
     id: 'ms-case-6',
-    industry: '现代物流',
-    product: 'AZURE DIGITAL TWINS',
-    title: '自动化分拣中心数字孪生',
-    description: '构建物流园区数字孪生模型，模拟最优配送路径，物流综合能效比显著提升。',
-    metric: '22% 能效提升',
-    icon: 'https://img.icons8.com/color/96/cloud-lighting.png',
-    accent: '#EAB308' // 柔和金
+    industry: '消费品',
+    product: 'POWER BI + AI',
+    title: '某跨国名企全渠道数据智能洞察',
+    description: '打通生产、物流、销售全链路数据，通过可视化看板实时洞察供应链趋势，极速响应市场需求。',
+    metric: '4x 决策效率',
+    icon: 'https://img.icons8.com/color/96/power-bi.png',
+    accent: '#F2C811'
   }
 ];
 
@@ -104,7 +104,7 @@ export const CLOUD_SERVICES: CloudService[] = [
   { id: 'aws', name: 'AWS', icon: 'https://img.icons8.com/color/96/amazon-web-services.png', category: 'public', description: 'World leading cloud platform' },
   { id: 'baidu', name: 'Baidu Cloud', icon: 'https://img.icons8.com/fluency/96/cloud-lighting.png', category: 'public', description: 'Intelligent cloud services & AI' },
   { id: 'tencent', name: 'Tencent Cloud', icon: 'https://img.icons8.com/fluency/96/cloud-link.png', category: 'public', description: 'Leading cloud services in China' },
-  { id: 'm365', name: 'Microsoft 365', icon: 'https://img.icons8.com/color/96/microsoft-365.png', category: 'software', description: 'Office productivity suite' },
+  { id: 'm365', name: 'Microsoft 365', icon: 'https://img.icons8.com/fluency/96/microsoft-365.png', category: 'software', description: 'Office productivity suite' },
   { id: 'wps', name: '金山云办公', icon: 'https://img.icons8.com/color/96/wps-office.png', category: 'software', description: 'Leading office tools' },
   { id: 'adobe', name: 'Adobe', icon: 'https://img.icons8.com/color/96/adobe-creative-cloud.png', category: 'software', description: 'Creative design software' },
   { id: 'cad', name: 'AutoCAD', icon: 'https://img.icons8.com/color/96/autodesk-autocad.png', category: 'software', description: 'Precision engineering' },
@@ -138,7 +138,7 @@ export const SOFTWARE_PILLARS: ProductHighlight[] = [
     tag: "架构核心 03: 双模驱动",
     title: "确定性生产 vs 非确定性探索",
     subtitle: "Workflow 驱动业务，Agent 驱动增长",
-    description: "我们解决了 AI 应用的两极化难题。左手是流动的、充满创意的 Agent 探索模式（解决复杂问题）；右手是结构化的、稳如磐石的 Workflow 自动化模式（解决标准化业务）。双模并行，既保证稳健产出，又释放无限创意。",
+    description: "我们解决了 AI 应用的两极化难题。左手是流动的、充满创意的 Agent 探索模式（解决复杂问题）；右手是结构化的、稳如夯石的 Workflow 自动化模式（解决标准化业务）。双模并行，既保证稳健产出，又释放无限创意。",
     image: "https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?auto=format&fit=crop&q=80&w=800",
     isImageLeft: false
   },
@@ -149,6 +149,14 @@ export const SOFTWARE_PILLARS: ProductHighlight[] = [
     description: "独创「模型智能链路」调度技术。Super Magic 无缝整合 OpenAI GPT-4o, Claude 3.5, Gemini 1.5 等国际顶尖模型，以及 DeepSeek-V3, Qwen-Max, Zhipu GLM-4 等国内卓越模型。系统根据任务敏感度与合规需求，在“私有化本地模型”与“高性能公有云模型”间动态切换，实现主权安全与效率的极致对等。",
     image: "https://images.unsplash.com/photo-1639762681485-074b7f938ba0?auto=format&fit=crop&q=80&w=800",
     isImageLeft: true
+  },
+  {
+    tag: "架构核心 05: 硬件感知集成",
+    title: "端云一体，全时感知",
+    subtitle: "从自研硬件到边缘 Agent 的深度闭环",
+    description: "Super Magic 不仅是云端大脑，更拥有敏锐的感官系统。通过 Super Magic Note 磁吸记录仪与 Mag-Pad 工业终端，实现物理世界数据的实时采集与 AI 自动结构化。硬件端采集的数据无缝流入项目中心，完成从感知到决策的最后一公里。",
+    image: "https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&q=80&w=800",
+    isImageLeft: false
   }
 ];
 
@@ -187,6 +195,24 @@ export const CLIENT_LOGOS = [
   { name: "Midea", logo: "https://img.icons8.com/color/96/midea.png" },
   { name: "DJI", logo: "https://img.icons8.com/color/96/dji.png" },
   { name: "Xiaomi", logo: "https://img.icons8.com/color/96/xiaomi.png" },
+  { name: "Alibaba", logo: "https://img.icons8.com/color/96/alibaba.png" },
+  { name: "Baidu", logo: "https://img.icons8.com/color/96/baidu.png" },
+  { name: "Lenovo", logo: "https://img.icons8.com/color/96/lenovo.png" },
+  { name: "Meituan", logo: "https://img.icons8.com/color/96/meituan.png" },
+  { name: "JD", logo: "https://img.icons8.com/color/96/jd.png" },
+  { name: "Vanke", logo: "https://img.icons8.com/color/96/real-estate-office.png" },
+  { name: "PingAn", logo: "https://img.icons8.com/color/96/shield.png" },
+  { name: "Gree", logo: "https://img.icons8.com/color/96/air-conditioner.png" },
+  { name: "ZTE", logo: "https://img.icons8.com/color/96/tower.png" },
+  { name: "SF Express", logo: "https://img.icons8.com/color/96/delivery.png" },
+  { name: "Haier", logo: "https://img.icons8.com/color/96/fridge.png" },
+  { name: "OPPO", logo: "https://img.icons8.com/color/96/smartphone.png" },
+  { name: "VIVO", logo: "https://img.icons8.com/color/96/phone.png" },
+  { name: "Geely", logo: "https://img.icons8.com/color/96/car.png" },
+  { name: "Foxconn", logo: "https://img.icons8.com/color/96/circuit.png" },
+  { name: "SenseTime", logo: "https://img.icons8.com/color/96/eye.png" },
+  { name: "iFLYTEK", logo: "https://img.icons8.com/color/96/voice.png" },
+  { name: "NIO", logo: "https://img.icons8.com/color/96/lightning-bolt.png" },
 ];
 
 export const SOFTWARE_CASES: CaseStudy[] = [
@@ -204,7 +230,7 @@ export const SOFTWARE_CASES: CaseStudy[] = [
     logo: "https://img.icons8.com/color/96/bank.png",
     stats: "合规率 99.9%",
     description: "利用 Super Magic 私有化知识库与多 Agent 协作系统，自动解析每日上万份投研报告，并进行风险预警合规性检查。",
-    videoThumb: "https://images.unsplash.com/photo-1551288049-bbda38656a73?auto=format&fit=crop&q=80&w=800"
+    videoThumb: "https://images.unsplash.com/photo-1551288049-bbda38656a73?auto=format&fit=crop&q=80&w=1200"
   }
 ];
 
@@ -223,7 +249,7 @@ export const HARDWARE_CASES: CaseStudy[] = [
     logo: "https://img.icons8.com/color/96/oil-rig.png",
     stats: "零安全事故",
     description: "通过 Mag-Pad 与边缘视觉 Agent 集成，实现对高危区域的 24 小时无人值守式巡检与环境监测预警。",
-    videoThumb: "https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&q=80&w=800"
+    videoThumb: "https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&q=80&w=1200"
   }
 ];
 

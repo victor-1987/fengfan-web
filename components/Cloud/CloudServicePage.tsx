@@ -4,10 +4,10 @@ import { useParams } from 'react-router-dom';
 import { CLOUD_SERVICES } from '../../constants';
 
 interface CloudServicePageProps {
-  onConsult: () => void;
+  onBookDemo: () => void;
 }
 
-const CloudServicePage: React.FC<CloudServicePageProps> = ({ onConsult }) => {
+const CloudServicePage: React.FC<CloudServicePageProps> = ({ onBookDemo }) => {
   const { id } = useParams<{ id: string }>();
   const service = CLOUD_SERVICES.find(s => s.id === id);
 
@@ -59,7 +59,7 @@ const CloudServicePage: React.FC<CloudServicePageProps> = ({ onConsult }) => {
                 <p className="text-gray-400 text-sm max-w-md">{pkg.desc}</p>
               </div>
               <button 
-                onClick={onConsult}
+                onClick={onBookDemo}
                 className="w-full md:w-auto bg-[#2D7FF9] text-white px-10 py-4 rounded-full font-bold shadow-lg shadow-blue-500/20 hover:scale-105 transition transform active:scale-95"
               >
                 立即咨询报价
@@ -71,7 +71,7 @@ const CloudServicePage: React.FC<CloudServicePageProps> = ({ onConsult }) => {
         <div className="mt-20 p-12 rounded-[3rem] bg-white/5 border border-white/5 text-center">
             <h4 className="text-xl font-bold mb-4">需要定制化迁移方案？</h4>
             <p className="text-gray-400 mb-8">我们的架构师团队具备丰富的异构云环境迁移经验，可为您量身定制最平滑的业务演进路径。</p>
-            <button onClick={onConsult} className="text-[#2D7FF9] font-bold hover:underline">联系架构专家 →</button>
+            <button onClick={onBookDemo} className="text-[#2D7FF9] font-bold hover:underline">联系架构专家 →</button>
         </div>
       </section>
     </div>

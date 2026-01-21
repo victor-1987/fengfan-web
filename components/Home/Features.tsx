@@ -15,6 +15,12 @@ const modelLogos = [
   { name: 'Zhipu GLM-4', type: 'China', color: 'border-purple-500/30 text-purple-400' },
 ];
 
+const integratedHardware = [
+  { name: 'Magic Note', icon: '🎙️', status: 'Online' },
+  { name: 'Mag-Pad', icon: '📱', status: 'Syncing' },
+  { name: 'Edge Box', icon: '🖥️', status: 'Ready' },
+];
+
 const Features: React.FC<FeaturesProps> = ({ activeModule = 'software' }) => {
   const pillars = activeModule === 'software' ? SOFTWARE_PILLARS : HARDWARE_PILLARS;
   const themeColor = activeModule === 'software' ? '#2D7FF9' : '#a855f7';
@@ -40,6 +46,7 @@ const Features: React.FC<FeaturesProps> = ({ activeModule = 'software' }) => {
         <div className="space-y-24 md:space-y-40">
           {pillars.map((layer, idx) => {
             const isModelSelectionPillar = activeModule === 'software' && idx === 3;
+            const isHardwareIntegrationPillar = activeModule === 'software' && idx === 4;
             const isBatteryPillar = activeModule === 'hardware' && idx === 2;
             
             return (
@@ -85,6 +92,17 @@ const Features: React.FC<FeaturesProps> = ({ activeModule = 'software' }) => {
                     </div>
                   )}
 
+                  {isHardwareIntegrationPillar && (
+                    <div className="pt-4 grid grid-cols-1 gap-3">
+                      <div className="text-xs font-tech text-gray-500 uppercase tracking-widest mb-1">Ecosystem Synergy</div>
+                      <div className="flex flex-wrap gap-2">
+                         {['低功耗蓝牙', '5G 私有网', '边缘视觉推断', '结构化流同步'].map(t => (
+                           <span key={t} className="px-3 py-1 bg-white/5 border border-white/10 rounded-lg text-[10px] text-gray-400">{t}</span>
+                         ))}
+                      </div>
+                    </div>
+                  )}
+
                   <div className="pt-2 md:pt-4">
                     <button className="flex items-center space-x-2 text-white/50 hover:text-white transition group">
                       <span className="text-sm font-bold">了解方案细节</span>
@@ -101,7 +119,38 @@ const Features: React.FC<FeaturesProps> = ({ activeModule = 'software' }) => {
                       className="absolute inset-0 opacity-20 mix-blend-overlay transition-colors duration-700"
                       style={{ backgroundColor: themeColor }}
                     />
+                    
                     <img src={layer.image} alt={layer.title} className="w-full h-[300px] md:h-[500px] object-cover rounded-[1.8rem] md:rounded-[2.5rem] transform transition-transform duration-[2s] group-hover:scale-110" />
+                    
+                    {/* Hardware Overlay for Core 05 */}
+                    {isHardwareIntegrationPillar && (
+                      <div className="absolute inset-0 z-20 flex flex-col items-end justify-center p-6 md:p-10">
+                        <div className="space-y-3">
+                          {integratedHardware.map((hw, i) => (
+                            <div key={i} className="glass backdrop-blur-xl bg-white/10 border border-white/20 p-4 rounded-2xl w-48 md:w-56 shadow-2xl animate-in slide-in-from-right duration-500" style={{ transitionDelay: `${i * 150}ms` }}>
+                              <div className="flex items-center space-x-3">
+                                <span className="text-2xl">{hw.icon}</span>
+                                <div className="flex-grow">
+                                  <div className="text-xs font-bold text-white">{hw.name}</div>
+                                  <div className="flex items-center space-x-1.5 mt-1">
+                                    <span className="w-1.5 h-1.5 bg-emerald-500 rounded-full animate-pulse" />
+                                    <span className="text-[9px] font-tech text-emerald-500 uppercase tracking-widest">{hw.status}</span>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          ))}
+                        </div>
+                        {/* Connecting Lines Visual */}
+                        <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 pointer-events-none opacity-40">
+                          <svg width="200" height="200" viewBox="0 0 100 100">
+                             <circle cx="50" cy="50" r="20" fill="none" stroke={themeColor} strokeWidth="0.5" strokeDasharray="2 2" className="animate-[spin_10s_linear_infinite]" />
+                             <circle cx="50" cy="50" r="40" fill="none" stroke={themeColor} strokeWidth="0.2" className="animate-ping" />
+                          </svg>
+                        </div>
+                      </div>
+                    )}
+
                     <div className="absolute inset-0 bg-gradient-to-t from-[#0B0E14] via-transparent to-transparent opacity-60" />
                   </div>
                 </div>

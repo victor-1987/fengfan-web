@@ -42,17 +42,6 @@
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
         }
-        
-        /* 小狐狸趴着的动态效果：呼吸 + 细微抖动 */
-        @keyframes fox-lie-breathe {
-            0%, 100% { transform: translateY(0) scaleX(1) scaleY(1); }
-            50% { transform: translateY(2px) scaleX(1.05) scaleY(0.95); }
-        }
-        .animate-fox-lie {
-            animation: fox-lie-breathe 3s ease-in-out infinite;
-            transform-origin: bottom center;
-            display: inline-block;
-        }
     </style>
 <script type="importmap">
 {
@@ -67,6 +56,5 @@
 </head>
 <body>
     <div id="root"></div>
-    <script type="module" src="/index.tsx"></script>
 </body>
 </html>

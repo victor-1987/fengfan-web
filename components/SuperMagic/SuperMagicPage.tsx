@@ -1,46 +1,28 @@
 
-import React, { useState } from 'react';
+import React from 'react';
 import SuperMagicHero from './SuperMagicHero';
 import Features from '../Home/Features';
 import CaseStudies from '../Home/CaseStudies';
 import FeatureMatrix from '../Home/FeatureMatrix';
 
 interface SuperMagicPageProps {
-  onConsult: () => void;
   onBookDemo: () => void;
 }
 
-const SuperMagicPage: React.FC<SuperMagicPageProps> = ({ onConsult, onBookDemo }) => {
-  const [activeModule, setActiveModule] = useState<'software' | 'hardware'>('software');
-
+const SuperMagicPage: React.FC<SuperMagicPageProps> = ({ onBookDemo }) => {
+  // 汇总后固定展示软件服务版式，内部已包含硬件集成模块
   return (
     <div className="animate-in fade-in duration-700">
-      {/* 还原 Super Magic 专有的头部设计 */}
+      {/* Super Magic 专有的头部设计 */}
       <SuperMagicHero onBookDemo={onBookDemo} />
       
-      {/* Module Switcher */}
-      <div className="bg-[#0B0E14] pt-16 md:pt-24 pb-8">
-        <div className="max-w-7xl mx-auto px-4 flex justify-center">
-          <div className="inline-flex p-1 bg-white/5 rounded-full border border-white/10 backdrop-blur-md max-w-full overflow-hidden">
-            <button 
-              onClick={() => setActiveModule('software')}
-              className={`px-6 md:px-10 py-2 md:py-3 rounded-full text-xs md:text-sm font-bold transition-all duration-300 ${activeModule === 'software' ? 'bg-[#2D7FF9] text-white shadow-lg shadow-blue-500/20' : 'text-gray-400 hover:text-white'}`}
-            >
-              软件服务 (SaaS)
-            </button>
-            <button 
-              onClick={() => setActiveModule('hardware')}
-              className={`px-6 md:px-10 py-2 md:py-3 rounded-full text-xs md:text-sm font-bold transition-all duration-300 ${activeModule === 'hardware' ? 'bg-violet-600 text-white shadow-lg shadow-violet-500/20' : 'text-gray-400 hover:text-white'}`}
-            >
-              AI 智能硬件 (Device)
-            </button>
-          </div>
-        </div>
+      {/* 移除分段选择器，直接展示端云一体化核心能力 */}
+      <div className="pt-16 md:pt-24">
+        <Features activeModule="software" />
       </div>
 
-      <Features activeModule={activeModule} />
-      <CaseStudies activeModule={activeModule} />
-      <FeatureMatrix onConsult={onConsult} />
+      <CaseStudies activeModule="software" />
+      <FeatureMatrix onBookDemo={onBookDemo} />
       
       {/* Dedicated CTA for Super Magic */}
       <section className="py-24 bg-[#0B0E14] flex flex-col items-center text-center px-4">

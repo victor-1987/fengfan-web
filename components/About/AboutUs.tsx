@@ -1,5 +1,6 @@
 
 import React from 'react';
+import { HONORS, CLIENT_LOGOS } from '../../constants';
 
 const AboutUs: React.FC = () => {
   const groupStats = [
@@ -53,7 +54,7 @@ const AboutUs: React.FC = () => {
         </p>
       </section>
 
-      {/* 2. Business Model: 咨询/产品/服务 */}
+      {/* 2. Business Model */}
       <section className="py-20 bg-[#0F1219]/50 border-y border-white/5 relative overflow-hidden">
         <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-blue-600/5 blur-[120px] rounded-full pointer-events-none" />
         <div className="max-w-7xl mx-auto px-4 relative z-10">
@@ -77,7 +78,7 @@ const AboutUs: React.FC = () => {
         </div>
       </section>
 
-      {/* 3. Group Scale: 3+2+1 Dashboard */}
+      {/* 3. Group Scale Dashboard */}
       <section className="py-24 max-w-7xl mx-auto px-4">
         <div className="grid grid-cols-2 lg:grid-cols-5 gap-6">
           {groupStats.map((stat, i) => (
@@ -116,7 +117,7 @@ const AboutUs: React.FC = () => {
         </div>
       </section>
 
-      {/* 5. Presence Section: Enterprise Layout */}
+      {/* 5. Presence Section */}
       <section className="py-20 md:py-32 max-w-7xl mx-auto px-4 border-t border-white/5">
         <div className="text-center mb-16">
           <h2 className="font-tech tracking-[0.3em] text-[#2D7FF9] mb-4 uppercase text-xs font-bold">China Network</h2>
@@ -168,6 +169,66 @@ const AboutUs: React.FC = () => {
         </div>
       </section>
 
+      {/* 6. Honors & Qualifications (Moved from Home) */}
+      <section className="py-24 md:py-32 max-w-7xl mx-auto px-4 border-t border-white/5 bg-[#0B0E14]">
+        <div className="text-center mb-16 md:mb-24">
+          <h2 className="font-tech tracking-[0.3em] text-[#2D7FF9] mb-4 uppercase text-[10px] md:text-sm font-bold">Honor & Qualifications</h2>
+          <h3 className="text-3xl md:text-5xl font-bold">资质与荣誉：合规、稳健、持续进化</h3>
+          <div className="w-20 md:w-24 h-1 bg-gradient-to-r from-[#2D7FF9] to-violet-600 mx-auto mt-6 rounded-full" />
+        </div>
+
+        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-6">
+          {HONORS.map((honor, i) => (
+            <div key={i} className="relative group cursor-default">
+              <div className="absolute -inset-1 bg-gradient-to-b from-[#2D7FF9]/20 to-transparent rounded-[2rem] blur opacity-0 group-hover:opacity-100 transition duration-500" />
+              <div className="relative glass border border-white/10 rounded-[2rem] p-6 flex flex-col items-center text-center hover:border-[#2D7FF9]/40 transition-all duration-500 bg-gradient-to-br from-white/[0.03] to-transparent h-full">
+                <div className="w-16 h-20 bg-white/5 rounded-xl flex items-center justify-center text-3xl border border-white/5 group-hover:scale-110 group-hover:rotate-3 transition-transform duration-500 shadow-2xl mb-5">
+                  {honor.icon}
+                </div>
+                <div className="w-full">
+                  <div className="text-[#2D7FF9] font-tech text-[8px] tracking-[0.2em] mb-1 font-bold uppercase">CERTIFICATE</div>
+                  <h4 className="text-xs md:text-sm font-bold mb-2 text-white group-hover:text-[#2D7FF9] transition-colors leading-tight min-h-[2.5rem] flex items-center justify-center">
+                    {honor.title}
+                  </h4>
+                  <div className="inline-flex items-center space-x-1 px-2 py-0.5 rounded-full bg-white/5 border border-white/5 text-[8px] text-gray-500 font-tech">
+                    <span className="w-1 h-1 rounded-full bg-emerald-500 animate-pulse" />
+                    <span>VERIFIED</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      {/* 7. Cooperative Clients (Moved from Home and Expanded to 4 Rows) */}
+      <section className="py-24 md:py-32 max-w-7xl mx-auto px-4 border-t border-white/5 bg-[#0B0E14]">
+        <div className="text-center mb-16 md:mb-20">
+          <h2 className="font-tech tracking-[0.3em] text-[#2D7FF9] mb-4 uppercase text-[10px] md:text-sm font-bold">Partnership & Ecosystem</h2>
+          <h3 className="text-3xl md:text-5xl font-bold">合作客户：共创 AI 边界</h3>
+          <p className="text-gray-400 mt-4 max-w-xl mx-auto text-sm md:text-base font-light">
+            锋范科技已协助 100+ 行业头部企业完成智能化跨越，构建数字时代的核心竞争力。
+          </p>
+        </div>
+
+        <div className="grid grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-x-8 gap-y-12">
+          {CLIENT_LOGOS.map((client, i) => (
+            <div key={i} className="flex flex-col items-center justify-center group">
+              <div className="relative w-16 h-16 md:w-20 md:h-20 mb-4 bg-[#11151C] rounded-2xl flex items-center justify-center border border-white/5 group-hover:border-[#2D7FF9]/30 transition-all duration-300 group-hover:shadow-[0_0_20px_rgba(45,127,249,0.1)]">
+                <img 
+                  src={client.logo} 
+                  alt={client.name} 
+                  className="w-10 h-10 md:w-12 md:h-12 object-contain grayscale opacity-40 group-hover:grayscale-0 group-hover:opacity-100 transition-all duration-500 transform group-hover:scale-110" 
+                />
+              </div>
+              <span className="text-[9px] md:text-[10px] font-tech text-gray-500 uppercase tracking-widest text-center group-hover:text-white transition-colors">
+                {client.name}
+              </span>
+            </div>
+          ))}
+        </div>
+      </section>
+
       {/* Impact CTA */}
       <section className="py-24 max-w-7xl mx-auto px-4">
         <div className="relative rounded-[5rem] overflow-hidden bg-white/5 border border-white/5 p-1">
@@ -178,7 +239,7 @@ const AboutUs: React.FC = () => {
               锋范科技集团始终致力为用户关键应用领域提供全方位的 IT 信息科技服务。
             </p>
             <button className="bg-[#2D7FF9] hover:bg-blue-600 text-white px-12 py-5 rounded-full font-bold text-lg shadow-2xl shadow-blue-500/30 transition-all hover:scale-105 active:scale-95">
-              下载集团简介 (PDF)
+              立即预约 1对1 咨询
             </button>
           </div>
         </div>

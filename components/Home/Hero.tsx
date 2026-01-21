@@ -1,5 +1,6 @@
 
 import React, { useState, useEffect, useCallback } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 const slides = [
   {
@@ -10,17 +11,19 @@ const slides = [
     btnText: "探索 Foundry 解决方案",
     accent: "#0078d4", // Azure Blue
     gradient: "from-[#0078d4]/20",
-    type: "azure"
+    actionType: "navigate",
+    path: "/ai-foundry"
   },
   {
     title: "Microsoft 365 | AI-Powered Productivity",
     subtitle: "重塑组织的生产力基座",
     description: "深度整合 Microsoft 365 办公生态，通过 AI 协同工具打破信息孤岛。让协作更智能，让每一个业务节点都具备即时响应的生命力。",
     bg: "https://images.unsplash.com/photo-1497215728101-856f4ea42174?auto=format&fit=crop&q=80&w=1600",
-    btnText: "现代化办公转型咨询",
+    btnText: "现代化办公转型",
     accent: "#d83b01", // M365 Orange/Red
     gradient: "from-[#d83b01]/20",
-    type: "m365"
+    actionType: "navigate",
+    path: "/modern-workplace"
   },
   {
     title: "Microsoft Copilot Studio | Low-Code Agents",
@@ -30,7 +33,8 @@ const slides = [
     btnText: "定制您的 AI Agent",
     accent: "#a855f7", // Copilot Purple/Blue
     gradient: "from-[#6366f1]/20",
-    type: "copilot"
+    actionType: "navigate",
+    path: "/ai-agent"
   }
 ];
 
@@ -40,6 +44,7 @@ interface HeroProps {
 
 const Hero: React.FC<HeroProps> = ({ onBookDemo }) => {
   const [current, setCurrent] = useState(0);
+  const navigate = useNavigate();
 
   const nextSlide = useCallback(() => {
     setCurrent((prev) => (prev + 1) % slides.length);
@@ -54,6 +59,14 @@ const Hero: React.FC<HeroProps> = ({ onBookDemo }) => {
     return () => clearInterval(timer);
   }, [nextSlide]);
 
+  const handleAction = (slide: typeof slides[0]) => {
+    if (slide.actionType === 'navigate' && slide.path) {
+      navigate(slide.path);
+    } else {
+      onBookDemo();
+    }
+  };
+
   return (
     <section className="relative h-[65vh] overflow-hidden border-b border-white/5 group/hero bg-[#0B0E14]">
       {slides.map((slide, idx) => (
@@ -63,7 +76,7 @@ const Hero: React.FC<HeroProps> = ({ onBookDemo }) => {
             idx === current ? 'opacity-100 scale-100' : 'opacity-0 scale-105 pointer-events-none'
           }`}
         >
-          {/* Background Layer - Added fallback color */}
+          {/* Background Layer */}
           <div className={`absolute inset-0 bg-gradient-to-r ${slide.gradient} via-[#0B0E14]/95 to-[#0B0E14] z-10`} />
           <img 
             src={slide.bg} 
@@ -95,7 +108,7 @@ const Hero: React.FC<HeroProps> = ({ onBookDemo }) => {
               
               <div className="flex flex-col sm:flex-row items-start sm:items-center gap-6">
                 <button 
-                  onClick={onBookDemo}
+                  onClick={() => handleAction(slide)}
                   className="w-full sm:w-auto px-10 py-4 rounded-full font-bold transition-all transform hover:scale-105 active:scale-95 text-white shadow-2xl"
                   style={{ backgroundColor: slide.accent, boxShadow: `0 10px 30px ${slide.accent}33` }}
                 >
