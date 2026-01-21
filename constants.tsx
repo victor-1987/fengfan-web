@@ -1,6 +1,104 @@
 
 import { CloudService, ProductHighlight, CaseStudy, HardwareItem, SystemItem } from './types';
 
+export const MICROSOFT_SOLUTIONS = [
+  {
+    id: 'm365',
+    title: 'Modern Workplace',
+    subtitle: 'Microsoft 365 & Copilot',
+    description: '通过 AI 驱动的协同工具重塑办公体验。从企业邮箱到 Copilot 助手，助力组织实现真正的数字化办公转型。',
+    icon: 'https://img.icons8.com/color/96/microsoft-365.png',
+    features: ['Copilot 效率套件', 'Teams 协作空间', '高级信息安全保护']
+  },
+  {
+    id: 'azure',
+    title: 'Azure Cloud',
+    subtitle: '智能云基座与 AI 模型',
+    description: '提供企业级 IaaS 与 PaaS 服务。支持 OpenAI 模型私有化部署、高可用架构及全球内容分发。',
+    icon: 'https://img.icons8.com/color/96/azure-1.png',
+    features: ['Azure OpenAI 服务', '混合云架构设计', '全球边缘计算']
+  },
+  {
+    id: 'security',
+    title: 'Security & Trust',
+    subtitle: '全域安全与零信任体系',
+    description: '结合 Microsoft Sentinel 与 Defender，为企业构建从身份验证到数据链路的全程安全防护壁垒。',
+    icon: 'https://img.icons8.com/color/96/microsoft-admin.png',
+    features: ['零信任安全架构', '合规性实时监测', '威胁检测与响应']
+  },
+  {
+    id: 'managed',
+    title: 'Managed Services',
+    subtitle: '24/7 全托管专家支持',
+    description: '提供资深架构师级别的一站式云代管服务，包括实时监控、自动扩容与成本优化建议。',
+    icon: 'https://img.icons8.com/fluency/96/online-support.png',
+    features: ['多云环境统一治理', '架构深度调优', '企业级 SLA 保障']
+  }
+];
+
+export const MICROSOFT_CASES = [
+  {
+    id: 'ms-case-1',
+    industry: '智能制造',
+    product: 'AZURE AI + IOT',
+    title: '某全球 500 强制造企业云端转型',
+    description: '通过 Azure IoT Hub 与 OpenAI 模型，实现设备预测性维护，降低非计划停机时间。',
+    metric: '25% 停机缩减',
+    icon: 'https://img.icons8.com/color/96/azure-1.png',
+    accent: '#3B82F6' // 柔和蓝
+  },
+  {
+    id: 'ms-case-2',
+    industry: '现代金融',
+    product: 'M365 + COPILOT',
+    title: '头部券商现代化办公协作升级',
+    description: '全员部署 Microsoft 365 与 Copilot，通过 AI 自动生成投研周报，研究效率大幅提升。',
+    metric: '40% 效率提升',
+    icon: 'https://img.icons8.com/color/96/microsoft-365.png',
+    accent: '#F97316' // 柔和橙
+  },
+  {
+    id: 'ms-case-3',
+    industry: '能源化工',
+    product: 'AZURE OPENAI',
+    title: '智慧能源安全生产管控平台',
+    description: '利用 Azure OpenAI 识别生产安全隐患报告，实现风险预警自动化，响应速度倍增。',
+    metric: '200% 响应加速',
+    icon: 'https://img.icons8.com/color/96/bot.png',
+    accent: '#84CC16' // 柔和绿
+  },
+  {
+    id: 'ms-case-4',
+    industry: '新零售',
+    product: 'DYNAMICS 365 + AI',
+    title: '知名快消品牌供应链智能预测',
+    description: '集成 Dynamics 365 与机器学习模型，实现全渠道库存实时联动，优化周转率。',
+    metric: '35% 周转优化',
+    icon: 'https://img.icons8.com/color/96/microsoft-dynamics-365.png',
+    accent: '#06B6D4' // 柔和青
+  },
+  {
+    id: 'ms-case-5',
+    industry: '医疗健康',
+    product: 'MIXED REALITY + AZURE',
+    title: '智慧医疗远程专家协作系统',
+    description: '通过 HoloLens 2 与 Azure 渲染服务，实现手术现场远程指导，降低误操作风险。',
+    metric: '15% 风险降低',
+    icon: 'https://img.icons8.com/color/96/hololens.png',
+    accent: '#8B5CF6' // 柔和紫
+  },
+  {
+    id: 'ms-case-6',
+    industry: '现代物流',
+    product: 'AZURE DIGITAL TWINS',
+    title: '自动化分拣中心数字孪生',
+    description: '构建物流园区数字孪生模型，模拟最优配送路径，物流综合能效比显著提升。',
+    metric: '22% 能效提升',
+    icon: 'https://img.icons8.com/color/96/cloud-lighting.png',
+    accent: '#EAB308' // 柔和金
+  }
+];
+
 export const CLOUD_SERVICES: CloudService[] = [
   { id: 'azure', name: 'Azure', icon: 'https://img.icons8.com/color/96/azure-1.png', category: 'public', description: 'Enterprise cloud by Microsoft' },
   { id: 'aws', name: 'AWS', icon: 'https://img.icons8.com/color/96/amazon-web-services.png', category: 'public', description: 'World leading cloud platform' },
@@ -13,10 +111,10 @@ export const CLOUD_SERVICES: CloudService[] = [
 ];
 
 export const SYSTEM_ITEMS: SystemItem[] = [
-  { id: 'ipc', name: '工控机定制', icon: 'https://img.icons8.com/fluency/96/computer-tower.png', category: 'hardware', description: 'Customized industrial PCs' },
-  { id: 'oem', name: 'OEM 一体机', icon: 'https://img.icons8.com/fluency/96/monitor.png', category: 'hardware', description: 'All-in-one hardware solutions' },
-  { id: 'factory', name: '智能工厂', icon: 'https://img.icons8.com/fluency/96/factory.png', category: 'solution', description: 'Smart manufacturing integration' },
-  { id: 'campus', name: '智慧园区', icon: 'https://img.icons8.com/fluency/96/city.png', category: 'solution', description: 'IoT campus management' },
+  { id: 'smart-security', name: '智慧安防', icon: 'https://img.icons8.com/fluency/96/security-camera.png', category: 'solution', description: 'AI 驱动的全域安全感知系统' },
+  { id: 'digital-human', name: '数字人', icon: 'https://img.icons8.com/fluency/96/human-head.png', category: 'solution', description: '24/7 交互式智能数字大使' },
+  { id: 'smart-factory', name: '智慧工厂', icon: 'https://img.icons8.com/fluency/96/factory.png', category: 'solution', description: '工业 4.0 智能制造与物联集成' },
+  { id: 'digital-gov', name: '数字政务平台', icon: 'https://img.icons8.com/fluency/96/museum.png', category: 'solution', description: '高效、透明的数字化城市管理' },
 ];
 
 export const SOFTWARE_PILLARS: ProductHighlight[] = [
@@ -57,111 +155,81 @@ export const SOFTWARE_PILLARS: ProductHighlight[] = [
 export const HARDWARE_PILLARS: ProductHighlight[] = [
   {
     tag: "智能硬件 01: Super Magic Note",
-    title: "触手可及的企业灵感采集器",
+    title: "触手及的企业灵感采集器",
     subtitle: "极致轻薄，贴合手机背部的 AI 伴侣",
-    description: "专为职场精英打造。采用超薄机身设计，通过磁吸完美贴合于手机背部，随时记录电话通话、商务洽谈。一键高清录音，实时同步至 Super Magic 云端进行多角色话者分离，它是您形影不离的数字哨兵。",
-    image: "https://images.unsplash.com/photo-1616348436168-de43ad0db179?auto=format&fit=crop&q=80&w=800",
+    description: "专为职场精英打造。采用超薄机身设计，通过磁吸完美贴合于手机背部，随时记录电话通话、商务洽谈。一键高清录音，实时同步至 Super Magic 平台，自动完成摘要提取与待办梳理。",
+    image: "https://images.unsplash.com/photo-1588508065123-287b28e013da?auto=format&fit=crop&q=80&w=800",
     isImageLeft: false
   },
   {
-    tag: "集成优势 02: 营销与销售赋能",
-    title: "让每一场销售对话都成为企业资产",
-    subtitle: "全自动 CRM 填充与销售策略分析",
-    description: "在销售场景下，Super Magic Note 能精准捕获客户痛点。录音结束后，系统自动提取商机信息并同步至 CRM，同时生成销售复盘建议。",
-    image: "https://images.unsplash.com/photo-1557804506-669a67965ba0?auto=format&fit=crop&q=80&w=800",
-    isImageLeft: true
-  },
-  {
-    tag: "技术底座 03: 极智续航",
-    title: "30 天超长待机，时刻准备",
-    subtitle: "为高强度商务行程量身定制",
-    description: "采用超低功耗处理芯片，支持连续 15 小时录音及 30 天待机。配备磁吸闪充，告别电量焦虑。无论身处何地，它都是您包里最可靠、最安静的数字化伙伴。",
-    image: "https://images.unsplash.com/photo-1593941707882-a5bba14938c7?auto=format&fit=crop&q=80&w=800",
-    isImageLeft: false
-  },
-  {
-    tag: "时光沉淀 04: 个人记事助手",
-    title: "梳理日常，留住每一份珍贵回忆",
-    subtitle: "从业务谈判到温情通话的全面沉淀",
-    description: "Super Magic Note 不仅是工作工具，更是您的个人生命记录仪。它能自动整理每日电话沟通内容，将碎片语音转化为结构化时光轴。AI 为您梳理逻辑、沉淀情感，构建一个可追溯、永不褪色的个人数字记忆库。",
-    image: "https://images.unsplash.com/photo-1516280440614-37939bbacd81?auto=format&fit=crop&q=80&w=800",
+    tag: "智能硬件 02: Mag-Pad",
+    title: "工业级现场指挥终端",
+    subtitle: "三防设计，赋能一线工程师",
+    description: "专为复杂工业环境打造。 Mag-Pad 集成了高性能边缘算力，可在无网环境下实时运行视觉识别算法，助力巡检人员快速定位设备故障并调取 AI 维护手册。",
+    image: "https://images.unsplash.com/photo-1544244015-0df4b3ffc6b0?auto=format&fit=crop&q=80&w=800",
     isImageLeft: true
   }
 ];
 
+export const HONORS = [
+  { icon: "🏆", title: "国家级高新技术企业" },
+  { icon: "📜", title: "ISO9001 质量管理体系认证" },
+  { icon: "🛡️", title: "信息安全等级保护三级" },
+  { icon: "💡", title: "年度最具创新力 AI 企业" },
+  { icon: "🌐", title: "微软年度核心合作伙伴" },
+  { icon: "💎", title: "粤港澳大湾区独角兽潜力奖" },
+];
+
+export const CLIENT_LOGOS = [
+  { name: "Huawei", logo: "https://img.icons8.com/color/96/huawei.png" },
+  { name: "BYD", logo: "https://img.icons8.com/color/96/byd.png" },
+  { name: "Tencent", logo: "https://img.icons8.com/color/96/tencent-qq.png" },
+  { name: "Midea", logo: "https://img.icons8.com/color/96/midea.png" },
+  { name: "DJI", logo: "https://img.icons8.com/color/96/dji.png" },
+  { name: "Xiaomi", logo: "https://img.icons8.com/color/96/xiaomi.png" },
+];
+
 export const SOFTWARE_CASES: CaseStudy[] = [
   {
-    id: 'scase1',
-    company: '华南智造集团',
-    logo: 'https://img.icons8.com/fluency/96/organization.png',
-    stats: '效率提升 300%',
-    description: '通过 Super Magic 部署私有化知识库，覆盖 50,000+ 份技术文档。将一线工人故障排查时间从 2 小时缩短至 5 分钟，实现了真正意义上的知识资产实时检索与专家经验数字化沉淀。',
-    videoThumb: 'https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?auto=format&fit=crop&q=80&w=600'
+    id: "sc-1",
+    company: "某大型跨国制造集团",
+    logo: "https://img.icons8.com/color/96/factory.png",
+    stats: "效率提升 300%",
+    description: "通过部署 Super Magic 智能工作流，该集团实现了全球供应链数据的实时自动化分析与决策建议，将订单处理周期从 3 天缩短至 4 小时。",
+    videoThumb: "https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?auto=format&fit=crop&q=80&w=800"
   },
   {
-    id: 'scase2',
-    company: '全球领航外服',
-    logo: 'https://img.icons8.com/fluency/96/conference-call.png',
-    stats: '筛选周期缩短 80%',
-    description: '构建“神奇招聘流程”，AI 自动解析海量简历并对照 JD 进行多维度评分。日均处理简历从 200 份跃升至 2000 份，HR 仅需参与最后决策面试，将繁琐筛选彻底自动化。',
-    videoThumb: 'https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&q=80&w=600'
+    id: "sc-2",
+    company: "头部金融证券公司",
+    logo: "https://img.icons8.com/color/96/bank.png",
+    stats: "合规率 99.9%",
+    description: "利用 Super Magic 私有化知识库与多 Agent 协作系统，自动解析每日上万份投研报告，并进行风险预警合规性检查。",
+    videoThumb: "https://images.unsplash.com/photo-1551288049-bbda38656a73?auto=format&fit=crop&q=80&w=800"
   }
 ];
 
 export const HARDWARE_CASES: CaseStudy[] = [
   {
-    id: 'hcase1',
-    company: '鼎峰地产销售团队',
-    logo: 'https://img.icons8.com/fluency/96/home.png',
-    stats: '客诉率降低 40%',
-    description: '全员配备 Super Magic Note 记录带看过程。AI 自动复盘销售话术偏差，并为每位客户生成精准需求画像。',
-    videoThumb: 'https://images.unsplash.com/photo-1560518883-ce09059eeffa?auto=format&fit=crop&q=80&w=600'
+    id: "hc-1",
+    company: "智慧政务政务中心",
+    logo: "https://img.icons8.com/color/96/government.png",
+    stats: "处理量 +150%",
+    description: "全员配备 Super Magic Note，在窗口服务中实时记录并分析民众诉求，自动生成工单，极大地提升了政务办理效率与透明度。",
+    videoThumb: "https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?auto=format&fit=crop&q=80&w=800"
   },
   {
-    id: 'hcase2',
-    company: '睿翼法律咨询',
-    logo: 'https://img.icons8.com/fluency/96/law.png',
-    stats: '笔录效率提升 500%',
-    description: '律师使用硬件记录电话咨询，Super Magic 自动生成合规性摘要及后续行动清单，确保法律建议零遗漏。',
-    videoThumb: 'https://images.unsplash.com/photo-1589829545856-d10d557cf95f?auto=format&fit=crop&q=80&w=600'
+    id: "hc-2",
+    company: "能源化工监测站",
+    logo: "https://img.icons8.com/color/96/oil-rig.png",
+    stats: "零安全事故",
+    description: "通过 Mag-Pad 与边缘视觉 Agent 集成，实现对高危区域的 24 小时无人值守式巡检与环境监测预警。",
+    videoThumb: "https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&q=80&w=800"
   }
 ];
 
-export const HONORS = [
-  { title: "国家高新技术企业", detail: "2024年 科技部认定", icon: "🏢" },
-  { title: "ISO 9001 质量认证", detail: "国际标准 体系认证", icon: "📜" },
-  { title: "AI 卓越创新奖", detail: "2024 年度行业殊荣", icon: "🏆" },
-  { title: "20+ 项软件著作权", detail: "核心技术 自主研发", icon: "🛡️" },
-  { title: "智能硬件外观专利", detail: "S1系列 设计专利", icon: "🎨" },
-  { title: "AAA级 诚信企业", detail: "行业信用 最高等级", icon: "🤝" }
-];
-
-export const CLIENT_LOGOS = [
-  { name: "中国南方电网", logo: "https://img.icons8.com/color/96/lightning-bolt.png" },
-  { name: "华为", logo: "https://img.icons8.com/color/96/huawei.png" },
-  { name: "比亚迪", logo: "https://img.icons8.com/color/96/tesla-model-x.png" },
-  { name: "腾讯", logo: "https://img.icons8.com/color/96/tencent-qq.png" },
-  { name: "格力", logo: "https://img.icons8.com/color/96/air-conditioner.png" },
-  { name: "顺丰速运", logo: "https://img.icons8.com/color/96/delivery-man.png" },
-  { name: "美的集团", logo: "https://img.icons8.com/color/96/washing-machine.png" },
-  { name: "中集集团", logo: "https://img.icons8.com/color/96/cargo-ship.png" },
-  { name: "汇丰银行", logo: "https://img.icons8.com/color/96/bank.png" },
-  { name: "平安保险", logo: "https://img.icons8.com/color/96/shield.png" },
-  { name: "广汽集团", logo: "https://img.icons8.com/color/96/car.png" },
-  { name: "三一重工", logo: "https://img.icons8.com/color/96/excavator.png" },
-  { name: "阿里巴巴", logo: "https://img.icons8.com/color/96/alibaba.png" },
-  { name: "小米集团", logo: "https://img.icons8.com/color/96/xiaomi.png" },
-  { name: "京东集团", logo: "https://img.icons8.com/color/96/jd-com.png" },
-  { name: "字节跳动", logo: "https://img.icons8.com/color/96/tiktok.png" },
-  { name: "联想集团", logo: "https://img.icons8.com/color/96/lenovo.png" },
-  { name: "中国移动", logo: "https://img.icons8.com/color/96/antenna.png" }
-];
-
-export const PRODUCT_PILLARS = SOFTWARE_PILLARS;
-export const CASES = SOFTWARE_CASES;
-
 export const HARDWARE: HardwareItem[] = [
-  { id: 'h1', name: 'Super Magic Note S1', spec: 'AI Recorder / 30-Day Standby / MagSafe', image: 'https://images.unsplash.com/photo-1616348436168-de43ad0db179?auto=format&fit=crop&q=80&w=400' },
-  { id: 'h2', name: 'Industrial IPC Gen-X', spec: 'Intel i9 / 64GB RAM / IP67 Rated', image: 'https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&q=80&w=400' },
-  { id: 'h3', name: 'Edge Gateway Pro', spec: 'Dual 5G / PoE Support / Metal Case', image: 'https://images.unsplash.com/photo-1558494949-ef8b5655d939?auto=format&fit=crop&q=80&w=400' },
+  { id: "h1", name: "Mag-Box 边缘计算站", spec: "128核 CPU / 4x RTX 4090 / IP67 防护", image: "https://images.unsplash.com/photo-1558494949-ef8b5655d939?auto=format&fit=crop&q=80&w=800" },
+  { id: "h2", name: "Super Magic Note Pro", spec: "磁吸超薄 / 4麦克风阵列 / 30天待机", image: "https://images.unsplash.com/photo-1588508065123-287b28e013da?auto=format&fit=crop&q=80&w=800" },
+  { id: "h3", name: "Mag-Pad 工业平板", spec: "12.9寸 2K 屏 / 5G 全频段 / 防摔耐腐蚀", image: "https://images.unsplash.com/photo-1544244015-0df4b3ffc6b0?auto=format&fit=crop&q=80&w=800" },
+  { id: "h4", name: "Vision Agent 摄像头", spec: "4K 超清 / 边缘 AI 识别 / 红外热成像", image: "https://images.unsplash.com/photo-1557597774-9d273605dfa9?auto=format&fit=crop&q=80&w=800" },
 ];

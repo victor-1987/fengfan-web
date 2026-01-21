@@ -1,14 +1,28 @@
 
 import React from 'react';
-import { HONORS, CLIENT_LOGOS } from '../../constants';
 
 const AboutUs: React.FC = () => {
+  const groupStats = [
+    { label: "国家级高新技术企业", value: "3", unit: "家", icon: "🛡️" },
+    { label: "分销及系统集成企业", value: "2", unit: "家", icon: "🌐" },
+    { label: "工厂定制企业", value: "1", unit: "家", icon: "🏭" },
+    { label: "集团员工总数", value: "200", unit: "+人", icon: "👥" },
+    { label: "年产品总销售额", value: "3", unit: "亿+", icon: "💰" },
+  ];
+
+  const industries = [
+    { name: "数字政府", icon: "🏛️", desc: "助力政务数字化转型，构建高效透明的服务体系。" },
+    { name: "智能制造", icon: "⚙️", desc: "工业 4.0 深度集成，重塑生产力边界。" },
+    { name: "智慧能源", icon: "⚡", desc: "能源调度与安全监控，保障工业血液稳健流动。" },
+    { name: "智慧教育", icon: "🎓", desc: "AI 赋能教学场景，打造现代化智慧校园。" },
+  ];
+
   const offices = [
     {
       id: 'hq',
-      name: '广东锋范科技有限公司（总部）',
+      name: '广东锋范科技集团（总部）',
       address: '中国 · 广东省 · 东莞市科技产业园区锋范科技大厦',
-      type: 'HEADQUARTERS',
+      type: 'GROUP HEADQUARTERS',
       markerPos: { top: '78%', left: '68%' },
       color: '#2D7FF9'
     },
@@ -22,69 +36,94 @@ const AboutUs: React.FC = () => {
     }
   ];
 
-  const productionCenters = [
-    { name: '沈阳生产中心', pos: { top: '25%', left: '85%' } },
-    { name: '成都生产中心', pos: { top: '60%', left: '48%' } },
-    { name: '福建生产中心', pos: { top: '72%', left: '78%' } },
-  ];
-
   return (
     <div className="animate-in fade-in duration-500 bg-[#0B0E14]">
-      {/* 1. Hero Section: Identity & Scale */}
-      <section className="pt-24 md:pt-32 pb-16 md:pb-20 max-w-7xl mx-auto px-4">
-        <div className="text-center mb-12 md:mb-16">
-          <h2 className="font-tech tracking-[0.4em] text-[#2D7FF9] mb-4 md:mb-6 uppercase text-[10px] md:text-sm font-bold opacity-80">Leading Agentic AI Era</h2>
-          <h1 className="text-4xl md:text-8xl font-bold mb-6 md:mb-8 font-tech gradient-text tracking-tight leading-tight">让 AI 赋能每组织</h1>
-          <p className="text-base md:text-2xl text-gray-400 max-w-4xl mx-auto leading-relaxed font-light">
-            锋范科技（FengFan Tech）成立于 2023 年。我们不只是技术的搬运工，更是生产力变革的引擎。
-            通过 Agentic AI 架构，我们将复杂的模型能力转化为企业真正可落地、可闭环、可进化的“数字大脑”。
-          </p>
+      {/* 1. Hero Section: Group Identity */}
+      <section className="pt-24 md:pt-32 pb-16 md:pb-24 max-w-7xl mx-auto px-4 text-center">
+        <div className="inline-flex items-center space-x-2 px-3 py-1 rounded-full bg-[#2D7FF9]/10 border border-[#2D7FF9]/30 mb-8">
+           <span className="w-2 h-2 bg-[#2D7FF9] rounded-full animate-pulse" />
+           <span className="text-[10px] font-tech font-bold text-[#2D7FF9] tracking-widest uppercase">Since 2023 | Innovation & Excellence</span>
+        </div>
+        <h1 className="text-4xl md:text-8xl font-bold mb-8 font-tech gradient-text tracking-tight leading-tight">
+          广东锋范科技集团
+        </h1>
+        <p className="text-lg md:text-2xl text-gray-400 max-w-4xl mx-auto leading-relaxed font-light">
+          一家极富创新性的高新技术公司，秉承自主创新与追求卓越的传统。
+          我们不只是技术的搬运工，更是深耕用户关键应用领域、提供综合性 IT 信息科技服务的行业领航者。
+        </p>
+      </section>
+
+      {/* 2. Business Model: 咨询/产品/服务 */}
+      <section className="py-20 bg-[#0F1219]/50 border-y border-white/5 relative overflow-hidden">
+        <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-blue-600/5 blur-[120px] rounded-full pointer-events-none" />
+        <div className="max-w-7xl mx-auto px-4 relative z-10">
+          <div className="text-center mb-16">
+            <h2 className="font-tech tracking-[0.4em] text-[#2D7FF9] mb-4 uppercase text-xs font-bold">Business Model</h2>
+            <h3 className="text-3xl md:text-5xl font-bold italic font-tech">“以咨询为先导，以产品为依托，以服务为核心”</h3>
+          </div>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            {[
+              { t: "咨询为先导", d: "深度调研客户业务场景，提供专业的信息系统建设顶层设计方案。", icon: "📝" },
+              { t: "产品为依托", d: "整合全球优质云端生态与锋范自研 AI 硬件，构建坚实技术基座。", icon: "📦" },
+              { t: "服务为核心", d: "提供全生命周期运维与代管服务，确保数字化系统持续创造价值。", icon: "🛠️" }
+            ].map((item, i) => (
+              <div key={i} className="glass p-10 rounded-[3rem] border border-white/5 hover:border-[#2D7FF9]/30 transition-all group">
+                <div className="text-5xl mb-6 transform group-hover:scale-110 transition-transform">{item.icon}</div>
+                <h4 className="text-2xl font-bold mb-4 group-hover:text-[#2D7FF9] transition-colors">{item.t}</h4>
+                <p className="text-gray-400 leading-relaxed font-light">{item.d}</p>
+              </div>
+            ))}
+          </div>
         </div>
       </section>
 
-      {/* 2. Philosophy Section: Vision/Mission/Values */}
-      <section className="py-16 md:py-20 max-w-7xl mx-auto px-4 border-t border-white/5">
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-16">
-          {[
-            { 
-              title: "愿景 Vision", 
-              desc: "构建全球领先的企业级 AI 协作系统，让 AI 成为每一位指挥官手中最可靠的执行官，释放人类的创造力天性。", 
-              color: "border-blue-500/20",
-              tag: "BEYOND INTELLIGENCE"
-            },
-            { 
-              title: "使命 Mission", 
-              desc: "打破技术黑盒，通过私有化、工程化、工具化的手段，让每一个组织都能低门槛地拥有属于自己的数字化主权。", 
-              color: "border-violet-500/20",
-              tag: "EMPOWER EVERYONE"
-            },
-            { 
-              title: "价值观 Values", 
-              desc: "坚持长期主义，在不确定的时代通过“技术确定性”为客户创造真实价值。诚实沟通，持续创新。", 
-              color: "border-emerald-500/20",
-              tag: "TRUST & CERTAINTY"
-            },
-          ].map((item, i) => (
-            <div key={i} className={`glass p-8 md:p-12 rounded-[2.5rem] md:rounded-[3.5rem] border ${item.color} relative overflow-hidden group hover:scale-[1.02] transition-transform duration-500`}>
-              <div className="absolute top-0 right-0 w-32 h-32 bg-gradient-to-br from-white/5 to-transparent blur-2xl" />
-              <div className="text-[10px] font-tech text-gray-500 mb-4 tracking-widest">{item.tag}</div>
-              <h3 className="text-xl md:text-2xl font-bold mb-4 md:mb-6 text-white group-hover:gradient-text transition-all">{item.title}</h3>
-              <p className="text-gray-400 leading-relaxed text-base md:text-lg font-light">{item.desc}</p>
+      {/* 3. Group Scale: 3+2+1 Dashboard */}
+      <section className="py-24 max-w-7xl mx-auto px-4">
+        <div className="grid grid-cols-2 lg:grid-cols-5 gap-6">
+          {groupStats.map((stat, i) => (
+            <div key={i} className="glass border border-white/5 p-8 rounded-[2.5rem] text-center flex flex-col items-center group hover:bg-white/5 transition-all">
+              <div className="text-3xl mb-4 opacity-50 group-hover:opacity-100 transition-opacity">{stat.icon}</div>
+              <div className="text-4xl md:text-5xl font-tech font-bold text-white mb-2">
+                {stat.value}<span className="text-lg ml-1 text-[#2D7FF9]">{stat.unit}</span>
+              </div>
+              <div className="text-[10px] md:text-xs text-gray-500 font-bold uppercase tracking-widest">{stat.label}</div>
             </div>
           ))}
         </div>
       </section>
 
-      {/* 3. Presence Section: Enterprise Layout (China Map) */}
+      {/* 4. Industry Expertise */}
+      <section className="py-24 border-t border-white/5">
+        <div className="max-w-7xl mx-auto px-4">
+          <div className="flex flex-col md:flex-row items-center justify-between gap-12 mb-20">
+            <div className="flex-1">
+              <h2 className="font-tech tracking-[0.3em] text-[#2D7FF9] mb-4 uppercase text-sm font-bold">Industry Solutions</h2>
+              <h3 className="text-3xl md:text-5xl font-bold mb-6">跨行业领域的深耕与成功</h3>
+              <p className="text-gray-400 text-lg font-light leading-relaxed">
+                锋范科技在政府、制造、能源、教育等多个关键领域，均拥有高品质的整体化解决方案和海量成功案例。
+              </p>
+            </div>
+            <div className="flex-1 grid grid-cols-2 gap-4">
+              {industries.map((ind, i) => (
+                <div key={i} className="glass p-6 rounded-2xl border border-white/5 hover:border-[#2D7FF9]/40 transition-all">
+                  <div className="text-3xl mb-3">{ind.icon}</div>
+                  <h4 className="font-bold text-white mb-2">{ind.name}</h4>
+                  <p className="text-[10px] text-gray-500 leading-tight">{ind.desc}</p>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* 5. Presence Section: Enterprise Layout */}
       <section className="py-20 md:py-32 max-w-7xl mx-auto px-4 border-t border-white/5">
-        <div className="text-center mb-12 md:mb-16">
-          <h2 className="font-tech tracking-[0.3em] text-[#2D7FF9] mb-4 uppercase text-[10px] md:text-sm font-bold">China Network & Presence</h2>
-          <h3 className="text-3xl md:text-5xl font-bold">企业布局：深耕本土，连接全球</h3>
-          <p className="text-gray-400 mt-4 max-w-2xl mx-auto text-sm md:text-base">立足大湾区核心，通过沈阳、成都、福建三大中心构建覆盖全国的敏捷生产与支持网络。</p>
+        <div className="text-center mb-16">
+          <h2 className="font-tech tracking-[0.3em] text-[#2D7FF9] mb-4 uppercase text-xs font-bold">China Network</h2>
+          <h3 className="text-3xl md:text-5xl font-bold">集团布局：深耕本土，连接全球</h3>
         </div>
 
         <div className="flex flex-col lg:flex-row gap-8 items-stretch">
-          {/* Map Area */}
           <div className="flex-[2.5] glass border border-white/10 rounded-[2.5rem] md:rounded-[4rem] p-4 md:p-12 overflow-hidden relative group min-h-[400px] md:min-h-[500px] flex items-center justify-center bg-black/20">
             <div className="absolute inset-0 opacity-40 pointer-events-none">
               <svg width="100%" height="100%" viewBox="0 0 800 600" fill="none" xmlns="http://www.w3.org/2000/svg" className="scale-[1.15] translate-y-4">
@@ -95,10 +134,6 @@ const AboutUs: React.FC = () => {
                     <stop offset="1" stopColor="#0B0E14" />
                   </radialGradient>
                 </defs>
-                <pattern id="grid" width="30" height="30" patternUnits="userSpaceOnUse">
-                  <path d="M 30 0 L 0 0 0 30" fill="none" stroke="#2D7FF9" strokeWidth="0.5" opacity="0.05"/>
-                </pattern>
-                <rect width="100%" height="100%" fill="url(#grid)" />
               </svg>
             </div>
 
@@ -111,163 +146,40 @@ const AboutUs: React.FC = () => {
                   </div>
                 </div>
               ))}
-
-              {productionCenters.map((pc, idx) => (
-                <div key={idx} className="absolute transition-all duration-500" style={{ ...pc.pos }}>
-                  <div className="relative group/pc">
-                    <div className="w-2 md:w-3 h-2 md:h-3 bg-emerald-500 rounded-full animate-pulse absolute inset-0" />
-                    <div className="w-2 md:w-3 h-2 md:h-3 bg-emerald-500 rounded-full relative z-10 border border-white shadow-lg shadow-emerald-500/50" />
-                  </div>
-                </div>
-              ))}
-
-              <div className="absolute bottom-4 left-4 glass border border-white/10 p-4 rounded-2xl flex flex-col space-y-2 md:space-y-3">
-                <div className="flex items-center space-x-2">
-                  <div className="w-2 h-2 md:w-2.5 md:h-2.5 rounded-full bg-[#2D7FF9]" />
-                  <span className="text-[8px] md:text-[10px] font-tech text-gray-400">HQ</span>
-                </div>
-                <div className="flex items-center space-x-2">
-                  <div className="w-2 h-2 md:w-2.5 md:h-2.5 rounded-full bg-violet-500" />
-                  <span className="text-[8px] md:text-[10px] font-tech text-gray-400">BRANCH</span>
-                </div>
-                <div className="flex items-center space-x-2">
-                  <div className="w-2 h-2 md:w-2.5 md:h-2.5 rounded-full bg-emerald-500" />
-                  <span className="text-[8px] md:text-[10px] font-tech text-emerald-400/80">PROD CENTERS</span>
-                </div>
-              </div>
             </div>
           </div>
 
-          <div className="flex-1 flex flex-col gap-4 md:gap-6">
+          <div className="flex-1 flex flex-col gap-6">
             {offices.map((office) => (
-              <div key={office.id} className="glass border border-white/5 rounded-[1.5rem] md:rounded-[2.5rem] p-6 md:p-8 hover:border-white/20 transition-all group relative overflow-hidden">
-                <div className="absolute top-0 right-0 w-24 md:w-32 h-24 md:h-32 bg-white/5 blur-3xl rounded-full translate-x-1/2 -translate-y-1/2" />
-                <div className="flex items-center space-x-3 mb-3 md:mb-4 relative z-10">
-                  <div className="w-1.5 h-4 md:h-5 rounded-full" style={{ backgroundColor: office.color }} />
-                  <span className="font-tech text-[8px] md:text-[9px] tracking-[0.2em] text-gray-500 font-bold uppercase">{office.type}</span>
+              <div key={office.id} className="glass border border-white/5 rounded-[2.5rem] p-8 hover:border-white/20 transition-all group relative overflow-hidden flex-1">
+                <div className="absolute top-0 right-0 w-32 h-32 bg-white/5 blur-3xl rounded-full translate-x-1/2 -translate-y-1/2" />
+                <div className="flex items-center space-x-3 mb-4 relative z-10">
+                  <div className="w-1.5 h-5 rounded-full" style={{ backgroundColor: office.color }} />
+                  <span className="font-tech text-[9px] tracking-[0.2em] text-gray-500 font-bold uppercase">{office.type}</span>
                 </div>
-                <h4 className="text-lg md:text-xl font-bold mb-2 md:mb-3 text-white group-hover:gradient-text transition-all relative z-10">{office.name}</h4>
+                <h4 className="text-xl font-bold mb-3 text-white group-hover:text-[#2D7FF9] transition-all relative z-10">{office.name}</h4>
                 <div className="flex items-start space-x-3 relative z-10">
-                  <span className="text-base md:text-lg mt-0.5 shrink-0 opacity-40">🏢</span>
-                  <p className="text-gray-400 text-xs md:text-sm leading-relaxed font-light">{office.address}</p>
+                  <span className="text-lg mt-0.5 shrink-0 opacity-40">🏢</span>
+                  <p className="text-gray-400 text-sm leading-relaxed font-light">{office.address}</p>
                 </div>
               </div>
             ))}
-
-            <div className="glass border border-white/10 rounded-[1.5rem] md:rounded-[2.5rem] p-6 md:p-8 bg-gradient-to-br from-emerald-500/5 to-transparent flex flex-col justify-center flex-1">
-               <div className="flex items-center space-x-3 md:space-x-4 mb-4">
-                  <div className="w-8 h-8 md:w-10 md:h-10 bg-emerald-500/10 rounded-xl flex items-center justify-center text-lg md:text-xl">⚙️</div>
-                  <div className="text-left">
-                     <h5 className="text-sm md:text-base font-bold text-emerald-400">供应链与支持网络</h5>
-                     <p className="text-[8px] md:text-[10px] text-gray-500 font-tech">Supply Chain & Technical Support</p>
-                  </div>
-               </div>
-               <div className="space-y-1 md:space-y-2">
-                  <div className="flex justify-between items-center text-xs md:text-sm py-2 border-b border-white/5">
-                     <span className="text-gray-400">沈阳 (东北基地)</span>
-                     <span className="text-white font-tech text-[10px] md:text-xs">SHENYANG</span>
-                  </div>
-                  <div className="flex justify-between items-center text-xs md:text-sm py-2 border-b border-white/5">
-                     <span className="text-gray-400">成都 (西南枢纽)</span>
-                     <span className="text-white font-tech text-[10px] md:text-xs">CHENGDU</span>
-                    </div>
-                  <div className="flex justify-between items-center text-xs md:text-sm py-2">
-                     <span className="text-gray-400">福建 (东南中心)</span>
-                     <span className="text-white font-tech text-[10px] md:text-xs">FUJIAN</span>
-                  </div>
-               </div>
-            </div>
           </div>
         </div>
       </section>
 
-      {/* 4. Authority Section: Honors & Qualifications */}
-      <section className="py-20 md:py-32 max-w-7xl mx-auto px-4 border-t border-white/5">
-        <div className="text-center mb-12 md:mb-20">
-          <h2 className="font-tech tracking-[0.3em] text-[#2D7FF9] mb-4 uppercase text-[10px] md:text-sm font-bold">Honor & Qualifications</h2>
-          <h3 className="text-3xl md:text-5xl font-bold">荣誉与资质：坚持合规与创新</h3>
-          <div className="w-20 md:w-24 h-1 bg-gradient-to-r from-[#2D7FF9] to-violet-600 mx-auto mt-6 rounded-full" />
-        </div>
-
-        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4 md:gap-6 max-w-7xl mx-auto">
-          {HONORS.map((honor, i) => (
-            <div key={i} className="relative group cursor-default h-full">
-              <div className="absolute -inset-1 bg-gradient-to-b from-[#2D7FF9]/20 to-transparent rounded-[1.5rem] md:rounded-[2rem] blur opacity-0 group-hover:opacity-100 transition duration-500" />
-              <div className="relative glass border border-white/10 rounded-[1.5rem] md:rounded-[2rem] p-4 md:p-6 flex flex-col items-center text-center hover:border-[#2D7FF9]/40 transition-all duration-500 bg-gradient-to-br from-white/[0.03] to-transparent h-full">
-                <div className="w-12 h-16 md:w-16 md:h-20 bg-white/5 rounded-xl flex items-center justify-center text-2xl md:text-3xl border border-white/5 group-hover:scale-110 group-hover:rotate-3 transition-transform duration-500 shadow-2xl mb-4 md:mb-5">
-                  {honor.icon}
-                </div>
-                <div className="w-full">
-                  <div className="text-[#2D7FF9] font-tech text-[7px] md:text-[8px] tracking-[0.2em] mb-1 font-bold uppercase">CERTIFICATE</div>
-                  <h4 className="text-[10px] md:text-sm font-bold mb-1 md:mb-2 text-white group-hover:text-[#2D7FF9] transition-colors leading-tight min-h-[2rem] md:min-h-[2.5rem] flex items-center justify-center">
-                    {honor.title}
-                  </h4>
-                  <p className="hidden md:block text-gray-500 text-[10px] leading-relaxed line-clamp-2 mb-3">
-                    {honor.detail}
-                  </p>
-                  <div className="inline-flex items-center space-x-1 px-2 py-0.5 rounded-full bg-white/5 border border-white/5 text-[7px] md:text-[8px] text-gray-500 font-tech">
-                    <span className="w-1 h-1 rounded-full bg-emerald-500 animate-pulse" />
-                    <span>VERIFIED</span>
-                  </div>
-                </div>
-              </div>
-            </div>
-          ))}
-        </div>
-      </section>
-
-      {/* 5. Social Proof: Cooperative Clients */}
-      <section className="py-20 md:py-32 max-w-7xl mx-auto px-4 border-t border-white/5">
-        <div className="text-center mb-12 md:mb-16">
-          <h2 className="font-tech tracking-[0.3em] text-[#2D7FF9] mb-4 uppercase text-[10px] md:text-sm font-bold">Partnership & Ecosystem</h2>
-          <h3 className="text-3xl md:text-5xl font-bold">合作客户：共创 AI 边界</h3>
-          <p className="text-gray-400 mt-4 max-w-xl mx-auto text-sm md:text-base">从能源巨头到智造领航，锋范科技已协助 100+ 行业头部企业完成从“对话 AI”到“执行 AI”的跨越。</p>
-        </div>
-
-        <div className="grid grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-x-4 md:gap-x-8 gap-y-8 md:gap-y-12">
-          {CLIENT_LOGOS.map((client, i) => (
-            <div key={i} className="flex flex-col items-center justify-center group">
-              <div className="relative w-14 h-14 md:w-20 md:h-20 mb-3 md:mb-4 bg-white/5 rounded-2xl flex items-center justify-center border border-white/5 group-hover:border-[#2D7FF9]/30 transition-all duration-300">
-                <img 
-                  src={client.logo} 
-                  alt={client.name} 
-                  className="w-8 h-8 md:w-12 md:h-12 object-contain grayscale opacity-40 group-hover:grayscale-0 group-hover:opacity-100 transition-all duration-500 transform group-hover:scale-110" 
-                />
-              </div>
-              <span className="text-[8px] md:text-[10px] font-tech text-gray-400 uppercase tracking-widest text-center group-hover:text-white transition-colors">
-                {client.name}
-              </span>
-            </div>
-          ))}
-        </div>
-      </section>
-
-      {/* 6. Impact & CTA */}
-      <section className="py-16 md:py-24 max-w-7xl mx-auto px-4">
-        <div className="relative rounded-[2.5rem] md:rounded-[5rem] overflow-hidden bg-white/5 border border-white/5 p-1">
+      {/* Impact CTA */}
+      <section className="py-24 max-w-7xl mx-auto px-4">
+        <div className="relative rounded-[5rem] overflow-hidden bg-white/5 border border-white/5 p-1">
           <div className="absolute inset-0 bg-gradient-to-br from-[#2D7FF9]/10 via-transparent to-violet-600/10" />
-          <div className="w-full h-full bg-[#0B0E14] rounded-[2.4rem] md:rounded-[4.9rem] flex flex-col items-center justify-center p-8 md:p-24 text-center relative z-10">
-            <h2 className="text-2xl md:text-4xl font-bold mb-12 md:mb-16 font-tech text-white leading-tight">企业的数字大脑，正在此处进化</h2>
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-10 md:gap-32">
-              <div className="text-center group">
-                <div className="text-4xl md:text-7xl font-tech font-bold text-[#2D7FF9] group-hover:scale-110 transition-transform">100+</div>
-                <div className="text-[10px] text-gray-500 mt-2 md:mt-4 uppercase tracking-[0.3em] font-bold">行业头部合作伙伴</div>
-              </div>
-              <div className="text-center group">
-                <div className="text-4xl md:text-7xl font-tech font-bold text-[#2D7FF9] group-hover:scale-110 transition-transform">50M+</div>
-                <div className="text-[10px] text-gray-500 mt-2 md:mt-4 uppercase tracking-[0.3em] font-bold">月均 AI Agent 调度</div>
-              </div>
-              <div className="text-center group">
-                <div className="text-4xl md:text-7xl font-tech font-bold text-[#2D7FF9] group-hover:scale-110 transition-transform">15+</div>
-                <div className="text-[10px] text-gray-500 mt-2 md:mt-4 uppercase tracking-[0.3em] font-bold">核心发明专利授权</div>
-              </div>
-            </div>
-            
-            <div className="mt-12 md:mt-20">
-               <button className="bg-white text-[#0B0E14] px-8 md:px-12 py-4 md:py-5 rounded-full text-sm md:text-base font-bold hover:scale-105 transition transform shadow-2xl active:scale-95">
-                 立即加入，共创 AI 驱动的未来
-               </button>
-            </div>
+          <div className="w-full h-full bg-[#0B0E14] rounded-[4.9rem] flex flex-col items-center justify-center p-12 md:p-24 text-center relative z-10">
+            <h2 className="text-2xl md:text-5xl font-bold mb-8 font-tech text-white leading-tight">追求卓越，止于至善</h2>
+            <p className="text-gray-500 text-lg mb-12 max-w-2xl mx-auto font-light">
+              锋范科技集团始终致力为用户关键应用领域提供全方位的 IT 信息科技服务。
+            </p>
+            <button className="bg-[#2D7FF9] hover:bg-blue-600 text-white px-12 py-5 rounded-full font-bold text-lg shadow-2xl shadow-blue-500/30 transition-all hover:scale-105 active:scale-95">
+              下载集团简介 (PDF)
+            </button>
           </div>
         </div>
       </section>

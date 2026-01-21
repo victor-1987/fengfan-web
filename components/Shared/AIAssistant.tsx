@@ -13,17 +13,8 @@ const AIAssistant: React.FC<AIAssistantProps> = ({ isOpen, setIsOpen, onBookDemo
     { role: 'ai', text: '你好！我是锋范科技的 AI 助手小狐狸。请问有什么我可以帮您的吗？您可以询问关于 Super Magic 的功能或获取产品报价。' }
   ]);
   const [input, setInput] = useState('');
-  const [showProactive, setShowProactive] = useState(false);
   const chatEndRef = useRef<HTMLDivElement>(null);
   const navigate = useNavigate();
-
-  // Proactive greeting after 10s
-  useEffect(() => {
-    const timer = setTimeout(() => {
-      if (!isOpen) setShowProactive(true);
-    }, 10000);
-    return () => clearTimeout(timer);
-  }, [isOpen]);
 
   useEffect(() => {
     chatEndRef.current?.scrollIntoView({ behavior: 'smooth' });
@@ -58,25 +49,6 @@ const AIAssistant: React.FC<AIAssistantProps> = ({ isOpen, setIsOpen, onBookDemo
 
   return (
     <div className="fixed bottom-6 right-6 md:bottom-8 md:right-8 z-[150]">
-      {/* Proactive Bubble */}
-      {showProactive && !isOpen && (
-        <div className="absolute bottom-32 right-0 w-64 glass p-4 rounded-2xl border border-[#2D7FF9]/30 shadow-2xl animate-in fade-in slide-in-from-bottom-4 duration-500">
-          <button 
-            onClick={() => setShowProactive(false)}
-            className="absolute -top-2 -right-2 w-6 h-6 bg-[#0B0E14] border border-white/10 rounded-full text-[10px]"
-          >✕</button>
-          <p className="text-xs text-gray-200 leading-relaxed mb-3">
-            👋 需要了解 **Super Magic** 如何帮您的企业提升 300% 效率吗？
-          </p>
-          <button 
-            onClick={() => { setIsOpen(true); setShowProactive(false); }}
-            className="text-[10px] font-bold text-[#2D7FF9] uppercase tracking-widest hover:underline"
-          >
-            立即开聊 →
-          </button>
-        </div>
-      )}
-
       {/* Floating Menu & Launcher */}
       {!isOpen && (
         <div className="relative group flex flex-col items-center">
@@ -108,7 +80,7 @@ const AIAssistant: React.FC<AIAssistantProps> = ({ isOpen, setIsOpen, onBookDemo
               </div>
             </button>
 
-            {/* Persistent Label - Always Visible */}
+            {/* Persistent Label */}
             <div 
               onClick={() => setIsOpen(true)}
               className="absolute -bottom-10 left-1/2 -translate-x-1/2 whitespace-nowrap cursor-pointer group/label"

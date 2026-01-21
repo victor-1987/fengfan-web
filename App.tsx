@@ -3,6 +3,7 @@ import React, { useState } from 'react';
 import { HashRouter as Router, Routes, Route } from 'react-router-dom';
 import Navbar from './components/Layout/Navbar';
 import Home from './components/Home/Home';
+import SuperMagicPage from './components/SuperMagic/SuperMagicPage';
 import CloudServicePage from './components/Cloud/CloudServicePage';
 import SystemIntegration from './components/Systems/SystemIntegration';
 import Contact from './components/Contact/Contact';
@@ -25,7 +26,8 @@ const App: React.FC = () => {
         
         <main className="flex-grow pt-16">
           <Routes>
-            <Route path="/" element={<Home onConsult={openAssistant} onBookDemo={openDemoModal} />} />
+            <Route path="/" element={<Home onBookDemo={openDemoModal} />} />
+            <Route path="/supermagic" element={<SuperMagicPage onConsult={openAssistant} onBookDemo={openDemoModal} />} />
             <Route path="/cloud/:id" element={<CloudServicePage onConsult={openAssistant} />} />
             <Route path="/systems" element={<SystemIntegration />} />
             <Route path="/about" element={<AboutUs />} />
