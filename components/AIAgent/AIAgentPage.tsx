@@ -7,16 +7,22 @@ interface AIAgentPageProps {
 }
 
 const AIAgentPage: React.FC<AIAgentPageProps> = ({ onBookDemo }) => {
+  // 采用更稳定的 Icons8 资源路径，并统一 96 尺寸
   const connectors = [
-    { name: 'SAP ERP', icon: 'https://img.icons8.com/color/48/sap.png' },
-    { name: 'Salesforce', icon: 'https://img.icons8.com/color/48/salesforce.png' },
-    { name: 'Oracle DB', icon: 'https://img.icons8.com/color/48/oracle.png' },
-    { name: 'ServiceNow', icon: 'https://img.icons8.com/color/48/servicenow.png' },
-    { name: 'SharePoint', icon: 'https://img.icons8.com/color/48/microsoft-sharepoint.png' },
-    { name: 'Zendesk', icon: 'https://img.icons8.com/color/48/zendesk.png' },
-    { name: 'Dynamic 365', icon: 'https://img.icons8.com/color/48/microsoft-dynamics-365.png' },
-    { name: 'SQL Server', icon: 'https://img.icons8.com/color/48/microsoft-sql-server.png' },
+    { name: 'SAP ERP', icon: 'https://img.icons8.com/color/96/sap.png' },
+    { name: 'Salesforce', icon: 'https://img.icons8.com/color/96/salesforce.png' },
+    { name: 'Oracle DB', icon: 'https://img.icons8.com/color/96/oracle-logo.png' },
+    { name: 'ServiceNow', icon: 'https://img.icons8.com/color/96/servicenow.png' },
+    { name: 'SharePoint', icon: 'https://img.icons8.com/fluency/96/microsoft-sharepoint.png' },
+    { name: 'Zendesk', icon: 'https://img.icons8.com/color/96/zendesk.png' },
+    { name: 'Dynamics 365', icon: 'https://img.icons8.com/fluency/96/microsoft-dynamics-365.png' },
+    { name: 'SQL Server', icon: 'https://img.icons8.com/color/96/microsoft-sql-server.png' },
   ];
+
+  // 图标加载失败的回退逻辑
+  const handleImageError = (e: React.SyntheticEvent<HTMLImageElement, Event>) => {
+    (e.target as HTMLImageElement).src = 'https://img.icons8.com/fluency/96/cloud.png';
+  };
 
   const agentArchitecture = [
     { 
@@ -40,7 +46,7 @@ const AIAgentPage: React.FC<AIAgentPageProps> = ({ onBookDemo }) => {
     <div className="bg-[#0B0E14] text-white animate-in fade-in duration-700">
       <SolutionHero 
         tagline="Powered by Microsoft Copilot Studio"
-        icon="https://img.icons8.com/color/48/microsoft-copilot.png"
+        icon="https://img.icons8.com/fluency/48/microsoft-copilot.png"
         gradientFrom="#a855f7"
         title={<span>构建您的 <br/><span className="text-transparent bg-clip-text bg-gradient-to-r from-[#0078d4] via-[#a855f7] to-[#d83b01]">企业级自定义 Agent</span></span>}
         subtitle="从战略咨询到 Agent 规模化落地。锋范科技助您在 Copilot Studio 中快速编排业务逻辑，将对话能力转化为业务执行力。"
@@ -80,8 +86,13 @@ const AIAgentPage: React.FC<AIAgentPageProps> = ({ onBookDemo }) => {
                  <div className="flex items-center space-x-6">
                     <div className="flex -space-x-4">
                        {connectors.slice(0, 5).map((c, i) => (
-                         <div key={i} className="w-12 h-12 rounded-full border-2 border-[#0B0E14] bg-white p-2">
-                            <img src={c.icon} className="w-full h-full object-contain" alt={c.name} />
+                         <div key={i} className="w-12 h-12 rounded-full border-2 border-[#0B0E14] bg-white p-2.5 flex items-center justify-center overflow-hidden shadow-xl z-10">
+                            <img 
+                              src={c.icon} 
+                              className="w-8 h-8 object-contain" 
+                              alt={c.name} 
+                              onError={handleImageError}
+                            />
                          </div>
                        ))}
                     </div>
@@ -90,8 +101,13 @@ const AIAgentPage: React.FC<AIAgentPageProps> = ({ onBookDemo }) => {
               </div>
               <div className="flex-1 grid grid-cols-4 gap-4">
                  {connectors.map((c, i) => (
-                   <div key={i} className="glass p-4 rounded-2xl border border-white/10 flex items-center justify-center hover:bg-white/5 transition-colors group">
-                      <img src={c.icon} className="w-8 h-8 group-hover:scale-110 transition-transform" alt={c.name} />
+                   <div key={i} className="glass p-4 rounded-2xl border border-white/10 flex items-center justify-center hover:bg-white/5 transition-colors group aspect-square">
+                      <img 
+                        src={c.icon} 
+                        className="w-10 h-10 md:w-12 md:h-12 group-hover:scale-110 transition-transform object-contain" 
+                        alt={c.name} 
+                        onError={handleImageError}
+                      />
                    </div>
                  ))}
               </div>

@@ -32,16 +32,7 @@ const CaseStudies: React.FC<CaseStudiesProps> = ({ activeModule = 'software' }) 
                 : '通过 Super Magic Note 实现前端数据的精准捕捉与数字化闭环。'}
             </p>
           </div>
-          <button 
-            onClick={() => navigate('/systems')}
-            className="group flex items-center space-x-2 font-bold hover:underline py-2 transition-all text-sm"
-            style={{ color: themeColor }}
-          >
-            <span>查看 100+ 行业全案</span>
-            <svg className="w-5 h-5 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
-            </svg>
-          </button>
+          {/* 已根据要求删除“查看 100+ 行业全案”按钮 */}
         </div>
 
         <div className="flex flex-col lg:flex-row gap-8 md:gap-12 relative">
@@ -147,7 +138,10 @@ const CaseStudies: React.FC<CaseStudiesProps> = ({ activeModule = 'software' }) 
                  {cases[activeIdx].description}
                </p>
                <div className="flex flex-wrap gap-4">
-                  <button className="bg-white/5 hover:bg-white/10 px-8 py-3 rounded-xl text-xs font-bold border border-white/10 transition-all hover:border-white/30">
+                  <button 
+                    onClick={() => navigate(`/case/${cases[activeIdx].id}`)}
+                    className="bg-white/5 hover:bg-white/10 px-8 py-3 rounded-xl text-xs font-bold border border-white/10 transition-all hover:border-white/30"
+                  >
                     查看完整集成全案
                   </button>
                   <button 

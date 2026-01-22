@@ -231,6 +231,30 @@ export const SOFTWARE_CASES: CaseStudy[] = [
     stats: "合规率 99.9%",
     description: "利用 Super Magic 私有化知识库与多 Agent 协作系统，自动解析每日上万份投研报告，并进行风险预警合规性检查。",
     videoThumb: "https://images.unsplash.com/photo-1551288049-bbda38656a73?auto=format&fit=crop&q=80&w=1200"
+  },
+  {
+    id: "sc-3",
+    company: "全球物流领航者",
+    logo: "https://img.icons8.com/color/96/truck.png",
+    stats: "分拣效率 +200%",
+    description: "集成 Super Magic 视觉 Agent 与路径优化算法，实现分拣中心全自动化作业，极大降低了人工干预成本。",
+    videoThumb: "https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?auto=format&fit=crop&q=80&w=800"
+  },
+  {
+    id: "sc-4",
+    company: "头部跨境电商平台",
+    logo: "https://img.icons8.com/color/96/shop.png",
+    stats: "客服人效 +400%",
+    description: "通过定制化的 AI 数字人客服，解决了多语言环境下的 24/7 咨询响应难题，大幅提升了海外市场订单转化率。",
+    videoThumb: "https://images.unsplash.com/photo-1556742049-13da736c0469?auto=format&fit=crop&q=80&w=800"
+  },
+  {
+    id: "sc-5",
+    company: "某新能源汽车厂商",
+    logo: "https://img.icons8.com/color/96/tesla-model-x.png",
+    stats: "预测性维护 100%",
+    description: "利用 Super Magic 边缘计算节点采集车间传感器数据，实现对核心产线停机的提前精准预判，确保持续生产。",
+    videoThumb: "https://images.unsplash.com/photo-1581092160562-40aa08e78837?auto=format&fit=crop&q=80&w=800"
   }
 ];
 

@@ -13,10 +13,10 @@ const Home: React.FC<HomeProps> = ({ onBookDemo }) => {
 
   return (
     <div className="animate-in fade-in duration-700 bg-[#0B0E14]">
-      {/* 1. Hero Section: Integrated Carousel with compressed height */}
+      {/* 1. Hero Section */}
       <Hero onBookDemo={onBookDemo} />
 
-      {/* 2. Core Solutions Grid - Now visible on the first screen */}
+      {/* 2. Core Solutions Grid */}
       <section className="py-20 md:py-24 max-w-7xl mx-auto px-4 relative overflow-hidden">
         <div className="text-center mb-16">
           <h2 className="text-blue-500 font-tech tracking-[0.4em] mb-4 text-xs md:text-sm font-bold uppercase">Enterprise Pillars</h2>
@@ -105,7 +105,7 @@ const Home: React.FC<HomeProps> = ({ onBookDemo }) => {
          </div>
       </section>
 
-      {/* 4. Microsoft Case Studies Section */}
+      {/* 4. Industry Success Matrix */}
       <section className="py-24 bg-[#0B0E14] relative overflow-hidden">
         <div className="max-w-7xl mx-auto px-4 relative z-10">
           <div className="text-center mb-20">
@@ -119,7 +119,6 @@ const Home: React.FC<HomeProps> = ({ onBookDemo }) => {
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-20">
             {MICROSOFT_CASES.map((item) => (
               <div key={item.id} className="bg-[#11151C] p-8 md:p-10 rounded-[2rem] border border-white/5 hover:border-white/20 transition-all duration-500 group relative flex flex-col h-full shadow-2xl">
-                {/* Subtle Accent Glow */}
                 <div 
                   className="absolute -top-20 -right-20 w-48 h-48 blur-[80px] rounded-full opacity-0 group-hover:opacity-10 transition-opacity pointer-events-none" 
                   style={{ backgroundColor: item.accent }}
@@ -150,7 +149,7 @@ const Home: React.FC<HomeProps> = ({ onBookDemo }) => {
                     <div className="text-2xl font-bold font-tech tracking-tight" style={{ color: item.accent }}>{item.metric}</div>
                   </div>
                   <button 
-                    onClick={onBookDemo}
+                    onClick={() => navigate(`/case/${item.id}`)}
                     className="w-12 h-12 rounded-2xl bg-white/5 border border-white/5 flex items-center justify-center group-hover:bg-[#0078d4] group-hover:border-transparent transition-all shadow-lg"
                   >
                     <svg className="w-5 h-5 text-gray-500 group-hover:text-white transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" /></svg>
@@ -162,7 +161,7 @@ const Home: React.FC<HomeProps> = ({ onBookDemo }) => {
 
           <div className="flex justify-center">
             <button 
-              onClick={() => navigate('/systems')}
+              onClick={() => { /* 暂时不跳转 */ }}
               className="group flex items-center space-x-4 px-12 py-5 rounded-full border border-white/10 bg-white/5 hover:bg-white/10 text-gray-400 hover:text-white font-bold transition-all duration-300 shadow-xl active:scale-95"
             >
               <span className="text-sm tracking-[0.2em] uppercase">了解更多客户全案</span>

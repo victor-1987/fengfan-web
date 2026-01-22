@@ -9,6 +9,7 @@ import AIFoundryPage from './components/AIFoundry/AIFoundryPage';
 import ModernWorkplacePage from './components/ModernWorkplace/ModernWorkplacePage';
 import CloudServicePage from './components/Cloud/CloudServicePage';
 import SystemIntegration from './components/Systems/SystemIntegration';
+import CaseStudyDetail from './components/CaseStudy/CaseStudyDetail';
 import Contact from './components/Contact/Contact';
 import AboutUs from './components/About/AboutUs';
 import DemoModal from './components/Shared/DemoModal';
@@ -33,6 +34,7 @@ const App: React.FC = () => {
             <Route path="/modern-workplace" element={<ModernWorkplacePage onBookDemo={openDemoModal} />} />
             <Route path="/cloud/:id" element={<CloudServicePage onBookDemo={openDemoModal} />} />
             <Route path="/systems" element={<SystemIntegration />} />
+            <Route path="/case/:id" element={<CaseStudyDetail onBookDemo={openDemoModal} />} />
             <Route path="/about" element={<AboutUs />} />
             <Route path="/contact" element={<Contact />} />
           </Routes>

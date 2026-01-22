@@ -82,8 +82,10 @@ const ModernWorkplacePage: React.FC<ModernWorkplacePageProps> = ({ onBookDemo })
                 />
               </div>
               <div className="flex-shrink-0">
-                <div className="bg-white/5 p-6 rounded-[2rem] border border-white/10 flex items-center space-x-4">
-                  <img src="https://img.icons8.com/color/48/microsoft-copilot.png" className="w-12 h-12" alt="Copilot" />
+                <div className="bg-white/5 p-6 rounded-[2rem] border border-white/10 flex items-center space-x-4 backdrop-blur-md">
+                  <div className="w-12 h-12 flex items-center justify-center shrink-0">
+                    <img src="https://img.icons8.com/fluency/96/microsoft-copilot.png" className="w-10 h-10 object-contain" alt="Copilot" />
+                  </div>
                   <div className="text-left">
                     <div className="text-[10px] font-tech text-[#a855f7] font-bold uppercase tracking-widest">Enterprise Ready</div>
                     <div className="text-sm font-bold">商业数据保护已开启</div>
