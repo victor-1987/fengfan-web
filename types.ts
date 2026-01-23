@@ -16,21 +16,28 @@ export interface SystemItem {
 }
 
 export interface ProductHighlight {
+  tag: string;
   title: string;
   subtitle: string;
   description: string;
   image: string;
   isImageLeft: boolean;
-  tag?: string;
 }
 
+// Update CaseStudy interface to support different case types (Software, Hardware, and Microsoft Cloud)
 export interface CaseStudy {
   id: string;
-  company: string;
-  logo: string;
-  stats: string;
+  industry?: string;
+  product?: string;
+  title?: string;
   description: string;
-  videoThumb: string;
+  metric?: string;
+  icon?: string;
+  accent?: string;
+  logo?: string;
+  stats?: string;
+  videoThumb?: string;
+  company?: string;
 }
 
 export interface HardwareItem {
@@ -38,4 +45,10 @@ export interface HardwareItem {
   name: string;
   spec: string;
   image: string;
+}
+
+export interface NavItem {
+  label: string;
+  path?: string;
+  children?: { label: string; desc: string; path: string; icon: string }[];
 }

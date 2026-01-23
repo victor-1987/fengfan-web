@@ -1,58 +1,48 @@
 
-import React, { useState, useEffect, useCallback } from 'react';
+import React, { useState, useEffect, useCallback, useMemo } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { useContent } from '../../ContentContext';
 
-const slides = [
-  {
-    title: "Azure AI Foundry | Unified Platform",
-    subtitle: "构建、部署与管理生成式 AI",
-    description: "利用最先进的模型目录，包括 GPT-4o 与百余种开源模型，通过 Azure AI Foundry 实现从原型到生产的无缝衔接，保障企业级安全与合规。",
-    bg: "https://images.unsplash.com/photo-1620712943543-bcc4628c9757?auto=format&fit=crop&q=80&w=1600",
-    btnText: "探索 Foundry 解决方案",
-    accent: "#0078d4", // Azure Blue
-    gradient: "from-[#0078d4]/20",
-    actionType: "navigate",
-    path: "/ai-foundry"
-  },
-  {
-    title: "Microsoft 365 | AI-Powered Productivity",
-    subtitle: "重塑组织的生产力基座",
-    description: "深度整合 Microsoft 365 办公生态，通过 AI 协同工具打破信息孤岛。让协作更智能，让每一个业务节点都具备即时响应的生命力。",
-    bg: "https://images.unsplash.com/photo-1497215728101-856f4ea42174?auto=format&fit=crop&q=80&w=1600",
-    btnText: "现代化办公转型",
-    accent: "#d83b01", // M365 Orange/Red
-    gradient: "from-[#d83b01]/20",
-    actionType: "navigate",
-    path: "/modern-workplace"
-  },
-  {
-    title: "Microsoft Copilot Studio | Low-Code Agents",
-    subtitle: "打造专属的企业级数字员工",
-    description: "端到端、低代码的 Copilot 构建平台。锋范科技助力企业通过 Copilot Studio 快速编排业务逻辑，实现自动化客户服务与内部流程管理。",
-    bg: "https://images.unsplash.com/photo-1675271591211-126ad94e495d?auto=format&fit=crop&q=80&w=1600",
-    btnText: "定制您的 AI Agent",
-    accent: "#a855f7", // Copilot Purple/Blue
-    gradient: "from-[#6366f1]/20",
-    actionType: "navigate",
-    path: "/ai-agent"
-  }
-];
-
-interface HeroProps {
-  onBookDemo: () => void;
-}
-
-const Hero: React.FC<HeroProps> = ({ onBookDemo }) => {
+const Hero: React.FC = () => {
+  const { t, openDemo } = useContent();
   const [current, setCurrent] = useState(0);
   const navigate = useNavigate();
 
+  // 动态构建 slides 数组以响应语言切换
+  const slides = useMemo(() => [
+    {
+      ...t.hero.slides[0],
+      bg: "https://images.unsplash.com/photo-1620712943543-bcc4628c9757?auto=format&fit=crop&q=80&w=1600",
+      accent: "#0078d4",
+      gradient: "from-[#0078d4]/20",
+      actionType: "navigate",
+      path: "/ai-foundry"
+    },
+    {
+      ...t.hero.slides[1],
+      bg: "https://images.unsplash.com/photo-1497215728101-856f4ea42174?auto=format&fit=crop&q=80&w=1600",
+      accent: "#d83b01",
+      gradient: "from-[#d83b01]/20",
+      actionType: "navigate",
+      path: "/modern-workplace"
+    },
+    {
+      ...t.hero.slides[2],
+      bg: "https://images.unsplash.com/photo-1675271591211-126ad94e495d?auto=format&fit=crop&q=80&w=1600",
+      accent: "#a855f7",
+      gradient: "from-[#6366f1]/20",
+      actionType: "navigate",
+      path: "/ai-agent"
+    }
+  ], [t]);
+
   const nextSlide = useCallback(() => {
     setCurrent((prev) => (prev + 1) % slides.length);
-  }, []);
+  }, [slides.length]);
 
   const prevSlide = useCallback(() => {
     setCurrent((prev) => (prev - 1 + slides.length) % slides.length);
-  }, []);
+  }, [slides.length]);
 
   useEffect(() => {
     const timer = setInterval(nextSlide, 8000);
@@ -63,7 +53,7 @@ const Hero: React.FC<HeroProps> = ({ onBookDemo }) => {
     if (slide.actionType === 'navigate' && slide.path) {
       navigate(slide.path);
     } else {
-      onBookDemo();
+      openDemo();
     }
   };
 
@@ -76,7 +66,6 @@ const Hero: React.FC<HeroProps> = ({ onBookDemo }) => {
             idx === current ? 'opacity-100 scale-100' : 'opacity-0 scale-105 pointer-events-none'
           }`}
         >
-          {/* Background Layer */}
           <div className={`absolute inset-0 bg-gradient-to-r ${slide.gradient} via-[#0B0E14]/95 to-[#0B0E14] z-10`} />
           <img 
             src={slide.bg} 
@@ -85,11 +74,10 @@ const Hero: React.FC<HeroProps> = ({ onBookDemo }) => {
             loading="lazy"
           />
           
-          {/* Content Layer */}
           <div className="absolute inset-0 z-20 flex items-center px-6 md:px-24 max-w-7xl mx-auto">
-            <div className="max-w-4xl">
+            <div className="max-w-4xl text-left">
               <div 
-                className="inline-flex items-center space-x-2 px-3 py-1 rounded-full border mb-6 animate-in slide-in-from-left duration-700"
+                className="inline-flex items-center space-x-2 px-3 py-1 rounded-full border mb-6"
                 style={{ backgroundColor: `${slide.accent}1A`, borderColor: `${slide.accent}4D` }}
               >
                 <span className="w-2 h-2 rounded-full animate-pulse" style={{ backgroundColor: slide.accent }}></span>
@@ -123,7 +111,7 @@ const Hero: React.FC<HeroProps> = ({ onBookDemo }) => {
                     <span className="w-2 h-2 bg-[#ffb900] rounded-sm" />
                   </div>
                   <span className="text-[10px] font-tech text-gray-500 uppercase tracking-widest font-bold">
-                    Official Microsoft Partner
+                    {t.common.officialPartner}
                   </span>
                 </div>
               </div>
@@ -132,7 +120,6 @@ const Hero: React.FC<HeroProps> = ({ onBookDemo }) => {
         </div>
       ))}
 
-      {/* Navigation Arrows */}
       <button 
         onClick={(e) => { e.stopPropagation(); prevSlide(); }}
         className="absolute left-4 md:left-8 top-1/2 -translate-y-1/2 z-40 p-3 rounded-full glass border border-white/10 text-white/40 hover:text-white hover:border-white/30 transition-all opacity-0 group-hover/hero:opacity-100 translate-x-4 group-hover/hero:translate-x-0"
@@ -151,7 +138,6 @@ const Hero: React.FC<HeroProps> = ({ onBookDemo }) => {
         </svg>
       </button>
 
-      {/* Slide Indicators */}
       <div className="absolute bottom-10 left-1/2 -translate-x-1/2 z-30 flex space-x-3 items-center">
         {slides.map((slide, idx) => (
           <button

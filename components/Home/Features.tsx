@@ -1,6 +1,7 @@
 
 import React from 'react';
 import { SOFTWARE_PILLARS, HARDWARE_PILLARS } from '../../constants';
+import { useContent } from '../../ContentContext';
 
 interface FeaturesProps {
   activeModule?: 'software' | 'hardware';
@@ -22,7 +23,18 @@ const integratedHardware = [
 ];
 
 const Features: React.FC<FeaturesProps> = ({ activeModule = 'software' }) => {
-  const pillars = activeModule === 'software' ? SOFTWARE_PILLARS : HARDWARE_PILLARS;
+  const { t } = useContent();
+  const basePillars = activeModule === 'software' ? SOFTWARE_PILLARS : HARDWARE_PILLARS;
+  
+  // 动态合并翻译内容
+  const pillars = basePillars.map((p, idx) => {
+    if (activeModule === 'software') {
+      const trans = t.supermagic.pillars[idx];
+      return trans ? { ...p, tag: trans.tag, title: trans.title, subtitle: trans.subtitle, description: trans.description } : p;
+    }
+    return p;
+  });
+
   const themeColor = activeModule === 'software' ? '#2D7FF9' : '#a855f7';
 
   return (
@@ -47,7 +59,7 @@ const Features: React.FC<FeaturesProps> = ({ activeModule = 'software' }) => {
           {pillars.map((layer, idx) => {
             const isModelSelectionPillar = activeModule === 'software' && idx === 3;
             const isHardwareIntegrationPillar = activeModule === 'software' && idx === 4;
-            const isBatteryPillar = activeModule === 'hardware' && idx === 2;
+            const isBatteryPillar = activeModule === 'hardware' && idx === 0;
             
             return (
               <div key={`${activeModule}-${idx}`} className={`flex flex-col ${layer.isImageLeft ? 'md:flex-row' : 'md:flex-row-reverse'} items-center gap-12 md:gap-20 animate-in fade-in slide-in-from-bottom-10 duration-700`}>
@@ -105,7 +117,7 @@ const Features: React.FC<FeaturesProps> = ({ activeModule = 'software' }) => {
 
                   <div className="pt-2 md:pt-4">
                     <button className="flex items-center space-x-2 text-white/50 hover:text-white transition group">
-                      <span className="text-sm font-bold">了解方案细节</span>
+                      <span className="text-sm font-bold">{t.common.learnMore}</span>
                       <svg className="w-4 h-4 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
                       </svg>
@@ -122,7 +134,6 @@ const Features: React.FC<FeaturesProps> = ({ activeModule = 'software' }) => {
                     
                     <img src={layer.image} alt={layer.title} className="w-full h-[300px] md:h-[500px] object-cover rounded-[1.8rem] md:rounded-[2.5rem] transform transition-transform duration-[2s] group-hover:scale-110" />
                     
-                    {/* Hardware Overlay for Core 05 */}
                     {isHardwareIntegrationPillar && (
                       <div className="absolute inset-0 z-20 flex flex-col items-end justify-center p-6 md:p-10">
                         <div className="space-y-3">
@@ -141,7 +152,6 @@ const Features: React.FC<FeaturesProps> = ({ activeModule = 'software' }) => {
                             </div>
                           ))}
                         </div>
-                        {/* Connecting Lines Visual */}
                         <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 pointer-events-none opacity-40">
                           <svg width="200" height="200" viewBox="0 0 100 100">
                              <circle cx="50" cy="50" r="20" fill="none" stroke={themeColor} strokeWidth="0.5" strokeDasharray="2 2" className="animate-[spin_10s_linear_infinite]" />
