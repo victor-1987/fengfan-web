@@ -143,8 +143,8 @@ export const TRANSLATIONS = {
       ],
       officesTitle: "集团布局：深耕本土，连接全球",
       offices: [
-        { id: 'hq', name: '广东锋范科技集团（总部）', address: '中国 · 广东省 · 东莞市科技产业园区锋范科技大厦', type: 'GROUP HEADQUARTERS' },
-        { id: 'hk', name: '锋范（香港）科技有限公司', address: '中国 · 香港特别行政区 · 九龙观塘鸿图道 1 号', type: 'GLOBAL BRANCH' }
+        { id: 'hq', name: '广东锋范科技集团（总部）', address: '中国 · 广州市 · 海珠区琶洲街道琶洲大道168号星河湾中心16F 1610单元', type: 'GROUP HEADQUARTERS' },
+        { id: 'hk', name: '锋范（香港）科技有限公司', address: '中国 · 香港特别行政区 · 九龙观塘成业街16号怡生工业中心A座3楼60室', type: 'GLOBAL BRANCH' }
       ],
       honorTitle: "资质与荣誉：合规、稳健、持续进化",
       ctaTitle: "追求卓越，止於至善",
@@ -308,8 +308,8 @@ export const TRANSLATIONS = {
       ],
       officesTitle: "Global Network",
       offices: [
-        { id: 'hq', name: 'FengFan Tech Group (HQ)', address: 'FengFan Tower, Tech Park, Dongguan, China', type: 'GROUP HEADQUARTERS' },
-        { id: 'hk', name: 'FengFan (HK) Tech Co., Ltd.', address: 'Hung To Road, Kwun Tong, Hong Kong', type: 'GLOBAL BRANCH' }
+        { id: 'hq', name: 'FengFan Tech Group (HQ)', address: 'Unit 1610, 16F, Xinghewan Center, No. 168 Pazhou Avenue, Pazhou Street, Haizhu District, Guangzhou, China', type: 'GROUP HEADQUARTERS' },
+        { id: 'hk', name: 'FengFan (HK) Tech Co., Ltd.', address: 'Room 60, 3/F, Block A, East Sun Industrial Centre, 16 Shing Yip Street, Kwun Tong, Kowloon, Hong Kong', type: 'GLOBAL BRANCH' }
       ],
       honorTitle: "Honors & Qualifications",
       ctaTitle: "Excellence in Everything",
@@ -473,8 +473,8 @@ export const TRANSLATIONS = {
       ],
       officesTitle: "集團佈局：深耕本土，連接全球",
       offices: [
-        { id: 'hq', name: '廣東鋒範科技集團（總部）', address: '中國 · 廣東省 · 東莞市科技產業園區鋒範科技大廈', type: 'GROUP HEADQUARTERS' },
-        { id: 'hk', name: '鋒範（香港）科技有限公司', address: '中國 · 香港特別行政區 · 九龍觀塘鴻圖道 1 號', type: 'GLOBAL BRANCH' }
+        { id: 'hq', name: '廣東鋒範科技集團（總部）', address: '中國 · 廣州市 · 海珠區琶洲街道琶洲大道168號星河灣中心16F 1610單元', type: 'GROUP HEADQUARTERS' },
+        { id: 'hk', name: '鋒範（香港）科技有限公司', address: '中國 · 香港特別行政區 · 九龍觀塘成業街16號怡生工業中心A座3樓60室', type: 'GLOBAL BRANCH' }
       ],
       honorTitle: "資質與榮譽：合規、穩健、持續進化",
       ctaTitle: "追求卓越，止於至善",

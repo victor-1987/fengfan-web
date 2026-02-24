@@ -107,8 +107,14 @@ const Footer: React.FC = () => {
                <div className="flex items-center space-x-4">
                   <div className="relative p-2 bg-white/5 border border-white/10 rounded-2xl group overflow-hidden">
                      <div className="absolute inset-0 bg-gradient-to-br from-[#2D7FF9]/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
-                     <div className="w-24 h-24 md:w-28 md:h-28 flex items-center justify-center border-2 border-dashed border-white/10 rounded-xl relative z-10">
-                        <span className="text-[10px] text-gray-400 font-bold uppercase tracking-tighter text-center px-2">{t.footer.wechatTitle}</span>
+                     <div className="w-24 h-24 md:w-28 md:h-28 flex items-center justify-center border border-white/20 rounded-2xl relative z-10 bg-white p-2 shadow-[0_0_20px_rgba(45,127,249,0.2)]">
+                        <img 
+                           src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=https://www.fengfancloud.com" 
+                           alt={t.footer.wechatTitle} 
+                           className="w-full h-full object-contain"
+                           referrerPolicy="no-referrer"
+                        />
+                        <div className="absolute -inset-1 bg-blue-500/20 blur-xl rounded-full -z-10 opacity-50" />
                      </div>
                   </div>
                   <div className="text-left">
@@ -143,10 +149,9 @@ const Footer: React.FC = () => {
           <div>
             <h4 className="font-bold mb-6 text-sm text-right md:text-left">{t.footer.section3}</h4>
             <ul className="space-y-4 text-gray-400 text-sm text-right md:text-left">
-              <li>商务热线: 400-888-9999</li>
-              <li>技术支持: support@fengfan.tech</li>
-              <li>商务合作: contact@fengfan.tech</li>
-              <li>总部: 东莞市科技产业园区</li>
+              <li>商务热线: </li>
+              <li>联系邮箱: info@fengfancloud.com</li>
+              <li>总部地址: 广州市海珠区琶洲街道琶洲大道168号星河湾中心16F 1610单元</li>
             </ul>
           </div>
         </div>

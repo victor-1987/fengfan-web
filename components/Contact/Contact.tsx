@@ -10,7 +10,7 @@ const Contact: React.FC = () => {
     e.preventDefault();
     setSubmitted(true);
     // Mimic SMTP email trigger
-    console.log("Form submitted. Email sent to admin@fengfan.tech");
+    console.log("Form submitted. Email sent to info@fengfancloud.com");
   };
 
   return (
@@ -24,11 +24,11 @@ const Contact: React.FC = () => {
           <div className="space-y-6">
             <div className="flex items-center space-x-4">
               <div className="w-12 h-12 bg-white/10 rounded-full flex items-center justify-center">📍</div>
-              <span>广东省东莞市科技产业园区</span>
+              <span>广州市海珠区琶洲街道琶洲大道168号星河湾中心16F 1610单元</span>
             </div>
             <div className="flex items-center space-x-4">
               <div className="w-12 h-12 bg-white/10 rounded-full flex items-center justify-center">📧</div>
-              <span>contact@fengfan.tech</span>
+              <span>info@fengfancloud.com</span>
             </div>
           </div>
         </div>
