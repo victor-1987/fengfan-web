@@ -27,7 +27,7 @@ jobs:
       with:
         host: 47.112.174.35
         username: admin
-        password: ${{ secrets.FF_Magic_2026 }}
+        password: ${{ secrets.ALIYUN_PASSWORD }}
         script: |
           cd /home/admin/apps/fengfan-web
           git pull origin main
