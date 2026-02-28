@@ -19,3 +19,4 @@ View your app in AI Studio: https://ai.studio/apps/52842b22-dadb-4da8-90c6-3ebf2
 3. Run the app:
    `npm run dev`
 自动部署测试 
+测试自动部署2 
