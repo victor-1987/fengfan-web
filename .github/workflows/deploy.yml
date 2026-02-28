@@ -26,7 +26,7 @@ jobs:
       uses: appleboy/ssh-action@v1.0.0
       with:
         host: 47.112.174.35
-        username: admin
+        username: root
         password: ${{ secrets.ALIYUN_PASSWORD }}
         script: |
           cd /home/admin/apps/fengfan-web
