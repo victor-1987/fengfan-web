@@ -1,0 +1,1068 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>锋范科技 · 内容管理后台</title>
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='8' fill='%232D7FF9'/><text x='16' y='22' text-anchor='middle' font-size='18' font-weight='bold' fill='white'>F</text></svg>" />
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap');
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --bg: #1C1C1E; --bg2: #2C2C2E; --bg3: #3A3A3C;
+      --border: rgba(255,255,255,0.06); --primary: #1AABDF;
+      --text: #e5e7eb; --muted: #6b7280; --success: #10b981; --danger: #ef4444;
+    }
+    body { font-family: 'Inter', sans-serif; background: var(--bg); color: var(--text); min-height: 100vh; display: flex; }
+    .font-tech { font-family: 'Space Grotesk', monospace; }
+    /* Layout */
+    .sidebar { width: 240px; min-height: 100vh; background: var(--bg2); border-right: 1px solid var(--border); display: flex; flex-direction: column; position: fixed; top: 0; left: 0; z-index: 50; transition: transform 0.3s; }
+    .main { margin-left: 240px; flex: 1; min-height: 100vh; display: flex; flex-direction: column; }
+    @media (max-width: 768px) { .sidebar { transform: translateX(-100%); } .sidebar.open { transform: translateX(0); } .main { margin-left: 0; } }
+    /* Sidebar */
+    .sidebar-logo { padding: 20px; border-bottom: 1px solid var(--border); display: flex; align-items: center; gap: 10px; }
+    .logo-icon { width: 36px; height: 36px; background: var(--primary); border-radius: 10px; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 16px; }
+    .logo-text { font-weight: 700; font-size: 13px; }
+    .logo-sub { font-size: 9px; color: var(--muted); text-transform: uppercase; letter-spacing: 0.1em; margin-top: 2px; }
+    .nav-section { padding: 16px 12px 8px; font-size: 9px; font-weight: 700; color: var(--muted); text-transform: uppercase; letter-spacing: 0.12em; }
+    .nav-item { display: flex; align-items: center; gap: 10px; padding: 10px 16px; margin: 2px 8px; border-radius: 10px; cursor: pointer; font-size: 13px; color: var(--muted); transition: all 0.2s; text-decoration: none; }
+    .nav-item:hover { background: rgba(255,255,255,0.05); color: var(--text); }
+    .nav-item.active { background: rgba(45,127,249,0.12); color: var(--primary); }
+    .nav-item .icon { width: 18px; text-align: center; font-size: 15px; }
+    .sidebar-bottom { margin-top: auto; padding: 16px; border-top: 1px solid var(--border); }
+    /* Topbar */
+    .topbar { height: 60px; border-bottom: 1px solid var(--border); display: flex; align-items: center; justify-content: space-between; padding: 0 24px; background: var(--bg2); position: sticky; top: 0; z-index: 40; }
+    .topbar-title { font-size: 15px; font-weight: 600; }
+    .topbar-actions { display: flex; align-items: center; gap: 10px; }
+    .btn { display: inline-flex; align-items: center; gap: 6px; padding: 8px 16px; border-radius: 10px; font-size: 13px; font-weight: 600; cursor: pointer; transition: all 0.2s; border: none; outline: none; }
+    .btn-primary { background: var(--primary); color: white; }
+    .btn-primary:hover { background: #1a6ee8; transform: scale(1.02); }
+    .btn-success { background: rgba(16,185,129,0.15); color: var(--success); border: 1px solid rgba(16,185,129,0.3); }
+    .btn-success:hover { background: var(--success); color: white; }
+    .btn-danger { background: rgba(239,68,68,0.1); color: var(--danger); border: 1px solid rgba(239,68,68,0.2); }
+    .btn-danger:hover { background: var(--danger); color: white; }
+    .btn-ghost { background: rgba(255,255,255,0.05); color: var(--muted); border: 1px solid var(--border); }
+    .btn-ghost:hover { background: rgba(255,255,255,0.1); color: var(--text); }
+    .btn-sm { padding: 5px 10px; font-size: 11px; border-radius: 7px; }
+    /* Content Area */
+    .content { flex: 1; padding: 28px; overflow-y: auto; }
+    .page { display: none; }
+    .page.active { display: block; }
+    /* Cards */
+    .card { background: var(--bg2); border: 1px solid var(--border); border-radius: 16px; }
+    .card-header { padding: 16px 20px; border-bottom: 1px solid var(--border); display: flex; align-items: center; justify-content: space-between; }
+    .card-title { font-size: 14px; font-weight: 600; }
+    .card-body { padding: 20px; }
+    /* Form */
+    .form-group { margin-bottom: 18px; }
+    .form-label { display: block; font-size: 11px; font-weight: 600; color: var(--muted); text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 8px; }
+    .form-input { width: 100%; background: rgba(255,255,255,0.04); border: 1px solid var(--border); border-radius: 10px; padding: 10px 14px; font-size: 13px; color: var(--text); outline: none; transition: border-color 0.2s; font-family: inherit; }
+    .form-input:focus { border-color: var(--primary); background: rgba(45,127,249,0.05); }
+    .form-input.textarea { resize: vertical; min-height: 80px; }
+    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+    @media (max-width: 640px) { .form-row { grid-template-columns: 1fr; } }
+    /* Table */
+    .table-wrap { overflow-x: auto; }
+    table { width: 100%; border-collapse: collapse; font-size: 13px; }
+    th { padding: 10px 14px; text-align: left; font-size: 10px; font-weight: 700; color: var(--muted); text-transform: uppercase; letter-spacing: 0.08em; border-bottom: 1px solid var(--border); }
+    td { padding: 12px 14px; border-bottom: 1px solid rgba(255,255,255,0.03); vertical-align: middle; }
+    tr:last-child td { border-bottom: none; }
+    tr:hover td { background: rgba(255,255,255,0.02); }
+    /* Badges */
+    .badge { display: inline-flex; align-items: center; gap: 4px; padding: 3px 8px; border-radius: 6px; font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; }
+    .badge-blue { background: rgba(45,127,249,0.15); color: #60a5fa; }
+    .badge-green { background: rgba(16,185,129,0.15); color: #34d399; }
+    .badge-purple { background: rgba(168,85,247,0.15); color: #c084fc; }
+    .badge-orange { background: rgba(249,115,22,0.15); color: #fb923c; }
+    /* Alert */
+    .alert { padding: 12px 16px; border-radius: 10px; font-size: 13px; margin-bottom: 16px; display: flex; align-items: center; gap: 8px; }
+    .alert-success { background: rgba(16,185,129,0.1); border: 1px solid rgba(16,185,129,0.3); color: #34d399; }
+    .alert-info { background: rgba(45,127,249,0.1); border: 1px solid rgba(45,127,249,0.3); color: #60a5fa; }
+    /* Grid */
+    .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+    .grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+    @media (max-width: 1024px) { .grid-3 { grid-template-columns: 1fr 1fr; } }
+    @media (max-width: 640px) { .grid-2 { grid-template-columns: 1fr; } .grid-3 { grid-template-columns: 1fr; } }
+    /* Stat Card */
+    .stat-card { background: var(--bg2); border: 1px solid var(--border); border-radius: 14px; padding: 20px; }
+    .stat-value { font-size: 28px; font-weight: 700; margin-bottom: 4px; }
+    .stat-label { font-size: 11px; color: var(--muted); text-transform: uppercase; letter-spacing: 0.08em; }
+    /* Tab */
+    .tabs { display: flex; gap: 4px; background: rgba(255,255,255,0.04); border-radius: 10px; padding: 4px; margin-bottom: 24px; width: fit-content; }
+    .tab { padding: 7px 16px; border-radius: 7px; font-size: 12px; font-weight: 600; cursor: pointer; transition: all 0.2s; color: var(--muted); }
+    .tab.active { background: var(--primary); color: white; }
+    /* Divider */
+    .divider { border: none; border-top: 1px solid var(--border); margin: 20px 0; }
+    /* Section Title */
+    .section-title { font-size: 18px; font-weight: 700; margin-bottom: 6px; }
+    .section-desc { font-size: 13px; color: var(--muted); margin-bottom: 20px; }
+    /* Slide Item */
+    .slide-item { background: var(--bg3); border: 1px solid var(--border); border-radius: 12px; padding: 16px; margin-bottom: 12px; }
+    .slide-item-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 12px; }
+    .slide-no { font-size: 10px; font-weight: 700; color: var(--primary); text-transform: uppercase; letter-spacing: 0.1em; }
+    /* Color Dot */
+    .color-dot { width: 14px; height: 14px; border-radius: 50%; display: inline-block; vertical-align: middle; border: 2px solid rgba(255,255,255,0.2); }
+    /* Toast */
+    #toast { position: fixed; top: 20px; right: 20px; z-index: 9999; display: flex; flex-direction: column; gap: 8px; }
+    .toast-item { background: var(--bg2); border: 1px solid var(--border); border-radius: 10px; padding: 12px 16px; font-size: 13px; display: flex; align-items: center; gap: 8px; box-shadow: 0 10px 40px rgba(0,0,0,0.5); animation: slideIn 0.3s ease; min-width: 260px; }
+    .toast-item.success { border-color: rgba(16,185,129,0.4); }
+    .toast-item.error { border-color: rgba(239,68,68,0.4); }
+    @keyframes slideIn { from { opacity: 0; transform: translateX(20px); } to { opacity: 1; transform: translateX(0); } }
+    /* Preview Badge */
+    .preview-link { display: inline-flex; align-items: center; gap: 6px; padding: 6px 12px; background: rgba(45,127,249,0.1); border: 1px solid rgba(45,127,249,0.3); border-radius: 8px; font-size: 11px; color: #60a5fa; text-decoration: none; transition: all 0.2s; }
+    .preview-link:hover { background: rgba(45,127,249,0.2); }
+    /* Scrollbar */
+    ::-webkit-scrollbar { width: 4px; height: 4px; }
+    ::-webkit-scrollbar-track { background: transparent; }
+    ::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.08); border-radius: 2px; }
+    /* Mobile toggle */
+    .mobile-toggle { display: none; }
+    @media (max-width: 768px) { .mobile-toggle { display: flex; } }
+    .overlay { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.5); z-index: 40; }
+    .overlay.show { display: block; }
+  </style>
+</head>
+<body>
+  <div id="toast"></div>
+  <div id="overlay" class="overlay" onclick="closeSidebar()"></div>
+
+  <!-- Sidebar -->
+  <aside class="sidebar" id="sidebar">
+    <div class="sidebar-logo">
+      <div class="logo-icon">F</div>
+      <div>
+        <div class="logo-text">锋范科技</div>
+        <div class="logo-sub">Content Management</div>
+      </div>
+    </div>
+
+    <div style="overflow-y:auto; flex:1;">
+      <div class="nav-section">概览</div>
+      <a class="nav-item active" onclick="showPage('dashboard')" href="#">
+        <span class="icon">📊</span> 控制台
+      </a>
+
+      <div class="nav-section">内容管理</div>
+      <a class="nav-item" onclick="showPage('site')" href="#">
+        <span class="icon">⚙️</span> 站点基础信息
+      </a>
+      <a class="nav-item" onclick="showPage('hero')" href="#">
+        <span class="icon">🎯</span> 首页 Hero 轮播
+      </a>
+      <a class="nav-item" onclick="showPage('stats')" href="#">
+        <span class="icon">📈</span> 数据统计展示
+      </a>
+      <a class="nav-item" onclick="showPage('whyus')" href="#">
+        <span class="icon">✅</span> 核心优势
+      </a>
+      <a class="nav-item" onclick="showPage('scenarios')" href="#">
+        <span class="icon">☁️</span> 解决方案矩阵
+      </a>
+      <a class="nav-item" onclick="showPage('cases')" href="#">
+        <span class="icon">🏆</span> 客户案例
+      </a>
+      <a class="nav-item" onclick="showPage('honors')" href="#">
+        <span class="icon">🎖️</span> 荣誉资质
+      </a>
+      <a class="nav-item" onclick="showPage('about')" href="#">
+        <span class="icon">🏢</span> 关于我们
+      </a>
+      <a class="nav-item" onclick="showPage('contact')" href="#">
+        <span class="icon">📩</span> 联系与表单
+      </a>
+      <a class="nav-item" onclick="showPage('nav')" href="#">
+        <span class="icon">🔗</span> 导航菜单
+      </a>
+      <a class="nav-item" onclick="showPage('footer')" href="#">
+        <span class="icon">📋</span> 页脚链接
+      </a>
+
+      <div class="nav-section">数据</div>
+      <a class="nav-item" onclick="showPage('json')" href="#">
+        <span class="icon">{ }</span> JSON 原始编辑
+      </a>
+    </div>
+
+    <div class="sidebar-bottom">
+      <a href="index.html" target="_blank" class="nav-item" style="margin:0;">
+        <span class="icon">🌐</span> 查看前台
+      </a>
+    </div>
+  </aside>
+
+  <!-- Main -->
+  <div class="main">
+    <div class="topbar">
+      <div style="display:flex; align-items:center; gap:12px;">
+        <button class="btn btn-ghost btn-sm mobile-toggle" onclick="toggleSidebar()">☰</button>
+        <span class="topbar-title" id="page-title">控制台</span>
+      </div>
+      <div class="topbar-actions">
+        <a href="index.html" target="_blank" class="preview-link">
+          <span>👁</span> 预览前台
+        </a>
+        <button class="btn btn-success btn-sm" onclick="saveAll()">
+          <span>💾</span> 保存所有更改
+        </button>
+      </div>
+    </div>
+
+    <div class="content">
+
+      <!-- Dashboard -->
+      <div class="page active" id="page-dashboard">
+        <div class="section-title">欢迎回来 👋</div>
+        <div class="section-desc">在这里管理您的官网所有内容，所有更改实时保存到浏览器本地，点击"保存"后同步到官网。</div>
+
+        <div class="grid-3" style="margin-bottom:24px;">
+          <div class="stat-card">
+            <div class="stat-value" style="color:#1AABDF;" id="stat-slides">3</div>
+            <div class="stat-label">Hero 轮播数</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-value" style="color:#10b981;" id="stat-cases">3</div>
+            <div class="stat-label">客户案例数</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-value" style="color:#a855f7;" id="stat-scenarios">5</div>
+            <div class="stat-label">解决方案数</div>
+          </div>
+        </div>
+
+        <div class="alert alert-info">
+          💡 <strong>提示：</strong>所有内容修改后点击右上角"保存所有更改"即可生效。刷新官网页面即可看到最新内容。
+        </div>
+
+        <div class="grid-2">
+          <div class="card">
+            <div class="card-header"><span class="card-title">快速操作</span></div>
+            <div class="card-body" style="display:flex; flex-direction:column; gap:10px;">
+              <button class="btn btn-ghost" onclick="showPage('hero')" style="justify-content:flex-start; width:100%;">🎯 编辑首页轮播</button>
+              <button class="btn btn-ghost" onclick="showPage('cases')" style="justify-content:flex-start; width:100%;">🏆 管理客户案例</button>
+              <button class="btn btn-ghost" onclick="showPage('site')" style="justify-content:flex-start; width:100%;">⚙️ 修改联系方式</button>
+              <button class="btn btn-ghost" onclick="showPage('scenarios')" style="justify-content:flex-start; width:100%;">☁️ 更新解决方案</button>
+            </div>
+          </div>
+          <div class="card">
+            <div class="card-header"><span class="card-title">当前内容版本</span></div>
+            <div class="card-body">
+              <div style="font-size:12px; color:var(--muted); margin-bottom:12px;">最后保存时间</div>
+              <div id="last-save-time" style="font-size:14px; color:var(--text);">尚未保存（使用默认数据）</div>
+              <hr class="divider">
+              <div style="display:flex; gap:10px; flex-wrap:wrap;">
+                <button class="btn btn-ghost btn-sm" onclick="exportJSON()">⬇ 导出 JSON</button>
+                <button class="btn btn-ghost btn-sm" onclick="importJSON()">⬆ 导入 JSON</button>
+                <button class="btn btn-danger btn-sm" onclick="resetAll()">🔄 恢复默认</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Site Config -->
+      <div class="page" id="page-site">
+        <div class="section-title">站点基础信息</div>
+        <div class="section-desc">修改网站名称、联系方式、地址等基本信息</div>
+        <div class="card">
+          <div class="card-body">
+            <div class="form-row">
+              <div class="form-group">
+                <label class="form-label">网站名称（中文）</label>
+                <input class="form-input" id="site-name" type="text" />
+              </div>
+              <div class="form-group">
+                <label class="form-label">网站名称（英文）</label>
+                <input class="form-input" id="site-nameEn" type="text" />
+              </div>
+            </div>
+            <div class="form-group">
+              <label class="form-label">网站口号 / Slogan</label>
+              <input class="form-input" id="site-slogan" type="text" />
+            </div>
+            <div class="form-group">
+              <label class="form-label">网站描述</label>
+              <textarea class="form-input textarea" id="site-description"></textarea>
+            </div>
+            <div class="form-row">
+              <div class="form-group">
+                <label class="form-label">商务邮箱</label>
+                <input class="form-input" id="site-email" type="email" />
+              </div>
+              <div class="form-group">
+                <label class="form-label">联系电话</label>
+                <input class="form-input" id="site-phone" type="text" />
+              </div>
+            </div>
+            <div class="form-group">
+              <label class="form-label">总部地址（中国大陆）</label>
+              <input class="form-input" id="site-address" type="text" />
+            </div>
+            <div class="form-group">
+              <label class="form-label">香港分部地址</label>
+              <input class="form-input" id="site-addressHK" type="text" />
+            </div>
+            <div class="form-row">
+              <div class="form-group">
+                <label class="form-label">ICP 备案号</label>
+                <input class="form-input" id="site-icp" type="text" />
+              </div>
+              <div class="form-group">
+                <label class="form-label">版权信息</label>
+                <input class="form-input" id="site-copyright" type="text" />
+              </div>
+            </div>
+            <button class="btn btn-primary" onclick="saveSite()">💾 保存站点信息</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Hero Slides -->
+      <div class="page" id="page-hero">
+        <div class="section-title">首页 Hero 轮播</div>
+        <div class="section-desc">管理首页顶部的轮播幻灯片，最多支持 5 张</div>
+        <div id="hero-slides-list"></div>
+        <button class="btn btn-ghost" onclick="addSlide()">+ 添加幻灯片</button>
+      </div>
+
+      <!-- Stats -->
+      <div class="page" id="page-stats">
+        <div class="section-title">数据统计展示</div>
+        <div class="section-desc">展示在首页和关于页面的数据指标</div>
+        <div id="stats-list"></div>
+        <button class="btn btn-ghost" onclick="addStat()">+ 添加统计项</button>
+      </div>
+
+      <!-- Why Us -->
+      <div class="page" id="page-whyus">
+        <div class="section-title">核心优势</div>
+        <div class="section-desc">展示在首页"为什么选择锋范"区域</div>
+        <div id="whyus-list"></div>
+        <button class="btn btn-ghost" onclick="addWhyUs()">+ 添加优势项</button>
+      </div>
+
+      <!-- Scenarios -->
+      <div class="page" id="page-scenarios">
+        <div class="section-title">解决方案矩阵</div>
+        <div class="section-desc">混合云场景化解决方案，展示在首页矩阵区域</div>
+        <div id="scenarios-list"></div>
+        <button class="btn btn-ghost" onclick="addScenario()">+ 添加解决方案</button>
+      </div>
+
+      <!-- Cases -->
+      <div class="page" id="page-cases">
+        <div class="section-title">客户案例</div>
+        <div class="section-desc">展示在首页"行业提效实录"区域</div>
+        <div id="cases-list"></div>
+        <button class="btn btn-ghost" onclick="addCase()">+ 添加案例</button>
+      </div>
+
+      <!-- Honors -->
+      <div class="page" id="page-honors">
+        <div class="section-title">荣誉资质</div>
+        <div class="section-desc">展示在关于页面的荣誉证书区域</div>
+        <div id="honors-list"></div>
+        <button class="btn btn-ghost" onclick="addHonor()">+ 添加荣誉</button>
+      </div>
+
+      <!-- About -->
+      <div class="page" id="page-about">
+        <div class="section-title">关于我们</div>
+        <div class="section-desc">关于页面的业务模式和行业列表</div>
+        <div class="card" style="margin-bottom:20px;">
+          <div class="card-header"><span class="card-title">成立年份</span></div>
+          <div class="card-body">
+            <div class="form-group">
+              <label class="form-label">成立年份</label>
+              <input class="form-input" id="about-founded" type="text" style="max-width:200px;" />
+            </div>
+          </div>
+        </div>
+        <div class="card" style="margin-bottom:20px;">
+          <div class="card-header">
+            <span class="card-title">业务模式</span>
+            <button class="btn btn-ghost btn-sm" onclick="addAboutModel()">+ 添加</button>
+          </div>
+          <div class="card-body" id="about-models-list"></div>
+        </div>
+        <div class="card">
+          <div class="card-header">
+            <span class="card-title">深耕行业</span>
+            <button class="btn btn-ghost btn-sm" onclick="addIndustry()">+ 添加</button>
+          </div>
+          <div class="card-body" id="about-industries-list"></div>
+        </div>
+        <br>
+        <button class="btn btn-primary" onclick="saveAbout()">💾 保存关于信息</button>
+      </div>
+
+      <!-- Contact -->
+      <div class="page" id="page-contact">
+        <div class="section-title">联系与表单</div>
+        <div class="section-desc">CTA 区域文案和表单字段标签</div>
+        <div class="card">
+          <div class="card-body">
+            <div class="form-group">
+              <label class="form-label">CTA 大标题</label>
+              <input class="form-input" id="contact-ctaTitle" type="text" />
+            </div>
+            <div class="form-group">
+              <label class="form-label">CTA 描述</label>
+              <input class="form-input" id="contact-ctaDesc" type="text" />
+            </div>
+            <hr class="divider">
+            <div style="font-size:12px; font-weight:600; margin-bottom:12px; color:var(--muted);">表单字段标签</div>
+            <div class="form-row">
+              <div class="form-group"><label class="form-label">姓名字段</label><input class="form-input" id="contact-field-name" type="text" /></div>
+              <div class="form-group"><label class="form-label">电话字段</label><input class="form-input" id="contact-field-phone" type="text" /></div>
+            </div>
+            <div class="form-row">
+              <div class="form-group"><label class="form-label">邮箱字段</label><input class="form-input" id="contact-field-email" type="text" /></div>
+              <div class="form-group"><label class="form-label">公司字段</label><input class="form-input" id="contact-field-company" type="text" /></div>
+            </div>
+            <div class="form-group">
+              <label class="form-label">需求描述字段</label>
+              <input class="form-input" id="contact-field-requirement" type="text" />
+            </div>
+            <button class="btn btn-primary" onclick="saveContact()">💾 保存联系信息</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Nav -->
+      <div class="page" id="page-nav">
+        <div class="section-title">导航菜单</div>
+        <div class="section-desc">顶部导航栏的菜单项配置</div>
+        <div id="nav-list"></div>
+        <button class="btn btn-ghost" onclick="addNavItem()">+ 添加菜单项</button>
+      </div>
+
+      <!-- Footer -->
+      <div class="page" id="page-footer">
+        <div class="section-title">页脚链接</div>
+        <div class="section-desc">页脚底部的链接分组</div>
+        <div id="footer-list"></div>
+        <button class="btn btn-ghost" onclick="addFooterGroup()">+ 添加链接组</button>
+      </div>
+
+      <!-- JSON Editor -->
+      <div class="page" id="page-json">
+        <div class="section-title">JSON 原始编辑器</div>
+        <div class="section-desc">直接编辑原始 JSON 数据，适合高级用户。请确保格式正确。</div>
+        <div class="alert alert-info">⚠️ 直接编辑 JSON 可能导致数据格式错误，请谨慎操作。建议先导出备份。</div>
+        <div class="card">
+          <div class="card-header">
+            <span class="card-title">content.json</span>
+            <div style="display:flex;gap:8px;">
+              <button class="btn btn-ghost btn-sm" onclick="formatJSON()">格式化</button>
+              <button class="btn btn-primary btn-sm" onclick="applyJSON()">应用 JSON</button>
+            </div>
+          </div>
+          <div class="card-body">
+            <textarea class="form-input textarea" id="json-editor" style="min-height:500px; font-family:monospace; font-size:12px; line-height:1.6;"></textarea>
+          </div>
+        </div>
+      </div>
+
+    </div><!-- /content -->
+  </div><!-- /main -->
+
+<script>
+// ============================================================
+// DATA STORE
+// ============================================================
+const STORAGE_KEY = 'fengfan_content';
+const DEFAULT_CONTENT_URL = '/src/data/content.json';
+
+let content = null;
+
+// 默认内容（内嵌，无需网络请求）
+const DEFAULT_CONTENT = {
+  site: {
+    name: "广东锋范科技集团", nameEn: "FengFan Tech Group",
+    slogan: "以微软云为核心的多云架构方案服务商",
+    description: "提供从AI基座架构到全球生产力协同的一体化集成方案",
+    email: "info@fengfancloud.com", phone: "",
+    address: "广州市海珠区琶洲街道琶洲大道168号星河湾中心16F 1610单元",
+    addressHK: "香港特别行政区九龍观塘成业街16号怡生工業中心A座3樓60室",
+    icp: "粤ICP备12345678号", wechat: "fengfan_tech",
+    copyright: "© 2025 广东锋范科技有限公司 版权所有"
+  },
+  hero: { slides: [
+    { tag: "Azure AI Foundation", title: "企业级 AI 落地专家", subtitle: "安全可控的企业级 AI 底座",
+      description: "基于 Azure AI 底座 + M365 场景 + Copilot 治理，确保 AI 生产力工具安全可持续，数据主权完全可控。",
+      btnText: "了解 AI Foundry 方案", path: "/ai-foundry", accent: "#0078d4",
+      bg: "https://images.unsplash.com/photo-1620712943543-bcc4628c9757?auto=format&fit=crop&q=80&w=1600" },
+    { tag: "Modern Workplace", title: "全球生产力协同", subtitle: "重塑企业数字化工作方式",
+      description: "M365 与 Teams 协作基座，Power Platform 低代码将流程转化为生产力，跨区域协同无界限。",
+      btnText: "探索现代工作场所", path: "/modern-workplace", accent: "#d83b01",
+      bg: "https://images.unsplash.com/photo-1497215728101-856f4ea42174?auto=format&fit=crop&q=80&w=1600" },
+    { tag: "Super Magic AI OS", title: "AI 智能操作系统", subtitle: "从对话到交付，全流程 AI 驱动",
+      description: "整合全球顶尖大模型，通过 Agentic Workflow 深度重塑企业业务流程，实现确定性产出。",
+      btnText: "体验 Super Magic", path: "/ai-agent", accent: "#a855f7",
+      bg: "https://images.unsplash.com/photo-1675271591211-126ad94e495d?auto=format&fit=crop&q=80&w=1600" }
+  ]},
+  stats: [
+    { icon: "🏢", value: "200+", unit: "人", label: "专业团队" },
+    { icon: "💰", value: "3亿+", unit: "元", label: "年销售额" },
+    { icon: "🏆", value: "10+", unit: "年", label: "行业深耕" },
+    { icon: "📋", value: "100+", unit: "项", label: "实战全案" },
+    { icon: "🌐", value: "3", unit: "家", label: "高新技术企业" }
+  ],
+  whyUs: [
+    { icon: "🏅", title: "深度认证", description: "微软年度核心合作伙伴，获 Azure AI 及 Modern Workplace 专家级能力认证。", accent: "#0078d4" },
+    { icon: "☁️", title: "多云架构", description: "整合异构云资源，提供跨云迁移、多云协同及统一代管（MSP）服务。", accent: "#00a4ef" },
+    { icon: "🏭", title: "行业经验", description: "深耕10+垂直行业，沉淀百余项大中型政企数字化转型实战全案。", accent: "#7fba00" },
+    { icon: "🛡️", title: "合规支持", description: "覆盖三级等保与全球合规标准，保障出海与本地化业务的数据主权安全。", accent: "#ffb900" }
+  ],
+  scenarios: [
+    { id: "ms-ai-landing", no: "01", title: "企业级 AI 落地", problem: "数据安全、权限可控、合规审计", solution: "Azure AI 底座 + M365 场景 + Copilot 治理，确保 AI 生产力工具安全可持续。", platforms: ["Azure","M365","Copilot"], accent: "#0078d4" },
+    { id: "elastic-concurrency", no: "02", title: "高并发弹性系统", problem: "流量波动大、国内监管存储、海外访问", solution: "腾讯云/AWS 混合部署，实现跨云弹性伸缩与国内等保三级合规闭环。", platforms: ["Tencent","AWS"], accent: "#ff9900" },
+    { id: "realtime-video", no: "03", title: "实时互动音视频", problem: "全球网络卡顿、低延迟通讯", solution: "依托腾讯云 TRTC 协议与边缘节点，优化丢包补偿与全链路监控。", platforms: ["Tencent"], accent: "#12b886" },
+    { id: "ai-data-driven", no: "04", title: "AI 能力与数据驱动", problem: "国内合规适配、本地行业数据治理", solution: "海外沿用微软/谷歌，国内引入百度文心，构建双循环 AI 技术架构。", platforms: ["Baidu","Google Cloud"], accent: "#4285f4" },
+    { id: "industry-compliance", no: "05", title: "行业型系统与本地化", problem: "强监管国产化、物理隔离需求", solution: "结合百度云/腾讯云信创底座，提供定制化合规架构与本地化运维。", platforms: ["Baidu","Tencent"], accent: "#a855f7" }
+  ],
+  cases: [
+    { id: "travel-ai", industry: "互联网旅游", product: "GitHub Copilot", title: "AI 研发转型", description: "某领航旅游服务商引入 GitHub Copilot 自动生成单元测试，大幅提升研发质量与交付速度。", metric: "研发效率提升 30%", icon: "✈️", accent: "#0078d4", logo: "" },
+    { id: "retail-azure", industry: "智慧零售", product: "Microsoft Azure", title: "数字化 OS 出海", description: "某新零售平台利用 Azure 全球区域支撑万级线下门店实时库存联动，部署效率大幅提升。", metric: "部署缩减 70%", icon: "🛍️", accent: "#00a4ef", logo: "" },
+    { id: "game-azure", industry: "游戏出海", product: "Azure 高性能基座", title: "全球同服低延时", description: "某跨国手游运营商解决实时竞技延时难题，实现全球同服稳定运营。", metric: "全球延时 < 50ms", icon: "🎮", accent: "#7fba00", logo: "" }
+  ],
+  supermagic: {
+    pillars: [
+      { tag: "Core 01", title: "项目中心", subtitle: "Knowledge OS", description: "成果不沉淀无意义。以「项目」为核心容器，自动沉淀文件与决策，构建持续进化的企业知识操作系统。", accent: "#1AABDF" },
+      { tag: "Core 02", title: "工作流引擎", subtitle: "Agentic Workflow", description: "标准化是效率基石。Agentic Workflow 业务编排，拆解专家经验为可复制 AI 工作流。", accent: "#1AABDF" },
+      { tag: "Core 03", title: "私有知识库", subtitle: "RAG + Data Sovereignty", description: "基于私有文档/ERP 数据的 RAG 增强检索，让 AI 真正懂您的产品，物理隔离保障数据安全。", accent: "#1AABDF" },
+      { tag: "Core 04", title: "多模路由调度", subtitle: "Smart Model Routing", description: "智能混合算力分发，根据任务复杂度自动切换模型（DeepSeek/GPT-4o），降低 60% 算力成本。", accent: "#1AABDF" },
+      { tag: "Core 05", title: "软硬协同生态", subtitle: "Cloud to Edge", description: "与 Magic Note 等硬件打通，实现物理世界语音图像数据实时上云，构建完整 AI 感知闭环。", accent: "#1AABDF" }
+    ],
+    hardware: []
+  },
+  honors: [
+    { icon: "🏆", title: "国家级高新技术企业", year: "2023" },
+    { icon: "📜", title: "ISO9001质量管理体系", year: "2022" },
+    { icon: "🛡️", title: "信息安全等级保护三级", year: "2023" },
+    { icon: "💡", title: "年度最具创新力AI企业", year: "2024" },
+    { icon: "🌐", title: "微软年度核心合作伙伴", year: "2024" },
+    { icon: "🔒", title: "系统集成企业认证", year: "2023" }
+  ],
+  about: {
+    founded: "2023",
+    models: [
+      { icon: "🎯", title: "咨询先导", description: "顶层设计方案，深度理解客户业务痛点，提供战略级数字化规划。" },
+      { icon: "⚙️", title: "产品依托", description: "云端生态与自研 AI 硬件，形成完整的技术产品矩阵支撑。" },
+      { icon: "🔄", title: "服务核心", description: "全生命周期运维，从部署到持续优化，确保客户业务稳定增长。" }
+    ],
+    industries: ["互联网与电商","智慧零售","游戏与娱乐","金融科技","制造与工业","医疗健康","教育科技","政务与公共服务"]
+  },
+  contact: {
+    ctaTitle: "开启数字化转型",
+    ctaDesc: "专家顾问 24h 内快速响应，定制数字化增长基座",
+    formFields: { name: "您的称呼", phone: "联系电话", email: "企业邮箱", company: "所属公司", requirement: "咨询意向简述" }
+  },
+  nav: [
+    { label: "首页", path: "/" },
+    { label: "Super Magic", path: "/supermagic" },
+    { label: "Cloud", path: "/cloud/azure", hasDropdown: true },
+    { label: "Systems", path: "/systems" },
+    { label: "About", path: "/about" }
+  ],
+  footer: {
+    links: [
+      { title: "产品与服务", items: [{ label: "Super Magic 平台", path: "/supermagic" }, { label: "系统集成", path: "/systems" }, { label: "智慧工厂方案", path: "/systems" }, { label: "AI 数字人定制", path: "/supermagic" }] },
+      { title: "云服务", items: [{ label: "Microsoft Azure", path: "/cloud/azure" }, { label: "Amazon Web Services", path: "/cloud/aws" }, { label: "Adobe 创意云", path: "/cloud/adobe" }, { label: "腾讯云 / 百度云", path: "/cloud/tencent" }] },
+      { title: "联系我们", items: [{ label: "info@fengfancloud.com", path: "#" }, { label: "广州·海珠区琶洲", path: "#" }, { label: "香港·观塘区", path: "#" }] }
+    ]
+  }
+};
+
+// ============================================================
+// INIT
+// ============================================================
+function init() {
+  try {
+    const stored = localStorage.getItem(STORAGE_KEY);
+    content = stored ? JSON.parse(stored) : JSON.parse(JSON.stringify(DEFAULT_CONTENT));
+  } catch(e) {
+    content = JSON.parse(JSON.stringify(DEFAULT_CONTENT));
+  }
+  updateDashboardStats();
+  const lastSave = localStorage.getItem(STORAGE_KEY + '_time');
+  if (lastSave) document.getElementById('last-save-time').textContent = lastSave;
+}
+
+function updateDashboardStats() {
+  document.getElementById('stat-slides').textContent = content.hero.slides.length;
+  document.getElementById('stat-cases').textContent = content.cases.length;
+  document.getElementById('stat-scenarios').textContent = content.scenarios.length;
+}
+
+// ============================================================
+// NAVIGATION
+// ============================================================
+const pageTitles = {
+  dashboard: '控制台', site: '站点基础信息', hero: '首页 Hero 轮播',
+  stats: '数据统计展示', whyus: '核心优势', scenarios: '解决方案矩阵',
+  cases: '客户案例', honors: '荣誉资质', about: '关于我们',
+  contact: '联系与表单', nav: '导航菜单', footer: '页脚链接', json: 'JSON 原始编辑'
+};
+
+function showPage(name) {
+  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
+  document.getElementById('page-' + name).classList.add('active');
+  document.getElementById('page-title').textContent = pageTitles[name] || name;
+  event && event.currentTarget && event.currentTarget.classList.add('active');
+  // Re-query to set active
+  document.querySelectorAll('.nav-item').forEach(n => {
+    if (n.getAttribute('onclick') && n.getAttribute('onclick').includes("'"+name+"'")) n.classList.add('active');
+  });
+  // Load page data
+  const loaders = { site: loadSite, hero: loadHero, stats: loadStats, whyus: loadWhyUs, scenarios: loadScenarios, cases: loadCases, honors: loadHonors, about: loadAbout, contact: loadContact, nav: loadNav, footer: loadFooter, json: loadJSON };
+  if (loaders[name]) loaders[name]();
+  closeSidebar();
+}
+
+function toggleSidebar() {
+  document.getElementById('sidebar').classList.toggle('open');
+  document.getElementById('overlay').classList.toggle('show');
+}
+function closeSidebar() {
+  document.getElementById('sidebar').classList.remove('open');
+  document.getElementById('overlay').classList.remove('show');
+}
+
+// ============================================================
+// TOAST
+// ============================================================
+function showToast(msg, type = 'success') {
+  const el = document.createElement('div');
+  el.className = `toast-item ${type}`;
+  el.innerHTML = `<span>${type === 'success' ? '✅' : '❌'}</span> ${msg}`;
+  document.getElementById('toast').appendChild(el);
+  setTimeout(() => el.remove(), 3000);
+}
+
+// ============================================================
+// SAVE ALL
+// ============================================================
+function saveAll() {
+  localStorage.setItem(STORAGE_KEY, JSON.stringify(content));
+  const now = new Date().toLocaleString('zh-CN');
+  localStorage.setItem(STORAGE_KEY + '_time', now);
+  document.getElementById('last-save-time').textContent = now;
+  updateDashboardStats();
+  showToast('所有更改已保存！刷新官网即可生效。');
+}
+
+function resetAll() {
+  if (!confirm('确定要恢复所有内容为默认值吗？此操作不可撤销。')) return;
+  content = JSON.parse(JSON.stringify(DEFAULT_CONTENT));
+  localStorage.removeItem(STORAGE_KEY);
+  localStorage.removeItem(STORAGE_KEY + '_time');
+  document.getElementById('last-save-time').textContent = '尚未保存（使用默认数据）';
+  showToast('已恢复为默认内容');
+  showPage('dashboard');
+}
+
+function exportJSON() {
+  const blob = new Blob([JSON.stringify(content, null, 2)], { type: 'application/json' });
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(blob);
+  a.download = 'fengfan-content-' + Date.now() + '.json';
+  a.click();
+  showToast('JSON 已导出');
+}
+
+function importJSON() {
+  const input = document.createElement('input');
+  input.type = 'file'; input.accept = '.json';
+  input.onchange = e => {
+    const file = e.target.files[0];
+    if (!file) return;
+    const reader = new FileReader();
+    reader.onload = ev => {
+      try {
+        const data = JSON.parse(ev.target.result);
+        content = data;
+        saveAll();
+        showToast('JSON 导入成功！');
+      } catch(err) {
+        showToast('JSON 格式错误，请检查文件', 'error');
+      }
+    };
+    reader.readAsText(file);
+  };
+  input.click();
+}
+
+// ============================================================
+// SITE
+// ============================================================
+function loadSite() {
+  const s = content.site;
+  ['name','nameEn','slogan','description','email','phone','address','addressHK','icp','copyright'].forEach(k => {
+    const el = document.getElementById('site-' + k);
+    if (el) el.value = s[k] || '';
+  });
+}
+function saveSite() {
+  ['name','nameEn','slogan','description','email','phone','address','addressHK','icp','copyright'].forEach(k => {
+    const el = document.getElementById('site-' + k);
+    if (el) content.site[k] = el.value;
+  });
+  saveAll();
+}
+
+// ============================================================
+// HERO
+// ============================================================
+function loadHero() {
+  const list = document.getElementById('hero-slides-list');
+  list.innerHTML = '';
+  content.hero.slides.forEach((slide, i) => {
+    list.innerHTML += `
+    <div class="slide-item" id="slide-${i}">
+      <div class="slide-item-header">
+        <span class="slide-no">Slide ${i+1}</span>
+        <button class="btn btn-danger btn-sm" onclick="removeSlide(${i})">删除</button>
+      </div>
+      <div class="form-row">
+        <div class="form-group"><label class="form-label">标签文字 (Tag)</label><input class="form-input" id="slide-${i}-tag" value="${esc(slide.tag)}" /></div>
+        <div class="form-group"><label class="form-label">主标题</label><input class="form-input" id="slide-${i}-subtitle" value="${esc(slide.subtitle)}" /></div>
+      </div>
+      <div class="form-group"><label class="form-label">描述文字</label><textarea class="form-input textarea" id="slide-${i}-description" style="min-height:60px;">${esc(slide.description)}</textarea></div>
+      <div class="form-row">
+        <div class="form-group"><label class="form-label">按钮文字</label><input class="form-input" id="slide-${i}-btnText" value="${esc(slide.btnText)}" /></div>
+        <div class="form-group"><label class="form-label">按钮跳转路径</label><input class="form-input" id="slide-${i}-path" value="${esc(slide.path)}" /></div>
+      </div>
+      <div class="form-row">
+        <div class="form-group"><label class="form-label">主题色 (Hex)</label><div style="display:flex;gap:8px;align-items:center;"><input class="form-input" id="slide-${i}-accent" value="${esc(slide.accent)}" style="flex:1;" /><input type="color" value="${slide.accent}" oninput="document.getElementById('slide-${i}-accent').value=this.value" style="width:40px;height:40px;border:none;background:none;cursor:pointer;border-radius:8px;" /></div></div>
+        <div class="form-group"><label class="form-label">背景图片 URL</label><input class="form-input" id="slide-${i}-bg" value="${esc(slide.bg)}" /></div>
+      </div>
+      <button class="btn btn-ghost btn-sm" onclick="updateSlide(${i})">✓ 更新此幻灯片</button>
+    </div>`;
+  });
+}
+
+function updateSlide(i) {
+  const s = content.hero.slides[i];
+  ['tag','subtitle','description','btnText','path','accent','bg'].forEach(k => {
+    const el = document.getElementById(`slide-${i}-${k}`);
+    if (el) s[k] = el.value;
+  });
+  showToast(`幻灯片 ${i+1} 已更新`);
+}
+
+function removeSlide(i) {
+  if (!confirm('确定删除此幻灯片？')) return;
+  content.hero.slides.splice(i, 1);
+  loadHero();
+  showToast('幻灯片已删除');
+}
+
+function addSlide() {
+  content.hero.slides.push({ tag: "New Tag", title: "新标题", subtitle: "新副标题", description: "描述文字", btnText: "了解更多", path: "/", accent: "#1AABDF", bg: "https://images.unsplash.com/photo-1620712943543-bcc4628c9757?auto=format&fit=crop&q=80&w=1600" });
+  loadHero();
+  showToast('已添加新幻灯片');
+}
+
+// ============================================================
+// STATS
+// ============================================================
+function loadStats() {
+  const list = document.getElementById('stats-list');
+  list.innerHTML = '';
+  content.stats.forEach((s, i) => {
+    list.innerHTML += `
+    <div class="slide-item">
+      <div class="slide-item-header"><span class="slide-no">统计项 ${i+1}</span><button class="btn btn-danger btn-sm" onclick="removeStat(${i})">删除</button></div>
+      <div class="form-row">
+        <div class="form-group"><label class="form-label">图标 (Emoji)</label><input class="form-input" id="stat-${i}-icon" value="${esc(s.icon)}" /></div>
+        <div class="form-group"><label class="form-label">数值</label><input class="form-input" id="stat-${i}-value" value="${esc(s.value)}" /></div>
+      </div>
+      <div class="form-row">
+        <div class="form-group"><label class="form-label">单位</label><input class="form-input" id="stat-${i}-unit" value="${esc(s.unit)}" /></div>
+        <div class="form-group"><label class="form-label">标签</label><input class="form-input" id="stat-${i}-label" value="${esc(s.label)}" /></div>
+      </div>
+      <button class="btn btn-ghost btn-sm" onclick="updateStat(${i})">✓ 更新</button>
+    </div>`;
+  });
+}
+function updateStat(i) {
+  ['icon','value','unit','label'].forEach(k => { const el = document.getElementById(`stat-${i}-${k}`); if(el) content.stats[i][k] = el.value; });
+  showToast('统计项已更新');
+}
+function removeStat(i) { if(!confirm('确定删除？'))return; content.stats.splice(i,1); loadStats(); showToast('已删除'); }
+function addStat() { content.stats.push({ icon: "📊", value: "0", unit: "", label: "新指标" }); loadStats(); }
+
+// ============================================================
+// WHY US
+// ============================================================
+function loadWhyUs() {
+  const list = document.getElementById('whyus-list');
+  list.innerHTML = '';
+  content.whyUs.forEach((w, i) => {
+    list.innerHTML += `
+    <div class="slide-item">
+      <div class="slide-item-header"><span class="slide-no">优势 ${i+1}</span><button class="btn btn-danger btn-sm" onclick="removeWhyUs(${i})">删除</button></div>
+      <div class="form-row">
+        <div class="form-group"><label class="form-label">图标 (Emoji)</label><input class="form-input" id="why-${i}-icon" value="${esc(w.icon)}" /></div>
+        <div class="form-group"><label class="form-label">标题</label><input class="form-input" id="why-${i}-title" value="${esc(w.title)}" /></div>
+      </div>
+      <div class="form-group"><label class="form-label">描述</label><textarea class="form-input textarea" id="why-${i}-description" style="min-height:60px;">${esc(w.description)}</textarea></div>
+      <div class="form-group"><label class="form-label">主题色</label><div style="display:flex;gap:8px;align-items:center;"><input class="form-input" id="why-${i}-accent" value="${esc(w.accent)}" style="flex:1;" /><input type="color" value="${w.accent}" oninput="document.getElementById('why-${i}-accent').value=this.value" style="width:40px;height:40px;border:none;background:none;cursor:pointer;border-radius:8px;" /></div></div>
+      <button class="btn btn-ghost btn-sm" onclick="updateWhyUs(${i})">✓ 更新</button>
+    </div>`;
+  });
+}
+function updateWhyUs(i) { ['icon','title','description','accent'].forEach(k => { const el = document.getElementById(`why-${i}-${k}`); if(el) content.whyUs[i][k] = el.value; }); showToast('优势项已更新'); }
+function removeWhyUs(i) { if(!confirm('确定删除？'))return; content.whyUs.splice(i,1); loadWhyUs(); showToast('已删除'); }
+function addWhyUs() { content.whyUs.push({ icon: "⭐", title: "新优势", description: "描述文字", accent: "#1AABDF" }); loadWhyUs(); }
+
+// ============================================================
+// SCENARIOS
+// ============================================================
+function loadScenarios() {
+  const list = document.getElementById('scenarios-list');
+  list.innerHTML = '';
+  content.scenarios.forEach((s, i) => {
+    list.innerHTML += `
+    <div class="slide-item">
+      <div class="slide-item-header"><span class="slide-no">${s.no} · ${s.title}</span><button class="btn btn-danger btn-sm" onclick="removeScenario(${i})">删除</button></div>
+      <div class="form-row">
+        <div class="form-group"><label class="form-label">序号</label><input class="form-input" id="sc-${i}-no" value="${esc(s.no)}" /></div>
+        <div class="form-group"><label class="form-label">标题</label><input class="form-input" id="sc-${i}-title" value="${esc(s.title)}" /></div>
+      </div>
+      <div class="form-group"><label class="form-label">痛点问题</label><input class="form-input" id="sc-${i}-problem" value="${esc(s.problem)}" /></div>
+      <div class="form-group"><label class="form-label">解决方案</label><textarea class="form-input textarea" id="sc-${i}-solution" style="min-height:60px;">${esc(s.solution)}</textarea></div>
+      <div class="form-row">
+        <div class="form-group"><label class="form-label">平台标签（逗号分隔）</label><input class="form-input" id="sc-${i}-platforms" value="${(s.platforms||[]).join(',')}" /></div>
+        <div class="form-group"><label class="form-label">主题色</label><div style="display:flex;gap:8px;align-items:center;"><input class="form-input" id="sc-${i}-accent" value="${esc(s.accent)}" style="flex:1;" /><input type="color" value="${s.accent}" oninput="document.getElementById('sc-${i}-accent').value=this.value" style="width:40px;height:40px;border:none;background:none;cursor:pointer;border-radius:8px;" /></div></div>
+      </div>
+      <button class="btn btn-ghost btn-sm" onclick="updateScenario(${i})">✓ 更新</button>
+    </div>`;
+  });
+}
+function updateScenario(i) {
+  ['no','title','problem','solution','accent'].forEach(k => { const el = document.getElementById(`sc-${i}-${k}`); if(el) content.scenarios[i][k] = el.value; });
+  const platEl = document.getElementById(`sc-${i}-platforms`);
+  if(platEl) content.scenarios[i].platforms = platEl.value.split(',').map(p=>p.trim()).filter(Boolean);
+  showToast('解决方案已更新');
+}
+function removeScenario(i) { if(!confirm('确定删除？'))return; content.scenarios.splice(i,1); loadScenarios(); showToast('已删除'); }
+function addScenario() { const n = content.scenarios.length + 1; content.scenarios.push({ id: 'new-'+n, no: String(n).padStart(2,'0'), title: "新解决方案", problem: "痛点描述", solution: "解决方案", platforms: [], accent: "#1AABDF" }); loadScenarios(); }
+
+// ============================================================
+// CASES
+// ============================================================
+function loadCases() {
+  const list = document.getElementById('cases-list');
+  list.innerHTML = '';
+  content.cases.forEach((c, i) => {
+    list.innerHTML += `
+    <div class="slide-item">
+      <div class="slide-item-header"><span class="slide-no">${c.industry} · ${c.title}</span><button class="btn btn-danger btn-sm" onclick="removeCase(${i})">删除</button></div>
+      <div class="form-row">
+        <div class="form-group"><label class="form-label">行业</label><input class="form-input" id="case-${i}-industry" value="${esc(c.industry)}" /></div>
+        <div class="form-group"><label class="form-label">产品/方案</label><input class="form-input" id="case-${i}-product" value="${esc(c.product)}" /></div>
+      </div>
+      <div class="form-row">
+        <div class="form-group"><label class="form-label">案例标题</label><input class="form-input" id="case-${i}-title" value="${esc(c.title)}" /></div>
+        <div class="form-group"><label class="form-label">图标 (Emoji)</label><input class="form-input" id="case-${i}-icon" value="${esc(c.icon)}" /></div>
+      </div>
+      <div class="form-group"><label class="form-label">案例描述</label><textarea class="form-input textarea" id="case-${i}-description" style="min-height:70px;">${esc(c.description)}</textarea></div>
+      <div class="form-row">
+        <div class="form-group"><label class="form-label">核心指标</label><input class="form-input" id="case-${i}-metric" value="${esc(c.metric)}" /></div>
+        <div class="form-group"><label class="form-label">主题色</label><div style="display:flex;gap:8px;align-items:center;"><input class="form-input" id="case-${i}-accent" value="${esc(c.accent)}" style="flex:1;" /><input type="color" value="${c.accent}" oninput="document.getElementById('case-${i}-accent').value=this.value" style="width:40px;height:40px;border:none;background:none;cursor:pointer;border-radius:8px;" /></div></div>
+      </div>
+      <button class="btn btn-ghost btn-sm" onclick="updateCase(${i})">✓ 更新</button>
+    </div>`;
+  });
+}
+function updateCase(i) { ['industry','product','title','icon','description','metric','accent'].forEach(k => { const el = document.getElementById(`case-${i}-${k}`); if(el) content.cases[i][k] = el.value; }); showToast('案例已更新'); }
+function removeCase(i) { if(!confirm('确定删除？'))return; content.cases.splice(i,1); loadCases(); showToast('已删除'); }
+function addCase() { content.cases.push({ id: 'case-'+Date.now(), industry: "新行业", product: "产品名称", title: "案例标题", description: "案例描述", metric: "核心指标", icon: "🏢", accent: "#1AABDF", logo: "" }); loadCases(); }
+
+// ============================================================
+// HONORS
+// ============================================================
+function loadHonors() {
+  const list = document.getElementById('honors-list');
+  list.innerHTML = '';
+  content.honors.forEach((h, i) => {
+    list.innerHTML += `
+    <div class="slide-item">
+      <div class="slide-item-header"><span class="slide-no">${h.title}</span><button class="btn btn-danger btn-sm" onclick="removeHonor(${i})">删除</button></div>
+      <div class="form-row">
+        <div class="form-group"><label class="form-label">图标 (Emoji)</label><input class="form-input" id="honor-${i}-icon" value="${esc(h.icon)}" /></div>
+        <div class="form-group"><label class="form-label">年份</label><input class="form-input" id="honor-${i}-year" value="${esc(h.year)}" /></div>
+      </div>
+      <div class="form-group"><label class="form-label">荣誉名称</label><input class="form-input" id="honor-${i}-title" value="${esc(h.title)}" /></div>
+      <button class="btn btn-ghost btn-sm" onclick="updateHonor(${i})">✓ 更新</button>
+    </div>`;
+  });
+}
+function updateHonor(i) { ['icon','year','title'].forEach(k => { const el = document.getElementById(`honor-${i}-${k}`); if(el) content.honors[i][k] = el.value; }); showToast('荣誉已更新'); }
+function removeHonor(i) { if(!confirm('确定删除？'))return; content.honors.splice(i,1); loadHonors(); showToast('已删除'); }
+function addHonor() { content.honors.push({ icon: "🏅", title: "新荣誉", year: "2025" }); loadHonors(); }
+
+// ============================================================
+// ABOUT
+// ============================================================
+function loadAbout() {
+  document.getElementById('about-founded').value = content.about.founded || '';
+  const modelsList = document.getElementById('about-models-list');
+  modelsList.innerHTML = '';
+  content.about.models.forEach((m, i) => {
+    modelsList.innerHTML += `
+    <div class="slide-item" style="margin-bottom:10px;">
+      <div class="slide-item-header"><span class="slide-no">模式 ${i+1}</span><button class="btn btn-danger btn-sm" onclick="removeAboutModel(${i})">删除</button></div>
+      <div class="form-row">
+        <div class="form-group"><label class="form-label">图标</label><input class="form-input" id="amodel-${i}-icon" value="${esc(m.icon)}" /></div>
+        <div class="form-group"><label class="form-label">标题</label><input class="form-input" id="amodel-${i}-title" value="${esc(m.title)}" /></div>
+      </div>
+      <div class="form-group"><label class="form-label">描述</label><textarea class="form-input textarea" id="amodel-${i}-description" style="min-height:50px;">${esc(m.description)}</textarea></div>
+      <button class="btn btn-ghost btn-sm" onclick="updateAboutModel(${i})">✓ 更新</button>
+    </div>`;
+  });
+  const indList = document.getElementById('about-industries-list');
+  indList.innerHTML = '';
+  content.about.industries.forEach((ind, i) => {
+    indList.innerHTML += `<div style="display:flex;gap:8px;margin-bottom:8px;"><input class="form-input" id="ind-${i}" value="${esc(ind)}" style="flex:1;" /><button class="btn btn-danger btn-sm" onclick="removeIndustry(${i})">删除</button></div>`;
+  });
+}
+function updateAboutModel(i) { ['icon','title','description'].forEach(k => { const el = document.getElementById(`amodel-${i}-${k}`); if(el) content.about.models[i][k] = el.value; }); showToast('业务模式已更新'); }
+function removeAboutModel(i) { content.about.models.splice(i,1); loadAbout(); }
+function addAboutModel() { content.about.models.push({ icon: "⭐", title: "新模式", description: "描述" }); loadAbout(); }
+function removeIndustry(i) { content.about.industries.splice(i,1); loadAbout(); }
+function addIndustry() { content.about.industries.push("新行业"); loadAbout(); }
+function saveAbout() {
+  content.about.founded = document.getElementById('about-founded').value;
+  content.about.industries = content.about.industries.map((_, i) => {
+    const el = document.getElementById(`ind-${i}`); return el ? el.value : _;
+  });
+  saveAll();
+}
+
+// ============================================================
+// CONTACT
+// ============================================================
+function loadContact() {
+  document.getElementById('contact-ctaTitle').value = content.contact.ctaTitle || '';
+  document.getElementById('contact-ctaDesc').value = content.contact.ctaDesc || '';
+  const fields = content.contact.formFields;
+  ['name','phone','email','company','requirement'].forEach(k => {
+    const el = document.getElementById(`contact-field-${k}`);
+    if(el) el.value = fields[k] || '';
+  });
+}
+function saveContact() {
+  content.contact.ctaTitle = document.getElementById('contact-ctaTitle').value;
+  content.contact.ctaDesc = document.getElementById('contact-ctaDesc').value;
+  ['name','phone','email','company','requirement'].forEach(k => {
+    const el = document.getElementById(`contact-field-${k}`);
+    if(el) content.contact.formFields[k] = el.value;
+  });
+  saveAll();
+}
+
+// ============================================================
+// NAV
+// ============================================================
+function loadNav() {
+  const list = document.getElementById('nav-list');
+  list.innerHTML = '';
+  content.nav.forEach((n, i) => {
+    list.innerHTML += `
+    <div class="slide-item">
+      <div class="slide-item-header"><span class="slide-no">${n.label}</span><button class="btn btn-danger btn-sm" onclick="removeNavItem(${i})">删除</button></div>
+      <div class="form-row">
+        <div class="form-group"><label class="form-label">菜单标签</label><input class="form-input" id="nav-${i}-label" value="${esc(n.label)}" /></div>
+        <div class="form-group"><label class="form-label">路径</label><input class="form-input" id="nav-${i}-path" value="${esc(n.path)}" /></div>
+      </div>
+      <button class="btn btn-ghost btn-sm" onclick="updateNavItem(${i})">✓ 更新</button>
+    </div>`;
+  });
+}
+function updateNavItem(i) { ['label','path'].forEach(k => { const el = document.getElementById(`nav-${i}-${k}`); if(el) content.nav[i][k] = el.value; }); showToast('菜单项已更新'); }
+function removeNavItem(i) { if(!confirm('确定删除？'))return; content.nav.splice(i,1); loadNav(); showToast('已删除'); }
+function addNavItem() { content.nav.push({ label: "新菜单", path: "/" }); loadNav(); }
+
+// ============================================================
+// FOOTER
+// ============================================================
+function loadFooter() {
+  const list = document.getElementById('footer-list');
+  list.innerHTML = '';
+  content.footer.links.forEach((g, gi) => {
+    let itemsHtml = g.items.map((item, ii) => `
+      <div style="display:flex;gap:8px;margin-bottom:8px;">
+        <input class="form-input" id="fg-${gi}-${ii}-label" value="${esc(item.label)}" placeholder="标签" style="flex:1;" />
+        <input class="form-input" id="fg-${gi}-${ii}-path" value="${esc(item.path)}" placeholder="路径" style="flex:1;" />
+        <button class="btn btn-danger btn-sm" onclick="removeFooterItem(${gi},${ii})">×</button>
+      </div>`).join('');
+    list.innerHTML += `
+    <div class="slide-item">
+      <div class="slide-item-header">
+        <div class="form-group" style="margin:0;flex:1;"><input class="form-input" id="fg-${gi}-title" value="${esc(g.title)}" placeholder="分组标题" /></div>
+        <button class="btn btn-danger btn-sm" style="margin-left:8px;" onclick="removeFooterGroup(${gi})">删除组</button>
+      </div>
+      <div id="fg-${gi}-items" style="margin-top:10px;">${itemsHtml}</div>
+      <div style="display:flex;gap:8px;margin-top:8px;">
+        <button class="btn btn-ghost btn-sm" onclick="addFooterItem(${gi})">+ 添加链接</button>
+        <button class="btn btn-ghost btn-sm" onclick="updateFooterGroup(${gi})">✓ 更新此组</button>
+      </div>
+    </div>`;
+  });
+}
+function updateFooterGroup(gi) {
+  content.footer.links[gi].title = document.getElementById(`fg-${gi}-title`).value;
+  content.footer.links[gi].items.forEach((item, ii) => {
+    const l = document.getElementById(`fg-${gi}-${ii}-label`);
+    const p = document.getElementById(`fg-${gi}-${ii}-path`);
+    if(l) item.label = l.value;
+    if(p) item.path = p.value;
+  });
+  showToast('页脚链接组已更新');
+}
+function removeFooterGroup(gi) { if(!confirm('确定删除此组？'))return; content.footer.links.splice(gi,1); loadFooter(); }
+function addFooterGroup() { content.footer.links.push({ title: "新分组", items: [{ label: "链接", path: "#" }] }); loadFooter(); }
+function addFooterItem(gi) { content.footer.links[gi].items.push({ label: "新链接", path: "#" }); loadFooter(); }
+function removeFooterItem(gi, ii) { content.footer.links[gi].items.splice(ii,1); loadFooter(); }
+
+// ============================================================
+// JSON EDITOR
+// ============================================================
+function loadJSON() {
+  document.getElementById('json-editor').value = JSON.stringify(content, null, 2);
+}
+function formatJSON() {
+  try {
+    const val = document.getElementById('json-editor').value;
+    document.getElementById('json-editor').value = JSON.stringify(JSON.parse(val), null, 2);
+    showToast('JSON 已格式化');
+  } catch(e) { showToast('JSON 格式错误: ' + e.message, 'error'); }
+}
+function applyJSON() {
+  try {
+    const val = document.getElementById('json-editor').value;
+    content = JSON.parse(val);
+    saveAll();
+    showToast('JSON 已应用并保存');
+  } catch(e) { showToast('JSON 格式错误: ' + e.message, 'error'); }
+}
+
+// ============================================================
+// UTILS
+// ============================================================
+function esc(str) {
+  if (!str) return '';
+  return String(str).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+}
+
+// ============================================================
+// START
+// ============================================================
+init();
+</script>
+</body>
+</html>
