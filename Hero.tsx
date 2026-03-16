@@ -1,0 +1,78 @@
+@import "tailwindcss";
+
+@theme {
+  --color-brand-blue: #007BB5;
+  --color-brand-dark: #1AABDF;
+  --color-ice: #58BBD9;
+  --color-aqua: #72D5FA;
+  --color-sky: #73CCDD;
+  
+  /* 深色模式背景层级 (iOS HIG) */
+  --color-bg-base: #1C1C1E;
+  --color-bg-card: #2C2C2E;
+  --color-bg-card-nested: #3A3A3C;
+  
+  /* 边框和文字 */
+  --color-border-dark: rgba(84, 84, 88, 0.65);
+  --color-text-primary: #FFFFFF;
+  --color-text-secondary: rgba(235, 235, 245, 0.6);
+  --color-text-muted: rgba(235, 235, 245, 0.3);
+
+  /* 字体规范 */
+  --font-sans: "Exo 2", "Noto Sans SC", -apple-system, BlinkMacSystemFont, sans-serif;
+  --font-tech: "Exo 2", monospace;
+}
+
+/* 全局样式覆盖 */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: var(--font-sans);
+  background: var(--color-bg-base);
+  color: var(--color-text-primary);
+  line-height: 1.7;
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+}
+
+/* VI 规范：保证正文字号 */
+p { font-size: max(12px, 1em); }
+
+/* 玻璃拟态卡片效果 */
+.glass {
+  background: var(--color-bg-card);
+  border: 1px solid var(--color-border-dark);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+}
+
+/* 自定义滚动条 */
+::-webkit-scrollbar { width: 4px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.1); border-radius: 2px; }
+
+/* 动画 */
+@keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+@keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.5; } }
+@keyframes spin { to { transform: rotate(360deg); } }
+@keyframes ping { 75%, 100% { transform: scale(2); opacity: 0; } }
+
+.animate-fade-in { animation: fadeIn 0.7s ease forwards; }
+.animate-pulse { animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite; }
+.animate-spin { animation: spin 1s linear infinite; }
+.animate-ping { animation: ping 1s cubic-bezier(0, 0, 0.2, 1) infinite; }
+
+/* VI 规范：主渐变文字 */
+.gradient-text {
+  background: linear-gradient(135deg, var(--color-brand-dark) 0%, var(--color-aqua) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* VI 规范：Hero 渐变 */
+.hero-gradient {
+  background: linear-gradient(135deg, #1C1C1E 0%, #0D2840 40%, #007BB5 100%);
+}
